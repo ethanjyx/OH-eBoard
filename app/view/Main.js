@@ -79,10 +79,12 @@ Ext.define('OHeBoard.view.Main', {
         ]
     },
     initialize: function() {
+        // without this line, all default behaviors will be disabled
         this.callParent(arguments);
+
         listConfiguration = this.getListConfiguration();
-        //var courseList = Ext.getCmp("courseList");
-        //courseList.add(listConfiguration);
+        var courseList = Ext.getCmp("courseList");
+        courseList.add(listConfiguration);
     },
     getListConfiguration: function() {
         return {
@@ -131,7 +133,7 @@ Ext.define('OHeBoard.view.Main', {
         //check if a store has already been set
         if (!this.store) {
             Ext.Msg.alert("init store!");
-            
+
             //if not, create one
             this.store = Ext.create('Ext.data.Store', {
                 //define the stores fields
