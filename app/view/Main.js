@@ -88,6 +88,10 @@ Ext.define('OHeBoard.view.Main', {
         courseList.add(listConfiguration);
     },
     getListConfiguration: function() {
+        var button = Ext.create('Ext.Button', {
+            iconCls: 'add'
+        });
+//Ext.Viewport.add({ xtype: 'container', padding: 10, items: [button] });
         return {
             //give it an xtype of list
             xtype: 'list',
@@ -124,7 +128,8 @@ Ext.define('OHeBoard.view.Main', {
                                 keyup: this.onSearchKeyUp
                             }
                         },
-                        { xtype: 'spacer' }
+                        { xtype: 'spacer' },
+                        { xtype: 'container', padding: 10, items: [button] }
                     ]
                 }
             ]
