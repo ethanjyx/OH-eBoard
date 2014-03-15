@@ -2,7 +2,7 @@
     /**
      * The application's namespace, used by Sencha Command to generate classes
      */
-    "name": "OHeBoard",
+    "name": "testapp",
 
     /**
      * The file path to this application's front HTML document, relative to this app.json file
@@ -39,10 +39,6 @@
      *      }
      */
     "js": [
-		{
-			"path": "phonegap.js",
-			"remote": true
-		},
         {
             "path": "touch/sencha-touch.js",
             "x-bootstrap": true
@@ -89,7 +85,11 @@
          * List of items in the CACHE MANIFEST section
          */
         "cache": [
-            "index.html"
+            "index.html",
+            "data/feed.js",
+            "data/about.html",
+            "data/credits.html",
+            "data/sponsors.html"
         ],
         /**
          * List of items in the NETWORK section
@@ -107,7 +107,6 @@
      * Extra resources to be copied along when build
      */
     "resources": [
-		"config.xml",
         "resources/images",
         "resources/icons",
         "resources/startup"
@@ -136,5 +135,5 @@
      * Uniquely generated id for this application, used as prefix for localStorage keys.
      * Normally you should never change this value.
      */
-    "id": "2e96745f-a295-4657-8bd7-dcc385bbe628"
+    "id": "e3df4691-12d5-4bd3-8420-8bf355dbea78"
 }
