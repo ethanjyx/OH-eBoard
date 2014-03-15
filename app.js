@@ -39,12 +39,36 @@ Ext.application({
         '1496x2048': 'resources/startup/1496x2048.png'
     },
 
-    launch: function() {
-        // Destroy the #appLoadingIndicator element
-        Ext.fly('appLoadingIndicator').destroy();
+    loadScript: function(url, callback) {
+        // Adding the script tag to the head as suggested before
+        
+    },
 
-        // Initialize the main view
-        Ext.Viewport.add(Ext.create('OHeBoard.view.Main'));
+    launch: function() {
+        // callback function
+        var applicationInit = function() {
+            // alert('parse?')
+            Parse.initialize("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "D0RPSRjcEos1Y8RdblqmuERytSRM5z5xdw9dFUT5");
+            
+            // Destroy the #appLoadingIndicator element
+            Ext.fly('appLoadingIndicator').destroy();
+            // Initialize the main view
+            Ext.Viewport.add(Ext.create('OHeBoard.view.Main'));
+        };
+
+        // load Parse JS SDK
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = "http://www.parsecdn.com/js/parse-1.2.13.min.js";
+
+        // Then bind the event to the callback function.
+        // There are several events for cross browser compatibility.
+        script.onreadystatechange = applicationInit;
+        script.onload = applicationInit;
+
+        // Fire the loading
+        head.appendChild(script);
     },
 
     onUpdated: function() {

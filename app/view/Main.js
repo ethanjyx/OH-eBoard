@@ -82,6 +82,17 @@ Ext.define('OHeBoard.view.Main', {
         // without this line, all default behaviors will be disabled
         this.callParent(arguments);
 
+        // test Parse
+        // alert('parseyay!');
+        var query = new Parse.Query(Parse.User);
+        query.find({
+          success: function(users) {
+            for (var i = 0; i < users.length; ++i) {
+              console.log(users[i].get('username'));
+            }
+          }
+        });
+
         listConfiguration = this.getListConfiguration();
         var courseList = Ext.getCmp("courseList");
         courseList.add(listConfiguration);
