@@ -82,7 +82,7 @@ Ext.define('testapp.view.session.add', {
                     {
                         xtype: 'button',
                         id: 'saveButtonAdd',
-                        text: 'Save',
+                        text: 'Add',
                         align: 'center',
                         hidden: false
                     }   

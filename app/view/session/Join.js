@@ -82,7 +82,7 @@ Ext.define('testapp.view.session.join', {
                     {
                         xtype: 'button',
                         id: 'saveButtonJoin',
-                        text: 'Save',
+                        text: 'Join',
                         align: 'center',
                         hidden: false
                     }   
