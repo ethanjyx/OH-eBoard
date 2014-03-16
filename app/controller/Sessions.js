@@ -113,8 +113,8 @@ Ext.define('testapp.controller.Sessions', {
 			var record = this.getSessionAdd().saveRecord();
 			record.holderName = response.first_name + ' ' + response.last_name;
 			//reponse.id
-			//alert(record.holderName);
-			this.getSessionAdd.updateRecord(record);
+			alert(record.holderName);
+			this.getSessionAdd().updateRecord(record);
 		});
 
         if (!this.sessionAdd) {
