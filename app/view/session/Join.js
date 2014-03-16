@@ -1,4 +1,4 @@
-Ext.define('testapp.view.session.join', {
+Ext.define('testapp.view.session.Join', {
     extend: 'Ext.Container',
     xtype: 'session-join',
 

@@ -15,6 +15,7 @@ Ext.define('testapp.controller.Sessions', {
 			saveButtonJoin: '#saveButtonJoin',
 			sessionAdd: 'session-add',
 			sessionJoin: 'session-join',
+			historyButton: '#historyButton',
 			speakers: 'sessionContainer speakers',
 			speakerInfo: 'sessionContainer speakerInfo'
 		},
