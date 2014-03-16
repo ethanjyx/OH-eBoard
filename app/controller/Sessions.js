@@ -156,7 +156,8 @@ Ext.define('testapp.controller.Sessions', {
 		FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_join.saveRecord();
 	
-			record.holderName = response.first_name + ' ' + response.last_name;
+			record.firstName = response.first_name;
+			record.lastName = response.last_name;
 			//record.holderName = "lalala";
 			//alert(response.first_name);
 			//reponse.id
