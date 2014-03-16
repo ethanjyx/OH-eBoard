@@ -110,8 +110,11 @@ Ext.define('testapp.controller.Sessions', {
 
 	onAddButton: function() {
 		FB.api('me?fields=first_name,last_name', function(response) {
+			alert('123');
 			var record = this.getSessionAdd().saveRecord();
+			alert('456');
 			record.holderName = response.first_name + ' ' + response.last_name;
+			alert(response.first_name);
 			//reponse.id
 			alert(record.holderName);
 			this.getSessionAdd().updateRecord(record);
