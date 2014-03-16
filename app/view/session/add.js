@@ -89,11 +89,12 @@ Ext.define('testapp.view.session.Add', {
     },
 
     saveRecord: function() {
+        alert('1');
         var formPanel = this.down('formpanel'),
             record = formPanel.getRecord();
-
+        alert('2');
         formPanel.updateRecord(record);
-
+        alert('3');
         return record;
     },
 
