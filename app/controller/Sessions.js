@@ -15,11 +15,19 @@ Ext.define('testapp.controller.Sessions', {
 			saveButtonJoin: '#saveButtonJoin',
 			sessionAdd: 'session-add',
 			sessionJoin: 'session-join',
+			listHistory: 'list-history',
 			historyButton: '#historyButton',
 			speakers: 'sessionContainer speakers',
 			speakerInfo: 'sessionContainer speakerInfo'
 		},
 		control: {
+			sessionContainer: {
+				push: 'onMainPush',
+                pop: 'onMainPop'
+			},
+			historyButton: {
+				tap: 'onHistoryButton'
+			},
 			sessions: {
 				initialize: 'initSessions',
 				itemtap: 'onSessionTap',
@@ -46,6 +54,26 @@ Ext.define('testapp.controller.Sessions', {
 		}
 	},
 
+	onMainPush: function(view, item) {
+        var historyButton = this.getHistoryButton();
+
+        if (item.xtype == "session") {
+            this.getSessions().deselectAll();
+
+            this.showHistoryButton();
+        } else {
+            this.hideHistoryButton();
+        }
+    },
+
+    onMainPop: function(view, item) {
+        if (item.xtype == "session-join") {
+            this.showHistoryButton();
+        } else {
+            this.hideHistoryButton();
+        }
+    },
+
 	initSessions: function() {
 		//var firstButton = this.getSessionDayPicker().getItems().items[0];
 		//this.getSessionDayPicker().setPressedButtons(firstButton);
@@ -68,9 +96,22 @@ Ext.define('testapp.controller.Sessions', {
 		});
 	},
 
+	onHistoryButton: function() {
+        if (!this.listHistory) {
+            this.listHistory = Ext.create('testapp.view.session.History');
+        }
+
+        // Bind the record onto the edit contact view
+        //TODO: set default value into the form.
+//        this.sessionAdd.setRecord(this.getShowContact().getRecord());
+
+        this.getSessionContainer().push(this.listHistory);
+
+    },
+
 	onAddButton: function() {
         if (!this.sessionAdd) {
-            this.sessionAdd = Ext.create('testapp.view.session.add');
+            this.sessionAdd = Ext.create('testapp.view.session.Add');
         }
 
         // Bind the record onto the edit contact view
@@ -148,5 +189,27 @@ Ext.define('testapp.controller.Sessions', {
 		if (this.session) {
 			this.session.down('speakers').deselectAll();
 		}
-	}
+	},
+
+	showHistoryButton: function() {
+        var historyButton = this.getHistoryButton();
+
+        if (!historyButton.isHidden()) {
+            return;
+        }
+
+        //this.hideSaveButton();
+
+        historyButton.show();
+    },
+
+    hideHistoryButton: function() {
+        var historyButton = this.getHistoryButton();
+
+        if (historyButton.isHidden()) {
+            return;
+        }
+
+        historyButton.hide();
+    },
 });
