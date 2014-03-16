@@ -185,5 +185,6 @@
 
         write('<script src="'+path+'"></'+'script>');
     }
+    write('<script src="app/parse.js"></script>');
 
 })();
