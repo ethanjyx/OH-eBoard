@@ -1,6 +1,6 @@
-Ext.define('testapp.view.session.add', {
+Ext.define('testapp.view.session.join', {
     extend: 'Ext.Container',
-    xtype: 'session-add',
+    xtype: 'session-join',
 
     requires: [
         'Ext.form.Panel',
@@ -9,7 +9,7 @@ Ext.define('testapp.view.session.add', {
     ],
 
     config: {
-        title: 'Add new session',
+        title: 'join',
         layout: 'fit',
 
         items: [
@@ -81,7 +81,7 @@ Ext.define('testapp.view.session.add', {
                     },
                     {
                         xtype: 'button',
-                        id: 'saveButtonAdd',
+                        id: 'saveButtonJoin',
                         text: 'Save',
                         align: 'center',
                         hidden: false

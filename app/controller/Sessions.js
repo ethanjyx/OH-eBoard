@@ -10,8 +10,11 @@ Ext.define('testapp.controller.Sessions', {
 			sessionContainer: 'sessionContainer',
 			sessionDayPicker: 'sessions segmentedbutton',
 			addButton: '#addButton',
+			saveButtonAdd: '#saveButtonAdd',
 			joinButton: '#joinButton',
+			saveButtonJoin: '#saveButtonJoin',
 			sessionAdd: 'session-add',
+			sessionJoin: 'session-join',
 			speakers: 'sessionContainer speakers',
 			speakerInfo: 'sessionContainer speakerInfo'
 		},
@@ -23,6 +26,15 @@ Ext.define('testapp.controller.Sessions', {
 			},
 			addButton: {
 				tap: 'onAddButton'
+			},
+			saveButtonAdd: {
+				tap: 'onSaveButtonAdd'
+			},
+			joinButton: {
+				tap: 'onJoinButton'
+			},
+			saveButtonJoin: {
+				tap: 'onSaveButtonJoin'
 			},
 			sessionDayPicker: {
 				toggle: 'onSessionDateChange'
@@ -66,6 +78,39 @@ Ext.define('testapp.controller.Sessions', {
 
         this.getSessionContainer().push(this.sessionAdd);
 
+    },
+
+    onSaveButtonAdd: function() {
+
+    	//TODO: add the new session into database
+        //var record = this.getEditContact().saveRecord();
+
+        //this.getShowContact().updateRecord(record);
+
+        this.getSessionContainer().pop();
+    },
+
+    onJoinButton: function() {
+        if (!this.sessionJoin) {
+            this.sessionJoin = Ext.create('testapp.view.session.join');
+        }
+
+        // Bind the record onto the edit contact view
+        //TODO: set default value into the form.
+//        this.sessionAdd.setRecord(this.getShowContact().getRecord());
+
+        this.getSessionContainer().push(this.sessionJoin);
+
+    },
+
+    onSaveButtonJoin: function() {
+
+    	//TODO: add the new session into database
+        //var record = this.getEditContact().saveRecord();
+
+        //this.getShowContact().updateRecord(record);
+
+        this.getSessionContainer().pop();
     },
 
 	onSessionTap: function(list, idx, el, record) {
