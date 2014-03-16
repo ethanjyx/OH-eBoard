@@ -34,7 +34,7 @@ Ext.define('testapp.view.session.List', {
 		this.config.title = testapp.app.title;
 		this.callParent();
 
-		var segmentedButton = this.down('toolbar');
+		//var segmentedButton = this.down('toolbar');
 
 		//Ext.Array.each(testapp.sessionDays, function(day) {
 			//segmentedButton.add(day);

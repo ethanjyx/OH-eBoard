@@ -9,6 +9,12 @@ Ext.define('testapp.view.session.Detail', {
 		title: '',
 
 		items: [
+            {
+                flex: 1,
+                layout: 'fit',
+                scrollable: 'vertical',
+				xtype: 'sessionInfo'
+			},
 			{
                 xtype: 'button',
                 id: 'joinButton',
@@ -22,7 +28,7 @@ Ext.define('testapp.view.session.Detail', {
                 html: 'Speakers'
             },
 			{
-                flex: 1,
+                flex: 2,
 				xtype: 'speakers',
 				store: 'SessionSpeakers'
 

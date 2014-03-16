@@ -36,46 +36,8 @@ Ext.define('testapp.view.session.Join', {
                             },
                             {
                                 xtype: 'textfield',
-                                label: 'Title',
-                                name: 'title'
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'fieldset',
-                        defaults: {
-                            labelWidth: '35%'
-                        },
-                        title: 'Contact Information',
-                        items: [
-                            {
-                                xtype: 'textfield',
-                                label: 'Telephone',
-                                name: 'telephone'
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'fieldset',
-                        title: 'Address',
-                        defaults: {
-                            labelWidth: '35%'
-                        },
-                        items: [
-                            {
-                                xtype: 'textfield',
-                                label: 'City',
-                                name: 'city'
-                            },
-                            {
-                                xtype: 'textfield',
-                                label: 'State',
-                                name: 'state'
-                            },
-                            {
-                                xtype: 'textfield',
-                                label: 'Country',
-                                name: 'country'
+                                label: 'Position',
+                                name: 'position'
                             }
                         ]
                     },
