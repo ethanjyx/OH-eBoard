@@ -112,17 +112,17 @@ Ext.define('testapp.controller.Sessions', {
 		if (!this.sessionAdd) {
             this.sessionAdd = Ext.create('testapp.view.session.Add');
         }
-        
+
 		var session_add = this.getSessionAdd();
 
 		FB.api('me?fields=first_name,last_name', function(response) {
-			alert('123');
 			var record = session_add.saveRecord();
-			alert('456');
+	
 			record.holderName = response.first_name + ' ' + response.last_name;
-			alert(response.first_name);
+			//record.holderName = "lalala";
+			//alert(response.first_name);
 			//reponse.id
-			alert(record.holderName);
+			//alert(record.holderName);
 			session_add.updateRecord(record);
 		});
 
@@ -150,6 +150,19 @@ Ext.define('testapp.controller.Sessions', {
         if (!this.sessionJoin) {
             this.sessionJoin = Ext.create('testapp.view.session.Join');
         }
+
+        var session_join = this.getSessionJoin();
+
+		FB.api('me?fields=first_name,last_name', function(response) {
+			var record = session_join.saveRecord();
+	
+			record.holderName = response.first_name + ' ' + response.last_name;
+			//record.holderName = "lalala";
+			//alert(response.first_name);
+			//reponse.id
+			//alert(record.holderName);
+			session_join.updateRecord(record);
+		});
 
         // Bind the record onto the edit contact view
         //TODO: set default value into the form.
