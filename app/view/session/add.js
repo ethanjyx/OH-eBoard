@@ -22,60 +22,46 @@ Ext.define('testapp.view.session.Add', {
                         defaults: {
                             labelWidth: '35%'
                         },
+                        title: 'Course',
+                        items: [
+                            {
+                                xtype: 'textfield',
+                                label: 'Course Subject',
+                                name: 'courseSubject'
+                            },
+                            {
+                                xtype: 'textfield',
+                                label: 'Course Number',
+                                name: 'courseNumber'
+                            },
+                            {
+                                xtype: 'textfield',
+                                label: 'Holder Name',
+                                name: 'holderName'
+                            }
+                        ]
+                    },
+                    {
+                        xtype: 'fieldset',
+                        defaults: {
+                            labelWidth: '35%'
+                        },
                         title: 'Information',
                         items: [
                             {
                                 xtype: 'textfield',
-                                label: 'First Name',
-                                name: 'firstName'
+                                label: 'Start Time',
+                                name: 'startTime'
                             },
                             {
                                 xtype: 'textfield',
-                                label: 'Last Name',
-                                name: 'lastName'
+                                label: 'End Time',
+                                name: 'endTIme'
                             },
                             {
                                 xtype: 'textfield',
-                                label: 'Title',
-                                name: 'title'
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'fieldset',
-                        defaults: {
-                            labelWidth: '35%'
-                        },
-                        title: 'Contact Information',
-                        items: [
-                            {
-                                xtype: 'textfield',
-                                label: 'Telephone',
-                                name: 'telephone'
-                            }
-                        ]
-                    },
-                    {
-                        xtype: 'fieldset',
-                        title: 'Address',
-                        defaults: {
-                            labelWidth: '35%'
-                        },
-                        items: [
-                            {
-                                xtype: 'textfield',
-                                label: 'City',
-                                name: 'city'
-                            },
-                            {
-                                xtype: 'textfield',
-                                label: 'State',
-                                name: 'state'
-                            },
-                            {
-                                xtype: 'textfield',
-                                label: 'Country',
-                                name: 'country'
+                                label: 'Location',
+                                name: 'location'
                             }
                         ]
                     },
