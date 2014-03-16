@@ -6,6 +6,7 @@ Ext.Loader.setPath({
 //</debug>
 
 Ext.require('testapp.util.Proxy');
+Ext.require('testapp.view.session.Load');
 
 Ext.application({
     // Change the values below to re-configure the app for a different conference.
@@ -122,8 +123,10 @@ Ext.application({
 
         /*
         Ext.Viewport.setMasked({ xtype: 'loadmask' });
+        var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
 
-        testapp.util.Proxy.process('data/feed.js', function() {
+        //testapp.util.Proxy.process('data/feed.js', function() {
+        testapp.view.session.Load.loadCourseList(parse, function() {
             Ext.Viewport.add({ xtype: 'main' });
             Ext.Viewport.setMasked(false);
         });

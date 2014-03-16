@@ -8,19 +8,19 @@ Ext.define('testapp.store.Sessions', {
         model: 'testapp.model.Session',
 
         grouper: {
-            sortProperty: 'time',
+            sortProperty: 'courseSubject',
             groupFn: function(record) {
-                return Ext.Date.format(record.get('time'), 'g:ia');
+                return record.get('courseSubject');
             }
         },
 
         sorters: [
             {
-                property: 'time',
+                property: 'courseSubject',
                 direction: 'ASC'
             },
             {
-                property: 'title',
+                property: 'courseName',
                 direction: 'ASC'
             }
         ]

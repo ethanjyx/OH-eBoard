@@ -3,7 +3,7 @@ Ext.define('testapp.model.Session', {
 
 	config: {
 		fields: [
-			'id',
+			/*'id',
 			'title',
 			'room',
 			{
@@ -20,7 +20,9 @@ Ext.define('testapp.model.Session', {
 			},
 			'speakerIds',
 			'description',
-			'proposal_type'
+			'proposal_type'*/
+			'courseSubject',
+			'courseNumber'
 		]
 	}
 });

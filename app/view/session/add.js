@@ -1,4 +1,4 @@
-Ext.define('testapp.view.session.add', {
+Ext.define('testapp.view.session.Add', {
     extend: 'Ext.Container',
     xtype: 'session-add',
 
