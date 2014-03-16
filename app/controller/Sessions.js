@@ -8,7 +8,7 @@ Ext.define('testapp.controller.Sessions', {
 			sessionInfo: 'sessionContainer sessionInfo',
 			sessionSpeakers: 'sessionContainer list',
 			sessionContainer: 'sessionContainer',
-			sessionDayPicker: 'sessions segmentedbutton',
+			//sessionDayPicker: 'sessions segmentedbutton',
 			addButton: '#addButton',
 			saveButtonAdd: '#saveButtonAdd',
 			joinButton: '#joinButton',
@@ -44,9 +44,6 @@ Ext.define('testapp.controller.Sessions', {
 			},
 			saveButtonJoin: {
 				tap: 'onSaveButtonJoin'
-			},
-			sessionDayPicker: {
-				toggle: 'onSessionDateChange'
 			},
 			speakers: {
 				itemtap: 'onSpeakerTap'
@@ -180,9 +177,37 @@ Ext.define('testapp.controller.Sessions', {
 			});
 		}
 
-		this.speakerInfo.config.title = record.getFullName();
-		this.speakerInfo.setRecord(record);
-		this.getSessionContainer().push(this.speakerInfo);
+		//this.speakerInfo.config.title = record.getFullName();
+		//this.speakerInfo.setRecord(record);
+
+		var items = [
+			{
+				text: 'Set as done',
+				ui: 'decline',
+				scope: this,
+				handler: function() {
+					//TODO: put the current one into history!
+					this.actions.hide();
+				}
+			},
+			{
+				xtype: 'button',
+				text: 'Cancel',
+				scope: this,
+				handler: function() {
+					this.actions.hide();
+				}
+			}
+		];
+		if (!this.actions) {
+			this.actions = Ext.create('Ext.ActionSheet', {
+				items: items
+			});
+		}
+
+		Ext.Viewport.add(this.actions);
+		this.actions.show();
+		//this.getSessionContainer().push(this.speakerInfo);
 	},
 
 	onSessionsActivate: function() {

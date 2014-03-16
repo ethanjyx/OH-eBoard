@@ -9,13 +9,6 @@ Ext.define('testapp.view.session.History', {
 
         items: [
             {
-                xtype: 'button',
-                id: 'joinButton',
-                text: 'join',
-                align: 'right',
-                hidden: false
-            },
-            {
                 xtype: 'component',
                 cls: 'dark',
                 html: 'Speakers'
