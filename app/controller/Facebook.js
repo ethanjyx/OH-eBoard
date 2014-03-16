@@ -29,12 +29,23 @@ Ext.define('testapp.controller.Facebook', {
 
     // Redirect to Facebook when the user taps the Facebook Login button
     onFacebookLogin: function() {
-        window.top.location = testapp.Facebook.redirectUrl();
+        var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+
+        testapp.view.session.Load.loadCourseList(parse, function() {
+            Ext.Viewport.add({ xtype: 'main' });
+            // Ext.Viewport.setActiveItem({xtype: 'main'});
+            // Ext.Viewport.setMasked(false);
+        });
+
+        // window.top.location = testapp.Facebook.redirectUrl();
     },
 
     onFacebookConnected: function() {
         alert(FB.getUserID());
-        Ext.Viewport.add({ xtype: 'main' });
-        Ext.Viewport.setActiveItem({xtype: 'main'});
+        // Ext.Viewport.add({ xtype: 'main' });
+        // Ext.Viewport.setActiveItem({xtype: 'main'});
+
+        
+        
     }
 });

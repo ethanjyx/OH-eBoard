@@ -17,7 +17,7 @@ Ext.Loader.addClassPathMappings({
   "Ext.device.sqlite.SQLResultSetRowList": "touch/src/device/sqlite/Sencha.js",
   "Ext.device.sqlite.SQLTransaction": "touch/src/device/sqlite/Sencha.js",
   "testapp": "app",
-  "testapp.view.session.join": "app/view/session/Join.js"
+  "testapp.view.session.Add": "app/view/session/add.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractComponent": [],
@@ -662,12 +662,14 @@ Ext.ClassManager.addNameAlternateMappings({
   "testapp.view.about.HtmlPage": [],
   "testapp.view.about.List": [],
   "testapp.view.about.VideoList": [],
+  "testapp.view.session.Add": [],
   "testapp.view.session.Card": [],
   "testapp.view.session.Detail": [],
+  "testapp.view.session.History": [],
   "testapp.view.session.Info": [],
+  "testapp.view.session.Join": [],
   "testapp.view.session.List": [],
-  "testapp.view.session.add": [],
-  "testapp.view.session.join": [],
+  "testapp.view.session.Load": [],
   "testapp.view.speaker.Card": [],
   "testapp.view.speaker.Detail": [],
   "testapp.view.speaker.Info": [],
@@ -1430,24 +1432,28 @@ Ext.ClassManager.addNameAliasMappings({
   "testapp.view.about.VideoList": [
     "widget.videoList"
   ],
+  "testapp.view.session.Add": [
+    "widget.session-add"
+  ],
   "testapp.view.session.Card": [
     "widget.sessionContainer"
   ],
   "testapp.view.session.Detail": [
     "widget.session"
   ],
+  "testapp.view.session.History": [
+    "widget.list-history"
+  ],
   "testapp.view.session.Info": [
     "widget.sessionInfo"
+  ],
+  "testapp.view.session.Join": [
+    "widget.session-join"
   ],
   "testapp.view.session.List": [
     "widget.sessions"
   ],
-  "testapp.view.session.add": [
-    "widget.session-add"
-  ],
-  "testapp.view.session.join": [
-    "widget.session-join"
-  ],
+  "testapp.view.session.Load": [],
   "testapp.view.speaker.Card": [
     "widget.speakerContainer"
   ],
