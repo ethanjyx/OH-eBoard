@@ -4,7 +4,7 @@ Ext.define('testapp.view.Main', {
 	xtype: 'main',
 
 	config: {
-
+		
 		tabBarPosition: 'bottom',
 		tabBar: {
 			ui: 'gray'

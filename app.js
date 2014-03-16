@@ -76,6 +76,7 @@ Ext.application({
 
     views: [
         'Main',
+        'LoggedOut',
 
         'session.Card',
         'session.List',
@@ -97,6 +98,7 @@ Ext.application({
     ],
 
     controllers: [
+        'Facebook',
         'Sessions',
         'Speakers',
         'Tweets',
@@ -114,6 +116,12 @@ Ext.application({
 
     launch: function() {
 
+        testapp.Facebook.initialize('241720436011519');
+        Ext.Viewport.add({xtype: 'loggedOut'});
+        
+        // Ext.Viewport.setActiveItem({xtype: 'loggedOut'});
+
+        /*
         Ext.Viewport.setMasked({ xtype: 'loadmask' });
         var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
 
@@ -122,7 +130,8 @@ Ext.application({
             Ext.Viewport.add({ xtype: 'main' });
             Ext.Viewport.setMasked(false);
         });
-
+        */
+        
         // setInterval(function(){
         //     Ext.DomQuery.select('link')[0].href = "resources/css/oreilly.css?" + Math.ceil(Math.random() * 100000000)
         // }, 1000);
