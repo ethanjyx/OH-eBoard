@@ -91,7 +91,7 @@ Ext.define('testapp.view.session.Add', {
     saveRecord: function() {
         alert('1');
         var formPanel = this.down('formpanel'),
-            record = formPanel.getRecord();
+            record = formPanel.getValues();
         alert('2');
         formPanel.updateRecord(record);
         alert('3');
