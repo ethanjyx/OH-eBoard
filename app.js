@@ -115,24 +115,25 @@ Ext.application({
     ],
 
     launch: function() {
+        alert("v28");
 
-        // testapp.Facebook.initialize('241720436011519');
-        
-        // Ext.Viewport.add({xtype: 'loggedOut'});
+        testapp.Facebook.initialize('241720436011519');
+        Ext.Viewport.add({xtype: 'loggedOut'});
         
         // Ext.Viewport.add({xtype: 'main'});
         
         // Ext.Viewport.setActiveItem({xtype: 'loggedOut'});
 
-        
+        /*
         // Ext.Viewport.setMasked({ xtype: 'loadmask' });
         var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
 
         testapp.view.session.Load.loadCourseList(parse, function() {
             Ext.Viewport.add({ xtype: 'main' });
-            // Ext.Viewport.setActiveItem({xtype: 'main'});
+            // Ext.Viewport.setActiveItem(0);
             // Ext.Viewport.setMasked(false);
         });
+        */
         
         // setInterval(function(){
         //     Ext.DomQuery.select('link')[0].href = "resources/css/oreilly.css?" + Math.ceil(Math.random() * 100000000)
