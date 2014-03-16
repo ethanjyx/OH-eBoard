@@ -1,6 +1,8 @@
 Ext.define('testapp.controller.Sessions', {
 	extend: 'Ext.app.Controller',
 
+	requires: ['testapp.Facebook'],
+
 	config: {
 		refs: {
 			sessions: 'sessions',
@@ -107,6 +109,14 @@ Ext.define('testapp.controller.Sessions', {
     },
 
 	onAddButton: function() {
+		FB.api('me?fields=first_name,last_name', function(response) {
+			var record = this.getSessionAdd().saveRecord();
+			record.holderName = response.first_name + ' ' + response.last_name;
+			//reponse.id
+			//alert(record.holderName);
+			this.getSessionAdd.updateRecord(record);
+		});
+
         if (!this.sessionAdd) {
             this.sessionAdd = Ext.create('testapp.view.session.Add');
         }
