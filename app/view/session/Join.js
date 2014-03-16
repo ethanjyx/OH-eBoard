@@ -61,12 +61,13 @@ Ext.define('testapp.view.session.Join', {
     },
 
     updateRecord: function(newRecord) {
-        this.down('formpanel').setRecord(newRecord);
+        this.down('formpanel').setValues(newRecord);
+
     },
 
     saveRecord: function() {
         var formPanel = this.down('formpanel'),
-            record = formPanel.getRecord();
+            record = formPanel.getValues();
 
         formPanel.updateRecord(record);
 
