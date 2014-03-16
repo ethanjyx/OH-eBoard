@@ -654,6 +654,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "testapp.store.Tweets": [],
   "testapp.store.Videos": [],
   "testapp.util.Proxy": [],
+  "testapp.view.Dialog": [],
   "testapp.view.Location": [],
   "testapp.view.LoggedOut": [],
   "testapp.view.Main": [],
@@ -1408,6 +1409,7 @@ Ext.ClassManager.addNameAliasMappings({
   "testapp.store.Tweets": [],
   "testapp.store.Videos": [],
   "testapp.util.Proxy": [],
+  "testapp.view.Dialog": [],
   "testapp.view.Location": [
     "widget.location"
   ],
