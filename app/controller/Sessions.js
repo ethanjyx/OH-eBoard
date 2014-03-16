@@ -70,7 +70,7 @@ Ext.define('testapp.controller.Sessions', {
 
 	onAddButton: function() {
         if (!this.sessionAdd) {
-            this.sessionAdd = Ext.create('testapp.view.session.add');
+            this.sessionAdd = Ext.create('testapp.view.session.Add');
         }
 
         // Bind the record onto the edit contact view
@@ -93,7 +93,7 @@ Ext.define('testapp.controller.Sessions', {
 
     onJoinButton: function() {
         if (!this.sessionJoin) {
-            this.sessionJoin = Ext.create('testapp.view.session.join');
+            this.sessionJoin = Ext.create('testapp.view.session.Join');
         }
 
         // Bind the record onto the edit contact view

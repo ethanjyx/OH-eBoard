@@ -26,7 +26,7 @@ Ext.define('testapp.view.session.List', {
         variableHeights: true,
         useSimpleItems: true,
 		itemTpl: [
-			'<div class="session"><div class="title">{title}</div><div class="room">{room}</div></div>'
+			'<div class="session"><div class="courseSubject">{courseSubject}&nbsp;{courseNumber}</div></div>'
 		]
 	},
 
