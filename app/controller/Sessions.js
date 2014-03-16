@@ -8,18 +8,26 @@ Ext.define('testapp.controller.Sessions', {
 			sessionInfo: 'sessionContainer sessionInfo',
 			sessionSpeakers: 'sessionContainer list',
 			sessionContainer: 'sessionContainer',
-			sessionDayPicker: 'sessions segmentedbutton',
+			//sessionDayPicker: 'sessions segmentedbutton',
 			addButton: '#addButton',
 			saveButtonAdd: '#saveButtonAdd',
 			joinButton: '#joinButton',
 			saveButtonJoin: '#saveButtonJoin',
 			sessionAdd: 'session-add',
 			sessionJoin: 'session-join',
+			listHistory: 'list-history',
 			historyButton: '#historyButton',
 			speakers: 'sessionContainer speakers',
 			speakerInfo: 'sessionContainer speakerInfo'
 		},
 		control: {
+			sessionContainer: {
+				push: 'onMainPush',
+                pop: 'onMainPop'
+			},
+			historyButton: {
+				tap: 'onHistoryButton'
+			},
 			sessions: {
 				initialize: 'initSessions',
 				itemtap: 'onSessionTap',
@@ -37,14 +45,31 @@ Ext.define('testapp.controller.Sessions', {
 			saveButtonJoin: {
 				tap: 'onSaveButtonJoin'
 			},
-			sessionDayPicker: {
-				toggle: 'onSessionDateChange'
-			},
 			speakers: {
 				itemtap: 'onSpeakerTap'
 			}
 		}
 	},
+
+	onMainPush: function(view, item) {
+        var historyButton = this.getHistoryButton();
+
+        if (item.xtype == "session") {
+            this.getSessions().deselectAll();
+
+            this.showHistoryButton();
+        } else {
+            this.hideHistoryButton();
+        }
+    },
+
+    onMainPop: function(view, item) {
+        if (item.xtype == "session-join") {
+            this.showHistoryButton();
+        } else {
+            this.hideHistoryButton();
+        }
+    },
 
 	initSessions: function() {
 		//var firstButton = this.getSessionDayPicker().getItems().items[0];
@@ -67,6 +92,19 @@ Ext.define('testapp.controller.Sessions', {
 			return record.get('time').getDate() == btn.config.day;
 		});
 	},
+
+	onHistoryButton: function() {
+        if (!this.listHistory) {
+            this.listHistory = Ext.create('testapp.view.session.History');
+        }
+
+        // Bind the record onto the edit contact view
+        //TODO: set default value into the form.
+//        this.sessionAdd.setRecord(this.getShowContact().getRecord());
+
+        this.getSessionContainer().push(this.listHistory);
+
+    },
 
 	onAddButton: function() {
         if (!this.sessionAdd) {
@@ -139,14 +177,64 @@ Ext.define('testapp.controller.Sessions', {
 			});
 		}
 
-		this.speakerInfo.config.title = record.getFullName();
-		this.speakerInfo.setRecord(record);
-		this.getSessionContainer().push(this.speakerInfo);
+		//this.speakerInfo.config.title = record.getFullName();
+		//this.speakerInfo.setRecord(record);
+
+		var items = [
+			{
+				text: 'Set as done',
+				ui: 'decline',
+				scope: this,
+				handler: function() {
+					//TODO: put the current one into history!
+					this.actions.hide();
+				}
+			},
+			{
+				xtype: 'button',
+				text: 'Cancel',
+				scope: this,
+				handler: function() {
+					this.actions.hide();
+				}
+			}
+		];
+		if (!this.actions) {
+			this.actions = Ext.create('Ext.ActionSheet', {
+				items: items
+			});
+		}
+
+		Ext.Viewport.add(this.actions);
+		this.actions.show();
+		//this.getSessionContainer().push(this.speakerInfo);
 	},
 
 	onSessionsActivate: function() {
 		if (this.session) {
 			this.session.down('speakers').deselectAll();
 		}
-	}
+	},
+
+	showHistoryButton: function() {
+        var historyButton = this.getHistoryButton();
+
+        if (!historyButton.isHidden()) {
+            return;
+        }
+
+        //this.hideSaveButton();
+
+        historyButton.show();
+    },
+
+    hideHistoryButton: function() {
+        var historyButton = this.getHistoryButton();
+
+        if (historyButton.isHidden()) {
+            return;
+        }
+
+        historyButton.hide();
+    },
 });
