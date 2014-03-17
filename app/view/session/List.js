@@ -2,10 +2,17 @@ Ext.define('testapp.view.session.List', {
 
 	extend: 'Ext.List',
 	//requires: 'Ext.SegmentedButton',
-
+	requires: [
+        'Ext.plugin.PullRefresh',
+        'Ext.plugin.ListPaging'
+    ],
 	xtype: 'sessions',
 
 	config: {
+		plugins: [
+            { type: 'listpaging' },
+            { type: 'pullrefresh' }
+        ],
 		items: [
 			{
 				docked: 'top',
