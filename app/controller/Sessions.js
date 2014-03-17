@@ -298,7 +298,7 @@ Ext.define('testapp.controller.Sessions', {
         this.getSessionContainer().pop();
     },
 
-    loadWaitingList: function(callback) {
+    /*loadWaitingList: function(callback) {
     	var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
 		// reload student list copied
 		var speakerStore = Ext.getStore('SessionSpeakers');
@@ -322,7 +322,7 @@ Ext.define('testapp.controller.Sessions', {
             },
             className: 'UserList'
         });
-    },
+    },*/
 
 	onSessionTap: function(list, idx, el, record) {
 		/*var speakerStore = Ext.getStore('SessionSpeakers'),
