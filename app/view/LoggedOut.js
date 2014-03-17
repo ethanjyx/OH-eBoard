@@ -11,17 +11,17 @@ Ext.define('testapp.view.LoggedOut', {
 		items: [
 			{
 				xtype: 'container',
-				layout: {
-					type: 'vbox',
-					align: 'center'
-				},
 				cls: 'loginScreen',
 				items: [
 		            {
-		                xtype: 'button',
-		                text: 'Login with Facebook',
+		                xtype: 'image',
+		                src: 'resources/images/facebook-login-button.png',
 		                id: 'fbLogin',
-		                cls: 'fbLogin'
+		                cls: 'fbLogin',
+		                width: 246,
+		                height: 47,
+		                centered: true,
+		                top: '70%'
 		            // },
 		            // {
 		            // 	xtype: 'component',
