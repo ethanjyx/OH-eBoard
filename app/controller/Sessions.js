@@ -216,7 +216,7 @@ Ext.define('testapp.controller.Sessions', {
 
         var record = this.getSessionJoin().saveRecord();
         console.log(record);
-        consolc.log("Join save button " + testapp.controller.Sessions.thisObjectId);
+        console.log("Join save button " + testapp.controller.Sessions.thisObjectId);
 
 		this.courseObjectId = 'ie5m1ivyxu';
         this.relation = {
