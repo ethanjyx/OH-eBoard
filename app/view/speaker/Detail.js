@@ -25,7 +25,7 @@ Ext.define('testapp.view.speaker.Detail', {
 					'{title}'
 				]
 			}
-		]
-
+		],
+		courseObjectId: ''
 	}
 });

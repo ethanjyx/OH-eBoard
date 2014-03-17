@@ -8,8 +8,8 @@ Ext.define('testapp.view.session.Info', {
 		cls: 'sessionInfo',
 
 		tpl: Ext.create('Ext.XTemplate',
-			'<h3>{title} <small>{room}</small></h3>',
-			'<h4>{proposal_type} at {[this.formatTime(values.time)]}</h4>',
+			'<h3>{title} <small>{courseSubject}</small></h3>',
+			'<h4>{courseNumber} at {startTime}</h4>',
 			'<p>{description}</p>',
 			{
 				formatTime: function(time) {

@@ -30,20 +30,7 @@ Ext.define('testapp.model.Session', {
 			'endTime',
 			'location',
 
-			{
-				name: 'waitingList',
-				convert: function(value, record) {
-                	if (value) {
-                    	if (value instanceof Array) {
-                        	return value;
-                    	} else {
-                        	return [value]; // Convert to an Array 
-                    	}
-                	}
-
-                	return value;
-            	}
-            },
+			'waitingList',
             'numberServed'
 		],
 

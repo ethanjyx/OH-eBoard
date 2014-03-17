@@ -127,9 +127,9 @@ Ext.define('testapp.controller.Sessions', {
 			session_add.updateRecord(record);
 			
 			var ed = Ext.create('testapp.model.Speaker');
-			ed.data.firstName = "Sally";
-			ed.data.lastName = "Wei";
-			ed.data.facebookId = "123456778";
+			ed.data.firstName = response.first_name;
+			ed.data.lastName = response.last_name;
+			ed.data.facebookId = response.id;
 			console.log(ed);
 			var objectId;
 			ed.save({
@@ -138,7 +138,6 @@ Ext.define('testapp.controller.Sessions', {
         			console.log("Create new user " + testapp.controller.Sessions.thisObjectId);
         		}
     		});
-    		this.thisObjectId = objectId;
 		});
 
 
@@ -157,7 +156,7 @@ Ext.define('testapp.controller.Sessions', {
         console.log(record);
 
         //this.getShowContact().updateRecord(record);
-
+        record.numberServed = 0;
 		var ed = Ext.create('testapp.model.Session', record);
 		console.log(ed);
 		ed.save({
@@ -189,9 +188,9 @@ Ext.define('testapp.controller.Sessions', {
 			session_join.updateRecord(record);
 
 			var ed = Ext.create('testapp.model.Speaker');
-			ed.data.firstName = "Sally";
-			ed.data.lastName = "Wei";
-			ed.data.facebookId = "123456778";
+			ed.data.firstName = response.first_name;
+			ed.data.lastName = response.last_name;
+			ed.data.facebookId = response.id;
 			console.log(ed);
 			var objectId;
 			ed.save({
@@ -203,7 +202,6 @@ Ext.define('testapp.controller.Sessions', {
         			console.log("Create new user " + objectId);
         		}
     		});
-    		this.thisObjectId = objectId;
 		});
 
         // Bind the record onto the edit contact view
@@ -223,9 +221,9 @@ Ext.define('testapp.controller.Sessions', {
 
         var record = this.getSessionJoin().saveRecord();
         console.log(record);
-        console.log("Join save button " + this.thisObjectId);
 
-		this.courseObjectId = 'ie5m1ivyxu';
+        console.log("Join save button " + this.session.courseObjectId);
+
         this.relation = {
         	waitingList : {
         		__op : "AddRelation",
@@ -243,7 +241,7 @@ Ext.define('testapp.controller.Sessions', {
             error: function(result) {
                 return alert("A query error occured");
             },
-            className: 'courseOH/' + this.courseObjectId
+            className: 'courseOH/' + this.session.courseObjectId
         });
 
         this.updatePosition = {position : record.position};
@@ -274,6 +272,34 @@ Ext.define('testapp.controller.Sessions', {
 
 		var speakerStore = Ext.getStore('SessionSpeakers');
 		speakerStore.removeAll();
+
+		/*curl -X GET \
+  -H "X-Parse-Application-Id: APP_ID" \
+  -H "X-Parse-REST-API-Key: REST_API_KEY" \
+  -G \
+  --data-urlencode 'where={"$relatedTo":{"object":{"__type":"Pointer","className":"JFEvent","objectId":"8TOXdXf3tz"},"key":"attendingUsers"}}' \
+  https://api.parse.com/1/users
+
+
+
+          parse.query({
+            success: function(result) {
+                console.log('Get waiting list from server');
+                for(var i = 0; i < result.results.length; i++) {
+                    console.log(result.results[i].courseSubject + ' ' + result.results[i].courseNumber + result.waitingList);
+                }
+
+                Ext.Array.each(result.results, function(proposal) {
+                    proposalModel = Ext.create('testapp.model.Session', proposal);
+                    speakerStore.add(proposalModel);
+                });
+            },
+            error: function(result) {
+                return alert("A query error occured");
+            },
+            className: 'courseOH'
+        });*/
+
 		Ext.Array.each(record.waitingList, function(proposal) {
 		    proposalModel = Ext.create('testapp.model.Speaker', proposal);
 	        speakerStore.add(proposalModel);
@@ -284,8 +310,9 @@ Ext.define('testapp.controller.Sessions', {
 		}
 
 		this.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
+		this.session.courseObjectId = record.get('objectId');
 		this.getSessionContainer().push(this.session);
-		//this.getSessionInfo().setRecord(record);
+		this.getSessionInfo().setRecord(record);
 	},
 
 	onSpeakerTap: function(list, idx, el, record) {

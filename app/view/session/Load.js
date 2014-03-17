@@ -10,7 +10,7 @@ Ext.define('testapp.view.session.Load', {
             success: function(result) {
                 console.log('Get course list from server');
                 for(var i = 0; i < result.results.length; i++) {
-                    console.log(result.results[i].courseSubject + ' ' + result.results[i].courseNumber);
+                    console.log(result.results[i].courseSubject + ' ' + result.results[i].courseNumber + result.waitingList);
                 }
 
                 Ext.Array.each(result.results, function(proposal) {
