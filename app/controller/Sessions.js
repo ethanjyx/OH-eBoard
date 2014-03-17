@@ -116,7 +116,7 @@ Ext.define('testapp.controller.Sessions', {
 
 		var session_add = this.getSessionAdd();
 
-		FB.api('me?fields=first_name,last_name', function(response) {
+		/*FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_add.saveRecord();
 	
 			record.holderName = response.first_name + ' ' + response.last_name;
@@ -138,7 +138,7 @@ Ext.define('testapp.controller.Sessions', {
         			console.log("Create new user " + testapp.controller.Sessions.thisObjectId);
         		}
     		});
-		});
+		});*/
 
 
 
@@ -166,6 +166,11 @@ Ext.define('testapp.controller.Sessions', {
     	});
 
 		testapp.view.session.Load.loadCourseList(function(){});
+		var sessionStore = Ext.getStore('Sessions');
+		var proposalModel = Ext.create('testapp.model.Session', record);
+		sessionStore.add(proposalModel);
+		console.log(sessionStore);
+
         this.getSessionContainer().pop();
     },
 
@@ -176,7 +181,7 @@ Ext.define('testapp.controller.Sessions', {
 
         var session_join = this.getSessionJoin();
 
-		FB.api('me?fields=first_name,last_name', function(response) {
+		/*FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_join.saveRecord();
 	
 			record.firstName = response.first_name;
@@ -202,7 +207,7 @@ Ext.define('testapp.controller.Sessions', {
         			console.log("Create new user " + objectId);
         		}
     		});
-		});
+		});*/
 
         // Bind the record onto the edit contact view
         //TODO: set default value into the form.
@@ -224,14 +229,16 @@ Ext.define('testapp.controller.Sessions', {
 
         console.log("Join save button " + this.session.courseObjectId);
 
-        this.relation = {
+        var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+        //this.userObjectId = 'RF6hZI5xv0';
+        /*this.relation = {
         	waitingList : {
         		__op : "AddRelation",
-        		objects: [{__type:"Pointer", className:"User", objectId:testapp.controller.Sessions.thisObjectId}]
+        		objects: [{__type:"Pointer", className:"User", objectId:this.userObjectId}]
         	}
         };
 
-        var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+ 
 
         parse.addToRelation({
         	object: this.relation,
@@ -242,9 +249,28 @@ Ext.define('testapp.controller.Sessions', {
                 return alert("A query error occured");
             },
             className: 'courseOH/' + this.session.courseObjectId
-        });
+        });*/
 
-        this.updatePosition = {position : record.position};
+		// add a user in UserList
+		this.lastObject = {
+			firstName: record.firstName,
+			lastName: record.lastName,
+			position: record.position
+
+		};
+		parse.create({
+                    object: this.lastObject,
+                    success: function(result) { 
+                        this.lastObjectId = result.objectId;
+                        return console.log("objectId created " + this.lastObjectId);
+                    },
+                    error: function(result) {
+                        return console.log("A creation error occured");
+                    },
+                    className: 'UserList'
+                });
+
+        /*this.updatePosition = {position : record.position};
         parse.update({
         	object: this.updatePosition,
             success: function(result) {
@@ -254,11 +280,41 @@ Ext.define('testapp.controller.Sessions', {
                 return alert("A query error occured");
             },
             className: 'User',
-            objectId: testapp.controller.Sessions.thisObjectId
-        });       
+            objectId: this.userObjectId
+        });*/       
 
-		testapp.view.session.Load.loadCourseList(function(){});
+		//this.loadWaitingList(function(){});
+		var speakerStore = Ext.getStore('SessionSpeakers');
+		var proposalModel = Ext.create('testapp.model.Speaker', this.lastObject);
+		speakerStore.add(proposalModel);
+
         this.getSessionContainer().pop();
+    },
+
+    loadWaitingList: function(callback) {
+    	var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+		// reload student list copied
+		var speakerStore = Ext.getStore('SessionSpeakers');
+		speakerStore.removeAll();
+		parse.query({
+            success: function(result) {
+                console.log('Get waiting list from server');
+                for(var i = 0; i < result.results.length; i++) {
+                    console.log(result.results[i].firstName + ' ' + result.results[i].lastName);
+                }
+
+                Ext.Array.each(result.results, function(proposal) {
+                    proposalModel = Ext.create('testapp.model.Speaker', proposal);
+                    speakerStore.add(proposalModel);
+                });
+        		console.log(speakerStore);
+                callback();
+            },
+            error: function(result) {
+                return alert("A query error occured");
+            },
+            className: 'UserList'
+        });
     },
 
 	onSessionTap: function(list, idx, el, record) {
@@ -278,32 +334,32 @@ Ext.define('testapp.controller.Sessions', {
   -H "X-Parse-REST-API-Key: REST_API_KEY" \
   -G \
   --data-urlencode 'where={"$relatedTo":{"object":{"__type":"Pointer","className":"JFEvent","objectId":"8TOXdXf3tz"},"key":"attendingUsers"}}' \
-  https://api.parse.com/1/users
+  https://api.parse.com/1/users*/
 
-
+        var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
 
           parse.query({
             success: function(result) {
                 console.log('Get waiting list from server');
                 for(var i = 0; i < result.results.length; i++) {
-                    console.log(result.results[i].courseSubject + ' ' + result.results[i].courseNumber + result.waitingList);
+                    console.log(result.results[i].firstName + ' ' + result.results[i].lastName);
                 }
 
                 Ext.Array.each(result.results, function(proposal) {
-                    proposalModel = Ext.create('testapp.model.Session', proposal);
+                    proposalModel = Ext.create('testapp.model.Speaker', proposal);
                     speakerStore.add(proposalModel);
                 });
             },
             error: function(result) {
                 return alert("A query error occured");
             },
-            className: 'courseOH'
-        });*/
+            className: 'UserList'
+        });
 
-		Ext.Array.each(record.waitingList, function(proposal) {
+		/*Ext.Array.each(record.waitingList, function(proposal) {
 		    proposalModel = Ext.create('testapp.model.Speaker', proposal);
 	        speakerStore.add(proposalModel);
-		});
+		});*/
 
 		if (!this.session) {
 			this.session = Ext.widget('session');
@@ -332,6 +388,10 @@ Ext.define('testapp.controller.Sessions', {
 				scope: this,
 				handler: function() {
 					//TODO: put the current one into history!
+			        console.log("Join save button " + this.session.courseObjectId);
+
+        var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+
 					this.actions.hide();
 				}
 			},

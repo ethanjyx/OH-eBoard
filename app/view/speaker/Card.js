@@ -115,6 +115,30 @@ Ext.define('testapp.view.speaker.Card', {
 			}
 			*/
 
-		]
-	}
+		],
+
+	 	listeners: {
+            keyup: 'onKeyUp'
+        },
+
+        record: null
+    },
+
+    updateRecord: function(newRecord) {
+        this.down('formpanel').setValues(newRecord);
+
+    },
+
+    saveRecord: function() {
+        var formPanel = this.down('formpanel'),
+            record = formPanel.getValues();
+
+        formPanel.updateRecord(record);
+
+        return record;
+    },
+
+    onKeyUp: function() {
+        this.fireEvent('change', this);
+    }
 });

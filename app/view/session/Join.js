@@ -70,7 +70,7 @@ Ext.define('testapp.view.session.Join', {
             record = formPanel.getValues();
 
         formPanel.updateRecord(record);
-
+        
         return record;
     },
 

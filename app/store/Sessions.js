@@ -20,7 +20,7 @@ Ext.define('testapp.store.Sessions', {
                 direction: 'ASC'
             },
             {
-                property: 'courseName',
+                property: 'courseNumber',
                 direction: 'ASC'
             }
         ]
