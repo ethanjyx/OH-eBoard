@@ -83,7 +83,6 @@ Ext.define('testapp.Facebook', {
             me.hasCheckedStatus = true;
 
             if (response.status == 'connected') {
-                alert(response.status);
                 me.fireEvent('connected');
             } else {
                 me.fireEvent('unauthorized');
