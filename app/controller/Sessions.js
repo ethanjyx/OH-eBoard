@@ -398,10 +398,33 @@ Ext.define('testapp.controller.Sessions', {
 			        console.log(record);
 
         			var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
-					parse.delete({
-                    	objectId: record.data.objectId,
+					parse.deletedata({
+						objectId: record.data.objectId,
     	                success: function(result) { 
-            	            return console.log("objectId deleted " + record.data.objectId);
+            	            console.log("objectId deleted " + record.data.objectId);
+            	            var speakerStore = Ext.getStore('SessionSpeakers');
+							speakerStore.removeAll();
+
+							parse.query({
+		            			success: function(result) {
+		    		        	    console.log('Get waiting list from server');
+		            		    	for(var i = 0; i < result.results.length; i++) {
+		                    			console.log(result.results[i].firstName + ' ' + result.results[i].lastName);
+				                	}	
+
+		    		 	            Ext.Array.each(result.results, function(proposal) {
+		            			        proposalModel = Ext.create('testapp.model.Speaker', proposal);
+		                    			speakerStore.add(proposalModel);
+		                			});
+		            			},
+		            			error: function(result) {
+		                			return alert("A query error occured");
+		            			},
+		            			className: 'UserList'
+		        			});
+
+							//this.actions.hide();
+
                 	    },
     	                error: function(result) {
         	                return console.log("A deletion error occured");
@@ -409,28 +432,7 @@ Ext.define('testapp.controller.Sessions', {
                 	    className: 'UserList'
                 	});
 
-					var speakerStore = Ext.getStore('SessionSpeakers');
-					speakerStore.removeAll();
-
-					parse.query({
-            			success: function(result) {
-    		        	    console.log('Get waiting list from server');
-            		    	for(var i = 0; i < result.results.length; i++) {
-                    			console.log(result.results[i].firstName + ' ' + result.results[i].lastName);
-		                	}	
-
-    		 	            Ext.Array.each(result.results, function(proposal) {
-            			        proposalModel = Ext.create('testapp.model.Speaker', proposal);
-                    			speakerStore.add(proposalModel);
-                			});
-            			},
-            			error: function(result) {
-                			return alert("A query error occured");
-            			},
-            			className: 'UserList'
-        			});
-
-					this.actions.hide();
+					
 				}
 			},
 			{

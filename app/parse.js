@@ -90,7 +90,7 @@
       });
     };
 
-    Parse.prototype.delete = function(args) {
+    Parse.prototype.deletedata = function(args) {
       return Ext.Ajax.request({
         url: this.endpoint + args.className + '/' + args.objectId,
         method: 'DELETE',
