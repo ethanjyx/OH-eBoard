@@ -17,14 +17,8 @@ Ext.define('testapp.view.speaker.List', {
         ],
 		itemTpl: [
 			'<div class="avatar"> </div>',
-			//'<h3>{firstName} {lastName}</h3>',
-			//'<h4>{position}</h4>',
-			'<table>',
-			 ' <tr>',
-			   ' <td><div class="nametag">{firstName} {lastName}</div></td>',
-			    '<td>{position}{lastName}</td>',
-			  '</tr>',
-			'</table>'
+			'<h3><div class="nametag">{firstName} {lastName}</div>',
+			'<div class="postag">{position}</div></h3>'
 		]
 	}
 });
