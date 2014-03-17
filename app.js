@@ -115,24 +115,21 @@ Ext.application({
     ],
 
     launch: function() {
-        alert("v36");
+        alert("v40");
 
         testapp.Facebook.initialize('241720436011519');
         Ext.Viewport.add({xtype: 'loggedOut'});
         
-        // Ext.Viewport.add({xtype: 'main'});
-        
-        // Ext.Viewport.setActiveItem({xtype: 'loggedOut'});
-
         
         // Ext.Viewport.setMasked({ xtype: 'loadmask' });
         
+<<<<<<< HEAD
         //var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
 
+=======
+>>>>>>> a6a13d0a65c097e1c48fa2776c16f97aa5e09949
         testapp.view.session.Load.loadCourseList(function() {
             Ext.Viewport.add({ xtype: 'main' });
-            // Ext.Viewport.setActiveItem(0);
-            // Ext.Viewport.setMasked(false);
         });
         
         
