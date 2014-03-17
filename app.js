@@ -115,12 +115,16 @@ Ext.application({
     ],
 
     launch: function() {
-        alert("v49");
+        //alert("v49");
 
         testapp.Facebook.initialize('241720436011519');
         Ext.Viewport.add({xtype: 'loggedOut'});
         
-        
+        /*
+        testapp.view.session.Load.loadCourseList(function() {
+            Ext.Viewport.add({ xtype: 'main' });
+        });
+*/
         // Ext.Viewport.setMasked({ xtype: 'loadmask' });
         
         
