@@ -86,32 +86,21 @@ Ext.application({
         'speaker.Card',
         'speaker.List',
         'speaker.Detail',
-        'speaker.Info',
+        'speaker.Info'
 
-        'Tweets',
-        'Location',
-
-        'about.Card',
-        'about.List',
-        'about.HtmlPage',
-        'about.VideoList'
     ],
 
     controllers: [
         'Facebook',
         'Sessions',
-        'Speakers',
-        'Tweets',
-        'About'
+        'Speakers'
     ],
 
     stores: [
         'Sessions',
         'SpeakerSessions',
         'Speakers',
-        'SessionSpeakers',
-        'Tweets',
-        'Videos'
+        'SessionSpeakers'
     ],
 
     launch: function() {
