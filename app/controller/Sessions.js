@@ -134,7 +134,7 @@ Ext.define('testapp.controller.Sessions', {
 			ed.save({
     			success: function(result) {
     				testapp.controller.Sessions.thisObjectId = result.objectId;
-        			console.log("Create new user");
+        			console.log("Create new user " + testapp.controller.Sessions.thisObjectId);
         		}
     		});
 		});
@@ -216,13 +216,13 @@ Ext.define('testapp.controller.Sessions', {
 
         var record = this.getSessionJoin().saveRecord();
         console.log(record);
+        consolc.log("Join save button " + testapp.controller.Sessions.thisObjectId);
 
 		this.courseObjectId = 'ie5m1ivyxu';
-		this.studentObjectId = 'AgVePxz6Tj';
         this.relation = {
         	waitingList : {
         		__op : "AddRelation",
-        		objects: [{__type:"Pointer", className:"User", objectId:this.studentObjectId}]
+        		objects: [{__type:"Pointer", className:"User", objectId:testapp.controller.Sessions.thisObjectId}]
         	}
         };
 
