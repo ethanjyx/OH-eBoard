@@ -115,7 +115,7 @@ Ext.define('testapp.controller.Sessions', {
 
 		var session_add = this.getSessionAdd();
 
-		FB.api('me?fields=first_name,last_name', function(response) {
+		/*FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_add.saveRecord();
 	
 			record.holderName = response.first_name + ' ' + response.last_name;
@@ -124,9 +124,16 @@ Ext.define('testapp.controller.Sessions', {
 			//reponse.id
 			//alert(record.holderName);
 			session_add.updateRecord(record);
-		});
-
-        
+			
+			/*var ed = Ext.create('testapp.model.Speaker',{first});
+			this.setUrl('https://api.parse.com/1/users');
+			console.log(ed);
+			ed.save({
+    			success: function(result) {
+        			console.log("Create new user " +  + ' ' + record.last);
+        		}
+    		});
+		});*/
 
         // Bind the record onto the edit contact view
         //TODO: set default value into the form.
@@ -162,7 +169,7 @@ Ext.define('testapp.controller.Sessions', {
 
         var session_join = this.getSessionJoin();
 
-		FB.api('me?fields=first_name,last_name', function(response) {
+		/*FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_join.saveRecord();
 	
 			record.firstName = response.first_name;
@@ -172,7 +179,7 @@ Ext.define('testapp.controller.Sessions', {
 			//reponse.id
 			//alert(record.holderName);
 			session_join.updateRecord(record);
-		});
+		});*/
 
         // Bind the record onto the edit contact view
         //TODO: set default value into the form.
@@ -192,15 +199,27 @@ Ext.define('testapp.controller.Sessions', {
         var record = this.getSessionJoin().saveRecord();
         console.log(record);
 
-		var ed = Ext.create('testapp.model.Speaker', record);
-		ed.setCourseObjectId = 'AgVePxz6Tj';
-		console.log(ed);
-
-		ed.save({
-    		success: function(result) {
-        		console.log("Join queue " + record.courseSubject + ' ' + record.courseNumber);
+		this.courseObjectId = 'ie5m1ivyxu';
+		this.studentObjectId = 'AgVePxz6Tj';
+        this.relation = {
+        	waitingList : {
+        		__op : "AddRelation",
+        		objects: [{__type:"Pointer", className:"_User", objectId:this.studentObjectId}]
         	}
-    	});
+        };
+
+        var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+
+        parse.addToRelation({
+        	object: this.relation,
+            success: function(result) {
+                console.log('Join in course');
+            },
+            error: function(result) {
+                return alert("A query error occured");
+            },
+            className: 'courseOH/' + this.courseObjectId
+        });
 
 		testapp.view.session.Load.loadCourseList(function(){});
         this.getSessionContainer().pop();

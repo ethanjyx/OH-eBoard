@@ -26,6 +26,23 @@
       });
     };
 
+    Parse.prototype.addToRelation = function(args) {
+      return Ext.Ajax.request({
+        url: this.endpoint + args.className,
+        method: 'PUT',
+        jsonData: args.object,
+        success: function(result) {
+          return args.success(JSON.parse(result.responseText));
+        },
+        error: args.error,
+        headers: {
+          'X-Parse-Application-Id' : this.applicationId,
+          'X-Parse-REST-API-Key' : this.masterKey,
+          'Content-Type' : 'application/json'
+        }
+      });
+    };
+
     Parse.prototype.get = function(args) {
       return Ext.Ajax.request({
         url: this.endpoint + args.className + '/' + args.objectId,
