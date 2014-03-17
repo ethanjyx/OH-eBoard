@@ -16,6 +16,7 @@ Ext.define('testapp.view.session.Load', {
                 Ext.Array.each(result.results, function(proposal) {
                     proposalModel = Ext.create('testapp.model.Session', proposal);
                     sessionStore.add(proposalModel);
+                    console.log(proposalModel);
                 });
 
                 callback();

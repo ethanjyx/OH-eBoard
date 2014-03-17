@@ -90,17 +90,18 @@
       });
     };
 
-    Parse.prototype["delete"] = function(args) {
+    Parse.prototype.delete = function(args) {
       return Ext.Ajax.request({
         url: this.endpoint + args.className + '/' + args.objectId,
-        method: 'POST',
+        method: 'DELETE',
         success: (function(result) {
           return args.success(JSON.parse(result.responseText));
         }),
         error: args.error,
         headers: {
-          Authorization: "Basic " + (Base64.encode(this.applicationId + ":" + this.masterKey)),
-          'X-HTTP-Method-Override': 'DELETE'
+          'X-Parse-Application-Id' : this.applicationId,
+          'X-Parse-REST-API-Key' : this.masterKey,
+          'Content-Type' : 'application/json'
         }
       });
     };

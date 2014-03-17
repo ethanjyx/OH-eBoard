@@ -162,15 +162,18 @@ Ext.define('testapp.controller.Sessions', {
 		ed.save({
     		success: function(result) {
         		console.log("Create new OH session " + record.courseSubject + ' ' + record.courseNumber);
+        		testapp.view.session.Load.loadCourseList(function(){
+});
         	}
     	});
 
-		testapp.view.session.Load.loadCourseList(function(){});
-		var sessionStore = Ext.getStore('Sessions');
-		var proposalModel = Ext.create('testapp.model.Session', record);
-		sessionStore.add(proposalModel);
-		console.log(sessionStore);
+        		/*var sessionStore = Ext.getStore('Sessions');
+				var proposalModel = Ext.create('testapp.model.Session', record);
+				sessionStore.add(proposalModel);
+				console.log(sessionStore);*/
 
+
+		console.log(Ext.getStore('Sessions'));
         this.getSessionContainer().pop();
     },
 
@@ -258,11 +261,18 @@ Ext.define('testapp.controller.Sessions', {
 			position: record.position
 
 		};
+
+		var speakerStore = Ext.getStore('SessionSpeakers');
+		var proposalModel = Ext.create('testapp.model.Speaker', this.lastObject);
+
 		parse.create({
                     object: this.lastObject,
                     success: function(result) { 
-                        this.lastObjectId = result.objectId;
-                        return console.log("objectId created " + this.lastObjectId);
+                        proposalModel.data.objectId = result.objectId;
+                        speakerStore.add(proposalModel);
+						console.log(proposalModel.data.objectId);
+						console.log(speakerStore);
+                        return console.log("objectId created " + proposalModel.data.objectId);
                     },
                     error: function(result) {
                         return console.log("A creation error occured");
@@ -284,9 +294,6 @@ Ext.define('testapp.controller.Sessions', {
         });*/       
 
 		//this.loadWaitingList(function(){});
-		var speakerStore = Ext.getStore('SessionSpeakers');
-		var proposalModel = Ext.create('testapp.model.Speaker', this.lastObject);
-		speakerStore.add(proposalModel);
 
         this.getSessionContainer().pop();
     },
@@ -388,9 +395,40 @@ Ext.define('testapp.controller.Sessions', {
 				scope: this,
 				handler: function() {
 					//TODO: put the current one into history!
-			        console.log("Join save button " + this.session.courseObjectId);
+			        console.log(record);
 
-        var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+        			var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+					parse.delete({
+                    	objectId: record.data.objectId,
+    	                success: function(result) { 
+            	            return console.log("objectId deleted " + record.data.objectId);
+                	    },
+    	                error: function(result) {
+        	                return console.log("A deletion error occured");
+            	        },
+                	    className: 'UserList'
+                	});
+
+					var speakerStore = Ext.getStore('SessionSpeakers');
+					speakerStore.removeAll();
+
+					parse.query({
+            			success: function(result) {
+    		        	    console.log('Get waiting list from server');
+            		    	for(var i = 0; i < result.results.length; i++) {
+                    			console.log(result.results[i].firstName + ' ' + result.results[i].lastName);
+		                	}	
+
+    		 	            Ext.Array.each(result.results, function(proposal) {
+            			        proposalModel = Ext.create('testapp.model.Speaker', proposal);
+                    			speakerStore.add(proposalModel);
+                			});
+            			},
+            			error: function(result) {
+                			return alert("A query error occured");
+            			},
+            			className: 'UserList'
+        			});
 
 					this.actions.hide();
 				}
