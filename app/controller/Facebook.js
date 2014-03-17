@@ -36,12 +36,7 @@ Ext.define('testapp.controller.Facebook', {
         alert(FB.getUserID());
         // Ext.Viewport.add({ xtype: 'main' });
         // Ext.Viewport.setActiveItem({xtype: 'main'});
-        var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
-
-        testapp.view.session.Load.loadCourseList(parse, function() {
-            Ext.Viewport.add({ xtype: 'main' });
-            Ext.Viewport.setActiveItem(1);
-            // Ext.Viewport.setMasked(false);
-        });    
+        
+        Ext.Viewport.setActiveItem(1);
     }
 });
