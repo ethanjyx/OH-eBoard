@@ -2,6 +2,7 @@ Ext.define('testapp.view.LoggedOut', {
 	extend: 'Ext.Container',
 
 	xtype: 'loggedOut',
+	style: 'background-color:#CCCCCC',
 
 	config: {
 
@@ -13,6 +14,14 @@ Ext.define('testapp.view.LoggedOut', {
 				xtype: 'container',
 				cls: 'loginScreen',
 				items: [
+					{
+						xtype: 'image',
+						src: 'resources/images/OH-eBoard.png',
+						id: 'home_logo',
+						width: 365,
+						height: 130,
+						centered: true
+					},
 		            {
 		                xtype: 'image',
 		                src: 'resources/images/facebook-login-button.png',
@@ -20,8 +29,7 @@ Ext.define('testapp.view.LoggedOut', {
 		                cls: 'fbLogin',
 		                width: 246,
 		                height: 47,
-		                centered: true,
-		                top: '70%'
+		                centered: true
 		            // },
 		            // {
 		            // 	xtype: 'component',
