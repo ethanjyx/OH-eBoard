@@ -116,7 +116,7 @@ Ext.define('testapp.controller.Sessions', {
 
 		var session_add = this.getSessionAdd();
 
-		/*FB.api('me?fields=first_name,last_name', function(response) {
+		FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_add.saveRecord();
 	
 			record.holderName = response.first_name + ' ' + response.last_name;
@@ -131,13 +131,14 @@ Ext.define('testapp.controller.Sessions', {
 			ed.data.lastName = response.last_name;
 			ed.data.facebookId = response.id;
 			console.log(ed);
+			var objectId;
 			ed.save({
     			success: function(result) {
-    				testapp.controller.Sessions.thisObjectId = result.objectId;
+    				objectId = result.objectId;
         			console.log("Create new user " + testapp.controller.Sessions.thisObjectId);
         		}
     		});
-		});*/
+		});
 
 
 
@@ -175,7 +176,7 @@ Ext.define('testapp.controller.Sessions', {
 
         var session_join = this.getSessionJoin();
 
-		/*FB.api('me?fields=first_name,last_name', function(response) {
+		FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_join.saveRecord();
 	
 			record.firstName = response.first_name;
@@ -191,13 +192,17 @@ Ext.define('testapp.controller.Sessions', {
 			ed.data.lastName = response.last_name;
 			ed.data.facebookId = response.id;
 			console.log(ed);
+			var objectId;
 			ed.save({
     			success: function(result) {
-    				testapp.controller.Sessions.thisObjectId = result.objectId;
-        			console.log("Create new user");
+    				result.save();
+    				console.log(result);
+    				objectId = result.objectId;
+    				console.log(result.objectId);
+        			console.log("Create new user " + objectId);
         		}
     		});
-		});*/
+		});
 
         // Bind the record onto the edit contact view
         //TODO: set default value into the form.
@@ -216,6 +221,7 @@ Ext.define('testapp.controller.Sessions', {
 
         var record = this.getSessionJoin().saveRecord();
         console.log(record);
+
         console.log("Join save button " + this.session.courseObjectId);
 
         this.relation = {
