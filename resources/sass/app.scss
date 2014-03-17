@@ -38,6 +38,15 @@ h4 {
     margin-bottom: 0.3em;
 }
 
+table
+{
+    width:100%;
+}
+
+.nametag
+{
+    width:80%;
+}
 
 .x-list-item-label > .session {
 
@@ -148,6 +157,7 @@ h4 {
         margin-left: 60px;
     }
     .postag {
+        color: #999;
         margin-right: 60px;
     }
 }
