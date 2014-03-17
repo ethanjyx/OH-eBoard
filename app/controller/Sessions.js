@@ -51,7 +51,7 @@ Ext.define('testapp.controller.Sessions', {
 				itemtap: 'onSpeakerTap'
 			}
 		},
-		thisObjectId:null
+		thisObjectId: null
 	},
 
 	onMainPush: function(view, item) {
@@ -127,17 +127,19 @@ Ext.define('testapp.controller.Sessions', {
 			session_add.updateRecord(record);
 			
 			var ed = Ext.create('testapp.model.Speaker');
-			ed.setFirstName(response.first_name);
-			ed.setLastName(response.last_name);
-			ed.setFacebookId(response.id);
+			ed.data.firstName = "Sally";
+			ed.data.lastName = "Wei";
+			ed.data.facebookId = "123456778";
 			console.log(ed);
 			ed.save({
     			success: function(result) {
-    				testapp.controller.Sessions.setThisObjectId(result.objectId);
-        			console.log("Create new user " + record.first_name + ' ' + record.last_name);
+    				testapp.controller.Sessions.thisObjectId = result.objectId;
+        			console.log("Create new user");
         		}
     		});
 		});
+
+
 
         // Bind the record onto the edit contact view
         //TODO: set default value into the form.
@@ -185,14 +187,14 @@ Ext.define('testapp.controller.Sessions', {
 			session_join.updateRecord(record);
 
 			var ed = Ext.create('testapp.model.Speaker');
-			ed.setFirstName(response.first_name);
-			ed.setLastName(response.last_name);
-			ed.setFacebookId(response.id);
+			ed.data.firstName = "Sally";
+			ed.data.lastName = "Wei";
+			ed.data.facebookId = "123456778";
 			console.log(ed);
 			ed.save({
     			success: function(result) {
-    				testapp.controller.Sessions.setThisObjectId(result.objectId);
-        			console.log("Create new user " + record.first_name + ' ' + record.last_name);
+    				testapp.controller.Sessions.thisObjectId = result.objectId;
+        			console.log("Create new user");
         		}
     		});
 		});
@@ -220,7 +222,7 @@ Ext.define('testapp.controller.Sessions', {
         this.relation = {
         	waitingList : {
         		__op : "AddRelation",
-        		objects: [{__type:"Pointer", className:"_User", objectId:this.studentObjectId}]
+        		objects: [{__type:"Pointer", className:"User", objectId:this.studentObjectId}]
         	}
         };
 
@@ -236,6 +238,19 @@ Ext.define('testapp.controller.Sessions', {
             },
             className: 'courseOH/' + this.courseObjectId
         });
+
+        this.updatePosition = {position : record.position};
+        parse.update({
+        	object: this.updatePosition,
+            success: function(result) {
+                console.log('Join in course');
+            },
+            error: function(result) {
+                return alert("A query error occured");
+            },
+            className: 'User',
+            objectId: testapp.controller.Sessions.thisObjectId
+        });       
 
 		testapp.view.session.Load.loadCourseList(function(){});
         this.getSessionContainer().pop();

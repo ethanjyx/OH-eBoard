@@ -76,15 +76,16 @@
     Parse.prototype.update = function(args) {
       return Ext.Ajax.request({
         url: this.endpoint + args.className + '/' + args.objectId,
-        method: 'POST',
+        method: 'PUT',
         jsonData: args.object,
-        success: (function(result) {
+        success: function(result) {
           return args.success(JSON.parse(result.responseText));
-        }),
+        },
         error: args.error,
         headers: {
-          Authorization: "Basic " + (Base64.encode(this.applicationId + ":" + this.masterKey)),
-          'X-HTTP-Method-Override': 'PUT'
+          'X-Parse-Application-Id' : this.applicationId,
+          'X-Parse-REST-API-Key' : this.masterKey,
+          'Content-Type' : 'application/json'
         }
       });
     };
