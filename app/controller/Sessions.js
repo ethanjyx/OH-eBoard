@@ -159,11 +159,13 @@ Ext.define('testapp.controller.Sessions', {
         record.numberServed = 0;
 		var ed = Ext.create('testapp.model.Session', record);
 		console.log(ed);
+		var that = this;
 		ed.save({
     		success: function(result) {
         		console.log("Create new OH session " + record.courseSubject + ' ' + record.courseNumber);
         		testapp.view.session.Load.loadCourseList(function(){
-});
+        			that.getSessionContainer().pop();
+				});
         	}
     	});
 
@@ -174,7 +176,7 @@ Ext.define('testapp.controller.Sessions', {
 
 
 		console.log(Ext.getStore('Sessions'));
-        this.getSessionContainer().pop();
+        
     },
 
     onJoinButton: function() {
@@ -432,7 +434,7 @@ Ext.define('testapp.controller.Sessions', {
                 	    className: 'UserList'
                 	});
 
-					
+					this.actions.hide();
 				}
 			},
 			{

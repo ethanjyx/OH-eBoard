@@ -56,7 +56,7 @@ Ext.define('testapp.view.session.Add', {
                             {
                                 xtype: 'textfield',
                                 label: 'End Time',
-                                name: 'endTIme'
+                                name: 'endTime'
                             },
                             {
                                 xtype: 'textfield',
