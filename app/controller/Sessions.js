@@ -131,12 +131,14 @@ Ext.define('testapp.controller.Sessions', {
 			ed.data.lastName = "Wei";
 			ed.data.facebookId = "123456778";
 			console.log(ed);
+			var objectId;
 			ed.save({
     			success: function(result) {
-    				testapp.controller.Sessions.thisObjectId = result.objectId;
+    				objectId = result.objectId;
         			console.log("Create new user " + testapp.controller.Sessions.thisObjectId);
         		}
     		});
+    		this.thisObjectId = objectId;
 		});
 
 
@@ -191,12 +193,14 @@ Ext.define('testapp.controller.Sessions', {
 			ed.data.lastName = "Wei";
 			ed.data.facebookId = "123456778";
 			console.log(ed);
+			var objectId;
 			ed.save({
     			success: function(result) {
-    				testapp.controller.Sessions.thisObjectId = result.objectId;
+    				objectId = result.objectId;
         			console.log("Create new user");
         		}
     		});
+    		this.thisObjectId = objectId;
 		});
 
         // Bind the record onto the edit contact view
@@ -216,7 +220,7 @@ Ext.define('testapp.controller.Sessions', {
 
         var record = this.getSessionJoin().saveRecord();
         console.log(record);
-        console.log("Join save button " + testapp.controller.Sessions.thisObjectId);
+        console.log("Join save button " + this.thisObjectId);
 
 		this.courseObjectId = 'ie5m1ivyxu';
         this.relation = {
