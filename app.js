@@ -129,7 +129,7 @@ Ext.application({
         /*
         var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
 
-        testapp.view.session.Load.loadCourseList(parse, function() {
+        testapp.view.session.Load.loadCourseList(function() {
             Ext.Viewport.add({ xtype: 'main' });
             // Ext.Viewport.setActiveItem(0);
             // Ext.Viewport.setMasked(false);

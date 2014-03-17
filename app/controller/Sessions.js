@@ -137,12 +137,21 @@ Ext.define('testapp.controller.Sessions', {
     },
 
     onSaveButtonAdd: function() {
-
-    	//TODO: add the new session into database
-        //var record = this.getEditContact().saveRecord();
+        //TODO: add the new session into database
+        var record = this.getSessionAdd().saveRecord();
+        console.log(record);
 
         //this.getShowContact().updateRecord(record);
 
+		var ed = Ext.create('testapp.model.Session', record);
+		console.log(ed);
+		ed.save({
+    		success: function(result) {
+        		console.log("Create new OH session " + record.courseSubject + ' ' + record.courseNumber);
+        	}
+    	});
+
+		testapp.view.session.Load.loadCourseList(function(){});
         this.getSessionContainer().pop();
     },
 
@@ -180,23 +189,44 @@ Ext.define('testapp.controller.Sessions', {
 
         //this.getShowContact().updateRecord(record);
 
+        var record = this.getSessionJoin().saveRecord();
+        console.log(record);
+
+		var ed = Ext.create('testapp.model.Speaker', record);
+		ed.setCourseObjectId = 'AgVePxz6Tj';
+		console.log(ed);
+
+		ed.save({
+    		success: function(result) {
+        		console.log("Join queue " + record.courseSubject + ' ' + record.courseNumber);
+        	}
+    	});
+
+		testapp.view.session.Load.loadCourseList(function(){});
         this.getSessionContainer().pop();
     },
 
 	onSessionTap: function(list, idx, el, record) {
-		var speakerStore = Ext.getStore('SessionSpeakers'),
+		/*var speakerStore = Ext.getStore('SessionSpeakers'),
 			speakerIds = record.get('speakerIds');
 
 		speakerStore.clearFilter(true);
 		speakerStore.filterBy(function(speaker) {
 			return Ext.Array.contains(speakerIds, speaker.get('id'));
+		});*/
+
+		var speakerStore = Ext.getStore('SessionSpeakers');
+		speakerStore.removeAll();
+		Ext.Array.each(record.waitingList, function(proposal) {
+		    proposalModel = Ext.create('testapp.model.Speaker', proposal);
+	        speakerStore.add(proposalModel);
 		});
 
 		if (!this.session) {
 			this.session = Ext.widget('session');
 		}
 
-		this.session.setTitle(record.get('title'));
+		this.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
 		this.getSessionContainer().push(this.session);
 		//this.getSessionInfo().setRecord(record);
 	},

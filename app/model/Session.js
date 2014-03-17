@@ -21,9 +21,47 @@ Ext.define('testapp.model.Session', {
 			'speakerIds',
 			'description',
 			'proposal_type'*/
+			'objectId',
 			'courseSubject',
-			'courseNumber'
-		]
+			'courseNumber',
+			'holderName',
+
+			'startTime',
+			'endTime',
+			'location',
+
+			{
+				name: 'waitingList',
+				convert: function(value, record) {
+                	if (value) {
+                    	if (value instanceof Array) {
+                        	return value;
+                    	} else {
+                        	return [value]; // Convert to an Array 
+                    	}
+                	}
+
+                	return value;
+            	}
+            },
+            'numberServed'
+		],
+
+		proxy: {
+            type: 'rest',
+            useDefaultXhrHeader: false,
+            url: 'https://api.parse.com/1/classes/courseOH',
+            headers: {
+                'X-Parse-Application-Id' : "Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", 
+                'X-Parse-REST-API-Key' : "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g",
+                'Content-Type' : 'application/json'
+            },
+            format: 'json',
+            reader: {
+                type: 'json',
+                rootProperty: 'results'
+            }
+        }
 	}
 });
 
