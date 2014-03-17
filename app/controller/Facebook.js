@@ -33,10 +33,12 @@ Ext.define('testapp.controller.Facebook', {
     },
 
     onFacebookConnected: function() {
-        alert(FB.getUserID());
         // Ext.Viewport.add({ xtype: 'main' });
         // Ext.Viewport.setActiveItem({xtype: 'main'});
+        testapp.view.session.Load.loadCourseList(function() {
+            Ext.Viewport.add({ xtype: 'main' });
+            Ext.Viewport.setActiveItem(1);
+        });
         
-        Ext.Viewport.setActiveItem(1);
     }
 });
