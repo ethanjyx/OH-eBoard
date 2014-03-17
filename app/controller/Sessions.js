@@ -196,7 +196,9 @@ Ext.define('testapp.controller.Sessions', {
 			var objectId;
 			ed.save({
     			success: function(result) {
+    				console.log(result);
     				objectId = result.objectId;
+    				console.log(result.objectId);
         			console.log("Create new user " + objectId);
         		}
     		});
