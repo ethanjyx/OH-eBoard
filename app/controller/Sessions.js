@@ -50,7 +50,8 @@ Ext.define('testapp.controller.Sessions', {
 			speakers: {
 				itemtap: 'onSpeakerTap'
 			}
-		}
+		},
+		thisObjectId:null
 	},
 
 	onMainPush: function(view, item) {
@@ -115,7 +116,7 @@ Ext.define('testapp.controller.Sessions', {
 
 		var session_add = this.getSessionAdd();
 
-		/*FB.api('me?fields=first_name,last_name', function(response) {
+		FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_add.saveRecord();
 	
 			record.holderName = response.first_name + ' ' + response.last_name;
@@ -125,15 +126,18 @@ Ext.define('testapp.controller.Sessions', {
 			//alert(record.holderName);
 			session_add.updateRecord(record);
 			
-			/*var ed = Ext.create('testapp.model.Speaker',{first});
-			this.setUrl('https://api.parse.com/1/users');
+			var ed = Ext.create('testapp.model.Speaker');
+			ed.setFirstName(response.first_name);
+			ed.setLastName(response.last_name);
+			ed.setFacebookId(response.id);
 			console.log(ed);
 			ed.save({
     			success: function(result) {
-        			console.log("Create new user " +  + ' ' + record.last);
+    				testapp.controller.Sessions.setThisObjectId(result.objectId);
+        			console.log("Create new user " + record.first_name + ' ' + record.last_name);
         		}
     		});
-		});*/
+		});
 
         // Bind the record onto the edit contact view
         //TODO: set default value into the form.
@@ -169,7 +173,7 @@ Ext.define('testapp.controller.Sessions', {
 
         var session_join = this.getSessionJoin();
 
-		/*FB.api('me?fields=first_name,last_name', function(response) {
+		FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_join.saveRecord();
 	
 			record.firstName = response.first_name;
@@ -179,7 +183,19 @@ Ext.define('testapp.controller.Sessions', {
 			//reponse.id
 			//alert(record.holderName);
 			session_join.updateRecord(record);
-		});*/
+
+			var ed = Ext.create('testapp.model.Speaker');
+			ed.setFirstName(response.first_name);
+			ed.setLastName(response.last_name);
+			ed.setFacebookId(response.id);
+			console.log(ed);
+			ed.save({
+    			success: function(result) {
+    				testapp.controller.Sessions.setThisObjectId(result.objectId);
+        			console.log("Create new user " + record.first_name + ' ' + record.last_name);
+        		}
+    		});
+		});
 
         // Bind the record onto the edit contact view
         //TODO: set default value into the form.
