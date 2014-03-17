@@ -127,9 +127,9 @@ Ext.define('testapp.controller.Sessions', {
 			session_add.updateRecord(record);
 			
 			var ed = Ext.create('testapp.model.Speaker');
-			ed.data.firstName = "Sally";
-			ed.data.lastName = "Wei";
-			ed.data.facebookId = "123456778";
+			ed.data.firstName = response.first_name;
+			ed.data.lastName = response.last_name;
+			ed.data.facebookId = response.id;
 			console.log(ed);
 			ed.save({
     			success: function(result) {
@@ -187,9 +187,9 @@ Ext.define('testapp.controller.Sessions', {
 			session_join.updateRecord(record);
 
 			var ed = Ext.create('testapp.model.Speaker');
-			ed.data.firstName = "Sally";
-			ed.data.lastName = "Wei";
-			ed.data.facebookId = "123456778";
+			ed.data.firstName = response.first_name;
+			ed.data.lastName = response.last_name;
+			ed.data.facebookId = response.id;
 			console.log(ed);
 			ed.save({
     			success: function(result) {
