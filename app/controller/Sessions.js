@@ -116,7 +116,7 @@ Ext.define('testapp.controller.Sessions', {
 
 		var session_add = this.getSessionAdd();
 
-		FB.api('me?fields=first_name,last_name', function(response) {
+		/*FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_add.saveRecord();
 	
 			record.holderName = response.first_name + ' ' + response.last_name;
@@ -137,7 +137,7 @@ Ext.define('testapp.controller.Sessions', {
         			console.log("Create new user " + testapp.controller.Sessions.thisObjectId);
         		}
     		});
-		});
+		});*/
 
 
 
@@ -155,7 +155,7 @@ Ext.define('testapp.controller.Sessions', {
         console.log(record);
 
         //this.getShowContact().updateRecord(record);
-
+        record.numberServed = 0;
 		var ed = Ext.create('testapp.model.Session', record);
 		console.log(ed);
 		ed.save({
@@ -175,7 +175,7 @@ Ext.define('testapp.controller.Sessions', {
 
         var session_join = this.getSessionJoin();
 
-		FB.api('me?fields=first_name,last_name', function(response) {
+		/*FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_join.saveRecord();
 	
 			record.firstName = response.first_name;
@@ -197,7 +197,7 @@ Ext.define('testapp.controller.Sessions', {
         			console.log("Create new user");
         		}
     		});
-		});
+		});*/
 
         // Bind the record onto the edit contact view
         //TODO: set default value into the form.
@@ -216,9 +216,8 @@ Ext.define('testapp.controller.Sessions', {
 
         var record = this.getSessionJoin().saveRecord();
         console.log(record);
-        console.log("Join save button " + testapp.controller.Sessions.thisObjectId);
+        console.log("Join save button " + this.session.courseObjectId);
 
-		this.courseObjectId = 'ie5m1ivyxu';
         this.relation = {
         	waitingList : {
         		__op : "AddRelation",
@@ -236,7 +235,7 @@ Ext.define('testapp.controller.Sessions', {
             error: function(result) {
                 return alert("A query error occured");
             },
-            className: 'courseOH/' + this.courseObjectId
+            className: 'courseOH/' + this.session.courseObjectId
         });
 
         this.updatePosition = {position : record.position};
@@ -267,6 +266,34 @@ Ext.define('testapp.controller.Sessions', {
 
 		var speakerStore = Ext.getStore('SessionSpeakers');
 		speakerStore.removeAll();
+
+		/*curl -X GET \
+  -H "X-Parse-Application-Id: APP_ID" \
+  -H "X-Parse-REST-API-Key: REST_API_KEY" \
+  -G \
+  --data-urlencode 'where={"$relatedTo":{"object":{"__type":"Pointer","className":"JFEvent","objectId":"8TOXdXf3tz"},"key":"attendingUsers"}}' \
+  https://api.parse.com/1/users
+
+
+
+          parse.query({
+            success: function(result) {
+                console.log('Get waiting list from server');
+                for(var i = 0; i < result.results.length; i++) {
+                    console.log(result.results[i].courseSubject + ' ' + result.results[i].courseNumber + result.waitingList);
+                }
+
+                Ext.Array.each(result.results, function(proposal) {
+                    proposalModel = Ext.create('testapp.model.Session', proposal);
+                    speakerStore.add(proposalModel);
+                });
+            },
+            error: function(result) {
+                return alert("A query error occured");
+            },
+            className: 'courseOH'
+        });*/
+
 		Ext.Array.each(record.waitingList, function(proposal) {
 		    proposalModel = Ext.create('testapp.model.Speaker', proposal);
 	        speakerStore.add(proposalModel);
@@ -277,8 +304,9 @@ Ext.define('testapp.controller.Sessions', {
 		}
 
 		this.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
+		this.session.courseObjectId = record.get('objectId');
 		this.getSessionContainer().push(this.session);
-		//this.getSessionInfo().setRecord(record);
+		this.getSessionInfo().setRecord(record);
 	},
 
 	onSpeakerTap: function(list, idx, el, record) {
