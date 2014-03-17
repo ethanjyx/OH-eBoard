@@ -20,7 +20,7 @@ Ext.define('testapp.view.session.Add', {
                     {
                         xtype: 'fieldset',
                         defaults: {
-                            labelWidth: '35%'
+                            labelWidth: '50%'
                         },
                         title: 'Course',
                         items: [
@@ -44,7 +44,7 @@ Ext.define('testapp.view.session.Add', {
                     {
                         xtype: 'fieldset',
                         defaults: {
-                            labelWidth: '35%'
+                            labelWidth: '50%'
                         },
                         title: 'Information',
                         items: [

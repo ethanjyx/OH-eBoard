@@ -25,7 +25,7 @@ Ext.define('testapp.view.session.Detail', {
             {
                 xtype: 'component',
                 cls: 'dark',
-                html: 'Speakers'
+                html: 'Students'
             },
 			{
                 flex: 2,

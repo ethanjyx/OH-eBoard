@@ -17,11 +17,10 @@ Ext.define('testapp.view.session.Card', {
                     docked: 'right',
                     xtype: 'button',
                     iconCls: 'time',
-                    id: 'historyButton',
                     hidden: true
                 }]
             } : false,
-            ui: (Ext.theme.name == "Blackberry") ? 'light' : 'sencha',
+            //ui: (Ext.theme.name == "Blackberry") ? 'light' : 'sencha',
             items: [
                 {
                     xtype: 'button',

@@ -12,10 +12,13 @@ Ext.define('testapp.view.Main', {
 
 		items: [
 			{ xclass: 'testapp.view.session.Card' },
-			{ xclass: 'testapp.view.speaker.Card' },
+			{ xclass: 'testapp.view.speaker.Card' }
+/*
+			,
 			{ xclass: 'testapp.view.Tweets'   },
 			{ xclass: 'testapp.view.Location' },
 			{ xclass: 'testapp.view.about.Card'    }
+			*/
 		]
 	}
 });
