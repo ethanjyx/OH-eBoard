@@ -33,8 +33,7 @@ Ext.define('testapp.model.Session', {
 			'waitingList',
             'numberServed'
 		],
-
-		proxy: {
+        proxy: {
             type: 'rest',
             useDefaultXhrHeader: false,
             url: 'https://api.parse.com/1/classes/courseOH',
@@ -43,7 +42,9 @@ Ext.define('testapp.model.Session', {
                 'X-Parse-REST-API-Key' : "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g",
                 'Content-Type' : 'application/json'
             },
-            format: 'json',
+            writer: {
+                type: 'json'
+            },
             reader: {
                 type: 'json',
                 rootProperty: 'results'

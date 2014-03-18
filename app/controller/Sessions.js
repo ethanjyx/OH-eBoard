@@ -158,24 +158,33 @@ Ext.define('testapp.controller.Sessions', {
         //this.getShowContact().updateRecord(record);
         record.numberServed = 0;
 		var ed = Ext.create('testapp.model.Session', record);
-		console.log(ed);
 		var that = this;
-		ed.save({
+		/*ed.save({
     		success: function(result) {
         		console.log("Create new OH session " + record.courseSubject + ' ' + record.courseNumber);
         		testapp.view.session.Load.loadCourseList(function(){
         			that.getSessionContainer().pop();
 				});
         	}
-    	});
+    	});*/
+
+		var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+		parse.create({
+            object: ed.data,
+            success: function(result) { 
+                console.log("objectId created " + ed.data.objectId);
+                testapp.view.session.Load.loadCourseList(function(){that.getSessionContainer().pop()});
+            },
+            error: function(result) {
+                return console.log("A creation error occured");
+            },
+            className: 'courseOH'
+        });
 
         		/*var sessionStore = Ext.getStore('Sessions');
 				var proposalModel = Ext.create('testapp.model.Session', record);
 				sessionStore.add(proposalModel);
 				console.log(sessionStore);*/
-
-
-		console.log(Ext.getStore('Sessions'));
         
     },
 
