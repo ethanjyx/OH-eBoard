@@ -9,7 +9,9 @@ Ext.define('testapp.model.Speaker', {
 			'firstName',
 			'lastName',
 			'position'
-		],
+		]
+/*
+		,
 
 		proxy: {
             type: 'rest',
@@ -26,6 +28,7 @@ Ext.define('testapp.model.Speaker', {
                 rootProperty: 'results'
             }
         }
+*/
 	},
 
 	getFullName: function() {
