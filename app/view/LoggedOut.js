@@ -16,10 +16,10 @@ Ext.define('testapp.view.LoggedOut', {
 				items: [
 					{
 						xtype: 'image',
-						src: 'resources/images/homescreen.png',
+						src: 'resources/images/OH-eBoard_original.png',
 						id: 'home_logo',
-						width: 300,
-						height: 358,
+						width: 243,
+						height: 79,
 						centered: true,
 						style: 'position:relative;'
 					},
