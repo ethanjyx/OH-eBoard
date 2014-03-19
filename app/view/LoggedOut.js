@@ -2,7 +2,7 @@ Ext.define('testapp.view.LoggedOut', {
 	extend: 'Ext.Container',
 
 	xtype: 'loggedOut',
-	//style: 'background-color:#CCCCCC',
+	style: 'background-color:#ffffff',
 
 	config: {
 
@@ -18,10 +18,10 @@ Ext.define('testapp.view.LoggedOut', {
 						xtype: 'image',
 						src: 'resources/images/homescreen.png',
 						id: 'home_logo',
-						width: 419,
-						height: 500,
+						width: 300,
+						height: 358,
 						centered: true,
-						style: 'position:relative; top:-50px; '
+						style: 'position:relative;'
 					},
 		            {
 		                xtype: 'image',
@@ -31,7 +31,7 @@ Ext.define('testapp.view.LoggedOut', {
 		                width: 246,
 		                height: 47,
 		                centered: true,
-		                style: 'position:relative; top:60px; '
+		                style: 'position:relative; top:90px; '
 		            // },
 		            // {
 		            // 	xtype: 'component',
