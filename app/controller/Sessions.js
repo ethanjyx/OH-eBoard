@@ -116,6 +116,8 @@ Ext.define('testapp.controller.Sessions', {
 
 		var session_add = this.getSessionAdd();
 
+		var that = this;
+
 		FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_add.saveRecord();
 			//response = {"id":"445566", "first_name":"sure", "last_name":"Yanggg"};	
@@ -135,7 +137,6 @@ Ext.define('testapp.controller.Sessions', {
 			ed.data.facebookId = response.id;
 			ed.data.id = response.id;
 			console.log(ed);
-			var that = this;
 			/*ed.save({
     			success: function(result) {
     				result.save();
@@ -217,6 +218,8 @@ Ext.define('testapp.controller.Sessions', {
 
         var session_join = this.getSessionJoin();
 
+		var that = this;
+
 		FB.api('me?fields=first_name,last_name', function(response) {
 			//response = {"id":"445566", "first_name":"sure", "last_name":"Yanggg"};
 			var record = session_join.saveRecord();
@@ -237,7 +240,6 @@ Ext.define('testapp.controller.Sessions', {
 			ed.data.facebookId = response.id;
 			ed.data.id = response.id;
 			console.log(ed);
-			var that = this;
 			/*ed.save({
     			success: function(result) {
     				result.save();
