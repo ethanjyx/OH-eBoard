@@ -158,6 +158,7 @@ Ext.define('testapp.controller.Sessions', {
         //this.getShowContact().updateRecord(record);
         record.numberServed = 0;
 		var ed = Ext.create('testapp.model.Session', record);
+		ed.data.id = ed.data.courseSubject + ed.data.courseName + ed.data.holderName;
 		var that = this;
 		/*ed.save({
     		success: function(result) {
