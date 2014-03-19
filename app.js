@@ -111,8 +111,8 @@ Ext.application({
         /*
         testapp.view.session.Load.loadCourseList(function() {
             Ext.Viewport.add({ xtype: 'main' });
-        });
-        */
+        });*/
+        
         // Ext.Viewport.setMasked({ xtype: 'loadmask' });
         
         

@@ -51,7 +51,7 @@ Ext.define('testapp.controller.Sessions', {
 				itemtap: 'onSpeakerTap'
 			}
 		},
-		thisObjectId: null
+		thisUserObjectId: null
 	},
 
 	onMainPush: function(view, item) {
@@ -116,29 +116,50 @@ Ext.define('testapp.controller.Sessions', {
 
 		var session_add = this.getSessionAdd();
 
-		/*FB.api('me?fields=first_name,last_name', function(response) {
+		FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_add.saveRecord();
-	
+			//response = {"id":"445566", "first_name":"sure", "last_name":"Yanggg"};	
 			record.holderName = response.first_name + ' ' + response.last_name;
+
 			//record.holderName = "lalala";
 			//alert(response.first_name);
 			//reponse.id
 			//alert(record.holderName);
 			session_add.updateRecord(record);
 			
+			if(!this.userObjectId)
+			{
 			var ed = Ext.create('testapp.model.Speaker');
 			ed.data.firstName = response.first_name;
 			ed.data.lastName = response.last_name;
 			ed.data.facebookId = response.id;
+			ed.data.id = response.id;
 			console.log(ed);
-			var objectId;
-			ed.save({
+			var that = this;
+			/*ed.save({
     			success: function(result) {
-    				objectId = result.objectId;
-        			console.log("Create new user " + testapp.controller.Sessions.thisObjectId);
+    				result.save();
+    				console.log(result);
+    				that.userObjectId = result.objectId;
+    				console.log(result.objectId);
+        			console.log("Create new user " + that.userObjectId);
         		}
-    		});
-		});*/
+    		});*/
+
+    		var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+			parse.create({
+            	object: ed.data,
+            	success: function(result) {
+                  	that.userObjectId = result.objectId;
+                	console.log("objectId created " + that.userObjectId);
+            	},
+            	error: function(result) {
+                	return console.log("A creation error occured");
+            	},
+            	className: 'User'
+        	});
+			}
+		});
 
 
 
@@ -158,7 +179,7 @@ Ext.define('testapp.controller.Sessions', {
         //this.getShowContact().updateRecord(record);
         record.numberServed = 0;
 		var ed = Ext.create('testapp.model.Session', record);
-		ed.data.id = ed.data.courseSubject + ed.data.courseName + ed.data.holderName;
+		ed.data.id = ed.data.courseSubject + ed.data.courseNumber + ed.data.holderName;
 		var that = this;
 		/*ed.save({
     		success: function(result) {
@@ -197,7 +218,7 @@ Ext.define('testapp.controller.Sessions', {
         var session_join = this.getSessionJoin();
 
 		FB.api('me?fields=first_name,last_name', function(response) {
-			//response = {"id":"123", "first_name":"Shuo", "last_name":"Yang"};
+			//response = {"id":"445566", "first_name":"sure", "last_name":"Yanggg"};
 			var record = session_join.saveRecord();
 	
 			record.firstName = response.first_name;
@@ -208,23 +229,38 @@ Ext.define('testapp.controller.Sessions', {
 			//alert(record.holderName);
 			session_join.updateRecord(record);
 
-/*
+			if(!this.userObjectId)
+			{
 			var ed = Ext.create('testapp.model.Speaker');
 			ed.data.firstName = response.first_name;
 			ed.data.lastName = response.last_name;
 			ed.data.facebookId = response.id;
+			ed.data.id = response.id;
 			console.log(ed);
-			var objectId;
-			ed.save({
+			var that = this;
+			/*ed.save({
     			success: function(result) {
     				result.save();
     				console.log(result);
-    				objectId = result.objectId;
+    				that.userObjectId = result.objectId;
     				console.log(result.objectId);
-        			console.log("Create new user " + objectId);
+        			console.log("Create new user " + that.userObjectId);
         		}
-    		});
-*/
+    		});*/
+
+    		var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+			parse.create({
+            	object: ed.data,
+            	success: function(result) {
+                  	that.userObjectId = result.objectId;
+                	console.log("objectId created " + that.userObjectId);
+            	},
+            	error: function(result) {
+                	return console.log("A creation error occured");
+            	},
+            	className: 'User'
+        	});
+			}
 		});
 
         // Bind the record onto the edit contact view
@@ -265,6 +301,7 @@ Ext.define('testapp.controller.Sessions', {
             success: function(result) {
                 console.log('Join in course: ' + result);
                 console.log(result);
+
             },
             error: function(result) {
                 console.log("A query error occured " + result);
@@ -300,18 +337,20 @@ Ext.define('testapp.controller.Sessions', {
                 });
 		*/
 
-        /*this.updatePosition = {position : record.position};
+        this.updatePosition = {position : record.position};
         parse.update({
         	object: this.updatePosition,
             success: function(result) {
-                console.log('Join in course');
+                console.log('Update position');
+                Ext.getStore('SessionSpeakers').add(
+                	Ext.create('testapp.model.Speaker', record));
             },
             error: function(result) {
                 return alert("A query error occured");
             },
             className: 'User',
             objectId: this.userObjectId
-        });*/       
+        });       
 
 		//this.loadWaitingList(function(){});
 
