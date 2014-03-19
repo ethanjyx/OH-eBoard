@@ -195,7 +195,8 @@ Ext.define('testapp.controller.Sessions', {
 
         var session_join = this.getSessionJoin();
 
-		/*FB.api('me?fields=first_name,last_name', function(response) {
+		FB.api('me?fields=first_name,last_name', function(response) {
+			//response = {"id":"123", "first_name":"Shuo", "last_name":"Yang"};
 			var record = session_join.saveRecord();
 	
 			record.firstName = response.first_name;
@@ -206,6 +207,7 @@ Ext.define('testapp.controller.Sessions', {
 			//alert(record.holderName);
 			session_join.updateRecord(record);
 
+/*
 			var ed = Ext.create('testapp.model.Speaker');
 			ed.data.firstName = response.first_name;
 			ed.data.lastName = response.last_name;
@@ -221,7 +223,8 @@ Ext.define('testapp.controller.Sessions', {
         			console.log("Create new user " + objectId);
         		}
     		});
-		});*/
+*/
+		});
 
         // Bind the record onto the edit contact view
         //TODO: set default value into the form.
@@ -244,28 +247,32 @@ Ext.define('testapp.controller.Sessions', {
         console.log("Join save button " + this.session.courseObjectId);
 
         var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
-        //this.userObjectId = 'RF6hZI5xv0';
-        /*this.relation = {
+        
+        // this.userObjectId = "gIT8Sl6Jkb";
+        
+        var relation = {
         	waitingList : {
         		__op : "AddRelation",
         		objects: [{__type:"Pointer", className:"User", objectId:this.userObjectId}]
         	}
         };
 
- 
+ 		console.log(relation);
 
         parse.addToRelation({
-        	object: this.relation,
+        	object: relation,
             success: function(result) {
-                console.log('Join in course');
+                console.log('Join in course: ' + result);
+                console.log(result);
             },
             error: function(result) {
-                return alert("A query error occured");
+                console.log("A query error occured " + result);
             },
             className: 'courseOH/' + this.session.courseObjectId
-        });*/
+        });
 
 		// add a user in UserList
+		/*
 		this.lastObject = {
 			firstName: record.firstName,
 			lastName: record.lastName,
@@ -290,6 +297,7 @@ Ext.define('testapp.controller.Sessions', {
                     },
                     className: 'UserList'
                 });
+		*/
 
         /*this.updatePosition = {position : record.position};
         parse.update({
@@ -347,16 +355,22 @@ Ext.define('testapp.controller.Sessions', {
 		var speakerStore = Ext.getStore('SessionSpeakers');
 		speakerStore.removeAll();
 
-		/*curl -X GET \
-  -H "X-Parse-Application-Id: APP_ID" \
-  -H "X-Parse-REST-API-Key: REST_API_KEY" \
-  -G \
-  --data-urlencode 'where={"$relatedTo":{"object":{"__type":"Pointer","className":"JFEvent","objectId":"8TOXdXf3tz"},"key":"attendingUsers"}}' \
-  https://api.parse.com/1/users*/
+  		var queryCourseWaitlist = {
+  			$relatedTo:{
+  				object:{
+  					__type:"Pointer",
+  					className:"courseOH",
+  					objectId:record.data.objectId
+  				},
+  				key:"waitingList"
+  			}
+  		}
+  		query_params = "where=" + JSON.stringify(queryCourseWaitlist);
+  		console.log(query_params);
 
         var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
-
-          parse.query({
+        var that = this;
+        parse.query({
             success: function(result) {
                 console.log('Get waiting list from server');
                 for(var i = 0; i < result.results.length; i++) {
@@ -367,26 +381,27 @@ Ext.define('testapp.controller.Sessions', {
                     proposalModel = Ext.create('testapp.model.Speaker', proposal);
                     speakerStore.add(proposalModel);
                 });
+
+                if (!that.session) {
+					that.session = Ext.widget('session');
+				}
+
+				that.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
+				that.session.courseObjectId = record.get('objectId');
+				that.getSessionContainer().push(that.session);
+				that.getSessionInfo().setRecord(record);
             },
             error: function(result) {
                 return alert("A query error occured");
             },
-            className: 'UserList'
+            className: 'User',
+            params: query_params
         });
 
 		/*Ext.Array.each(record.waitingList, function(proposal) {
 		    proposalModel = Ext.create('testapp.model.Speaker', proposal);
 	        speakerStore.add(proposalModel);
 		});*/
-
-		if (!this.session) {
-			this.session = Ext.widget('session');
-		}
-
-		this.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
-		this.session.courseObjectId = record.get('objectId');
-		this.getSessionContainer().push(this.session);
-		this.getSessionInfo().setRecord(record);
 	},
 
 	onSpeakerTap: function(list, idx, el, record) {

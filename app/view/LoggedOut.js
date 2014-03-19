@@ -16,11 +16,12 @@ Ext.define('testapp.view.LoggedOut', {
 				items: [
 					{
 						xtype: 'image',
-						src: 'resources/images/OH-eBoard.png',
+						src: 'resources/images/homescreen.png',
 						id: 'home_logo',
-						width: 243,
-						height: 79,
-						centered: true
+						width: 419,
+						height: 500,
+						centered: true,
+						style: 'position:relative; top:-50px; '
 					},
 		            {
 		                xtype: 'image',
@@ -30,7 +31,7 @@ Ext.define('testapp.view.LoggedOut', {
 		                width: 246,
 		                height: 47,
 		                centered: true,
-		                style: 'position:relative; top:130px; '
+		                style: 'position:relative; top:60px; '
 		            // },
 		            // {
 		            // 	xtype: 'component',

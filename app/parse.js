@@ -59,12 +59,16 @@
     };
 
     Parse.prototype.query = function(args) {
+      var request_url = this.endpoint + args.className;
+      if ('params' in args)
+        request_url = request_url + '?' + encodeURIComponent(args.params);
       return Ext.Ajax.request({
-        url: this.endpoint + args.className,
+        url: request_url,
         method: 'GET',
         success: function(result) {
           return args.success(JSON.parse(result.responseText));
         },
+        //params: args.query_params,
         error: args.error,
         headers: {
           'X-Parse-Application-Id' : this.applicationId,
