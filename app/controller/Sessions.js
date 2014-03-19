@@ -51,7 +51,7 @@ Ext.define('testapp.controller.Sessions', {
 				itemtap: 'onSpeakerTap'
 			}
 		},
-		thisUserObjectId: null
+		userObjectId: null
 	},
 
 	onMainPush: function(view, item) {
@@ -285,8 +285,6 @@ Ext.define('testapp.controller.Sessions', {
 
         var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
         
-        // this.userObjectId = "gIT8Sl6Jkb";
-        
         var relation = {
         	waitingList : {
         		__op : "AddRelation",
@@ -296,7 +294,7 @@ Ext.define('testapp.controller.Sessions', {
 
  		console.log(relation);
 
-        parse.addToRelation({
+        parse.updateRelation({
         	object: relation,
             success: function(result) {
                 console.log('Join in course: ' + result);
@@ -463,40 +461,28 @@ Ext.define('testapp.controller.Sessions', {
 					//TODO: put the current one into history!
 			        console.log(record);
 
-        			var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
-					parse.deletedata({
-						objectId: record.data.objectId,
-    	                success: function(result) { 
-            	            console.log("objectId deleted " + record.data.objectId);
-            	            var speakerStore = Ext.getStore('SessionSpeakers');
-							speakerStore.removeAll();
+					var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+					var relation = {
+						waitingList : {
+							__op : "RemoveRelation",
+							objects: [{__type:"Pointer", className:"User", objectId:record.data.objectId}]
+						}
+					};
 
-							parse.query({
-		            			success: function(result) {
-		    		        	    console.log('Get waiting list from server');
-		            		    	for(var i = 0; i < result.results.length; i++) {
-		                    			console.log(result.results[i].firstName + ' ' + result.results[i].lastName);
-				                	}	
+			 		console.log(relation);
 
-		    		 	            Ext.Array.each(result.results, function(proposal) {
-		            			        proposalModel = Ext.create('testapp.model.Speaker', proposal);
-		                    			speakerStore.add(proposalModel);
-		                			});
-		            			},
-		            			error: function(result) {
-		                			return alert("A query error occured");
-		            			},
-		            			className: 'UserList'
-		        			});
-
-							//this.actions.hide();
-
-                	    },
-    	                error: function(result) {
-        	                return console.log("A deletion error occured");
-            	        },
-                	    className: 'UserList'
-                	});
+					parse.updateRelation({
+						object: relation,
+						success: function(result) {
+							console.log('Join in course: ' + result);
+							console.log(result);
+							Ext.getStore('SessionSpeakers').remove(record);
+						},
+						error: function(result) {
+							console.log("A query error occured " + result);
+						},
+						className: 'courseOH/' + this.session.courseObjectId
+					});
 
 					this.actions.hide();
 				}

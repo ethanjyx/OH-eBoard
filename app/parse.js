@@ -26,7 +26,7 @@
       });
     };
 
-    Parse.prototype.addToRelation = function(args) {
+    Parse.prototype.updateRelation = function(args) {
       return Ext.Ajax.request({
         url: this.endpoint + args.className,
         method: 'PUT',
