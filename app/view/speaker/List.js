@@ -16,7 +16,7 @@ Ext.define('testapp.view.speaker.List', {
             { type: 'pullrefresh' }
         ],
 		itemTpl: [
-			'<div class="avatar"> </div>',
+			'<div class="avatar" style="background-image: url(http://graph.facebook.com/{facebookId}/picture);"> </div>',
 			'<h3><div class="nametag">{firstName} {lastName}</div>',
 			'<div class="postag">{position}</div></h3>'
 		]
