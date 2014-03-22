@@ -6,7 +6,6 @@ Ext.Loader.setPath({
 //</debug>
 
 Ext.require('testapp.util.Proxy');
-Ext.require('testapp.view.session.Load');
 
 Ext.application({
     // Change the values below to re-configure the app for a different conference.
@@ -108,8 +107,8 @@ Ext.application({
 
         testapp.Facebook.initialize('241720436011519');
         Ext.Viewport.add({xtype: 'loggedOut'});
-        /*
-        testapp.view.session.Load.loadCourseList(function() {
+        
+        /*Ext.getStore('Sessions').load(function(){
             Ext.Viewport.add({ xtype: 'main' });
         });*/
         

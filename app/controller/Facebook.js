@@ -35,7 +35,7 @@ Ext.define('testapp.controller.Facebook', {
     onFacebookConnected: function() {
         // Ext.Viewport.add({ xtype: 'main' });
         // Ext.Viewport.setActiveItem({xtype: 'main'});
-        testapp.view.session.Load.loadCourseList(function() {
+        Ext.getStore('Sessions').load(function(){
             Ext.Viewport.add({ xtype: 'main' });
             Ext.Viewport.setActiveItem(1);
         });
