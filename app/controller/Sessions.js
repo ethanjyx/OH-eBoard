@@ -278,7 +278,7 @@ Ext.define('testapp.controller.Sessions', {
         	}
         };
 
-		/*var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+		var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
  		console.log(relation);
 
         parse.updateRelation({
@@ -292,7 +292,7 @@ Ext.define('testapp.controller.Sessions', {
                 console.log("A query error occured " + result);
             },
             className: 'courseOH/' + this.session.courseObjectId
-        });*/
+        });
 
         this.updatePosition = {position : record.position};
         parse.update({
@@ -337,16 +337,8 @@ Ext.define('testapp.controller.Sessions', {
     },*/
 
 	onSessionTap: function(list, idx, el, record) {
-		/*var speakerStore = Ext.getStore('SessionSpeakers'),
-			speakerIds = record.get('speakerIds');
-
-		speakerStore.clearFilter(true);
-		speakerStore.filterBy(function(speaker) {
-			return Ext.Array.contains(speakerIds, speaker.get('id'));
-		});*/
-
+		var that = this;
 		var speakerStore = Ext.getStore('SessionSpeakers');
-		speakerStore.removeAll();
 
   		var queryCourseWaitlist = {
   			$relatedTo:{
@@ -358,23 +350,12 @@ Ext.define('testapp.controller.Sessions', {
   				key:"waitingList"
   			}
   		}
-  		query_params = "where=" + JSON.stringify(queryCourseWaitlist);
-  		console.log(query_params);
 
-        var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
-        var that = this;
-        parse.query({
-            success: function(result) {
-                console.log('Get waiting list from server');
-                for(var i = 0; i < result.results.length; i++) {
-                    console.log(result.results[i].firstName + ' ' + result.results[i].lastName);
-                }
-
-                Ext.Array.each(result.results, function(proposal) {
-                    proposalModel = Ext.create('testapp.model.Speaker', proposal);
-                    speakerStore.add(proposalModel);
-                });
-
+  		speakerStore.getProxy().setExtraParams({
+  			where: JSON.stringify(queryCourseWaitlist),
+  			order: 'createdAt'
+  		});
+  		speakerStore.load(function(){
                 if (!that.session) {
 					that.session = Ext.widget('session');
 				}
@@ -383,18 +364,7 @@ Ext.define('testapp.controller.Sessions', {
 				that.session.courseObjectId = record.get('objectId');
 				that.getSessionContainer().push(that.session);
 				that.getSessionInfo().setRecord(record);
-            },
-            error: function(result) {
-                return alert("A query error occured");
-            },
-            className: 'User',
-            params: query_params
-        });
-
-		/*Ext.Array.each(record.waitingList, function(proposal) {
-		    proposalModel = Ext.create('testapp.model.Speaker', proposal);
-	        speakerStore.add(proposalModel);
-		});*/
+  		});
 	},
 
 	onSpeakerTap: function(list, idx, el, record) {
@@ -413,7 +383,6 @@ Ext.define('testapp.controller.Sessions', {
 				ui: 'decline',
 				scope: this,
 				handler: function() {
-					//TODO: put the current one into history!
 			        console.log(record);
 
 					var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
