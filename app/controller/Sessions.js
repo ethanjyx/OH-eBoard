@@ -50,8 +50,7 @@ Ext.define('testapp.controller.Sessions', {
 			speakers: {
 				itemtap: 'onSpeakerTap'
 			}
-		},
-		userObjectId: null
+		}
 	},
 
 	onMainPush: function(view, item) {
@@ -118,58 +117,16 @@ Ext.define('testapp.controller.Sessions', {
 
 		var that = this;
 
-		//FB.api('me?fields=first_name,last_name', function(response) {
+		FB.api('me?fields=first_name,last_name', function(response) {
 			var record = session_add.saveRecord();
-			response = {"id":"445566", "first_name":"sure", "last_name":"Yanggg"};	
+			//response = {"id":"445566", "first_name":"sure", "last_name":"Yanggg"};	
 			record.holderName = response.first_name + ' ' + response.last_name;
 
-			//record.holderName = "lalala";
-			//alert(response.first_name);
-			//reponse.id
-			//alert(record.holderName);
 			session_add.updateRecord(record);
 			
-			if(!this.userObjectId)
-			{
-				var ed = Ext.create('testapp.model.Speaker');
-				ed.data.firstName = response.first_name;
-				ed.data.lastName = response.last_name;
-				ed.data.facebookId = response.id;
-				ed.data.id = response.id;
-				console.log(ed);
-				/*ed.save({
-	    			success: function(result) {
-	    				result.save();
-	    				console.log(result);
-	    				that.userObjectId = result.objectId;
-	    				console.log(result.objectId);
-	        			console.log("Create new user " + that.userObjectId);
-	        		}
-	    		});*/
-
-	    		var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
-				parse.create({
-	            	object: ed.data,
-	            	success: function(result) {
-	                  	that.userObjectId = result.objectId;
-	                	console.log("objectId created " + that.userObjectId);
-	            	},
-	            	error: function(result) {
-	                	return console.log("A creation error occured");
-	            	},
-	            	className: 'User'
-	        	});
-			}
-		//});
-
-
-
-        // Bind the record onto the edit contact view
-        //TODO: set default value into the form.
-//        this.sessionAdd.setRecord(this.getShowContact().getRecord());
+		});
 
         this.getSessionContainer().push(this.sessionAdd);
-
     },
 
     onSaveButtonAdd: function() {
@@ -187,19 +144,6 @@ Ext.define('testapp.controller.Sessions', {
                 Ext.getStore('Sessions').load(function(){that.getSessionContainer().pop()});
         	}
     	});
-
-		/*var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
-		parse.create({
-            object: ed.data,
-            success: function(result) { 
-                console.log("objectId created " + ed.data.objectId);
-                testapp.view.session.Load.loadCourseList(function(){that.getSessionContainer().pop()});
-            },
-            error: function(result) {
-                return console.log("A creation error occured");
-            },
-            className: 'courseOH'
-        });*/
     },
 
     onJoinButton: function() {
@@ -217,48 +161,9 @@ Ext.define('testapp.controller.Sessions', {
 	
 			record.firstName = response.first_name;
 			record.lastName = response.last_name;
-			//record.holderName = "lalala";
-			//alert(response.first_name);
-			//reponse.id
-			//alert(record.holderName);
+
 			session_join.updateRecord(record);
-
-			if(!this.userObjectId)
-			{
-			var ed = Ext.create('testapp.model.Speaker');
-			ed.data.firstName = response.first_name;
-			ed.data.lastName = response.last_name;
-			ed.data.facebookId = response.id;
-			ed.data.id = response.id;
-			console.log(ed);
-			/*ed.save({
-    			success: function(result) {
-    				result.save();
-    				console.log(result);
-    				that.userObjectId = result.objectId;
-    				console.log(result.objectId);
-        			console.log("Create new user " + that.userObjectId);
-        		}
-    		});*/
-
-    		var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
-			parse.create({
-            	object: ed.data,
-            	success: function(result) {
-                  	that.userObjectId = result.objectId;
-                	console.log("objectId created " + that.userObjectId);
-            	},
-            	error: function(result) {
-                	return console.log("A creation error occured");
-            	},
-            	className: 'User'
-        	});
-			}
 		});
-
-        // Bind the record onto the edit contact view
-        //TODO: set default value into the form.
-//        this.sessionAdd.setRecord(this.getShowContact().getRecord());
 
         this.getSessionContainer().push(this.sessionJoin);
 
@@ -274,7 +179,7 @@ Ext.define('testapp.controller.Sessions', {
         var relation = {
         	waitingList : {
         		__op : "AddRelation",
-        		objects: [{__type:"Pointer", className:"User", objectId:this.userObjectId}]
+        		objects: [{__type:"Pointer", className:"User", objectId:testapp.Facebook.userObjectId}]
         	}
         };
 
@@ -304,7 +209,7 @@ Ext.define('testapp.controller.Sessions', {
                 return alert("An error occured updating user position");
             },
             className: 'User',
-            objectId: this.userObjectId
+            objectId: testapp.Facebook.userObjectId
         });
 
         this.getSessionContainer().pop();
@@ -356,8 +261,7 @@ Ext.define('testapp.controller.Sessions', {
   		}
 
   		speakerStore.getProxy().setExtraParams({
-  			where: JSON.stringify(queryCourseWaitlist),
-  			order: 'createdAt'
+  			where: JSON.stringify(queryCourseWaitlist)
   		});
   		speakerStore.load(function(){
                 if (!that.session) {
