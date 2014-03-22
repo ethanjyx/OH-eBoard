@@ -131,34 +131,34 @@ Ext.define('testapp.controller.Sessions', {
 			
 			if(!this.userObjectId)
 			{
-			var ed = Ext.create('testapp.model.Speaker');
-			ed.data.firstName = response.first_name;
-			ed.data.lastName = response.last_name;
-			ed.data.facebookId = response.id;
-			ed.data.id = response.id;
-			console.log(ed);
-			/*ed.save({
-    			success: function(result) {
-    				result.save();
-    				console.log(result);
-    				that.userObjectId = result.objectId;
-    				console.log(result.objectId);
-        			console.log("Create new user " + that.userObjectId);
-        		}
-    		});*/
+				var ed = Ext.create('testapp.model.Speaker');
+				ed.data.firstName = response.first_name;
+				ed.data.lastName = response.last_name;
+				ed.data.facebookId = response.id;
+				ed.data.id = response.id;
+				console.log(ed);
+				/*ed.save({
+	    			success: function(result) {
+	    				result.save();
+	    				console.log(result);
+	    				that.userObjectId = result.objectId;
+	    				console.log(result.objectId);
+	        			console.log("Create new user " + that.userObjectId);
+	        		}
+	    		});*/
 
-    		var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
-			parse.create({
-            	object: ed.data,
-            	success: function(result) {
-                  	that.userObjectId = result.objectId;
-                	console.log("objectId created " + that.userObjectId);
-            	},
-            	error: function(result) {
-                	return console.log("A creation error occured");
-            	},
-            	className: 'User'
-        	});
+	    		var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+				parse.create({
+	            	object: ed.data,
+	            	success: function(result) {
+	                  	that.userObjectId = result.objectId;
+	                	console.log("objectId created " + that.userObjectId);
+	            	},
+	            	error: function(result) {
+	                	return console.log("A creation error occured");
+	            	},
+	            	className: 'User'
+	        	});
 			}
 		//});
 
@@ -338,6 +338,10 @@ Ext.define('testapp.controller.Sessions', {
 
 	onSessionTap: function(list, idx, el, record) {
 		var that = this;
+
+		console.log(testapp.Facebook);
+		console.log(testapp.Facebook.userObjectId);
+
 		var speakerStore = Ext.getStore('SessionSpeakers');
 
   		var queryCourseWaitlist = {

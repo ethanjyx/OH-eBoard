@@ -27,6 +27,7 @@ Ext.define('testapp.Facebook', {
      */
 
     fbTimeout: 10000,
+    userObjectId: null,
 
     /**
      * @constructor
@@ -83,14 +84,12 @@ Ext.define('testapp.Facebook', {
             me.hasCheckedStatus = true;
 
             if (response.status == 'connected') {
+                me.checkUserTable(response.authResponse.userID);
                 me.fireEvent('connected');
             } else {
                 me.fireEvent('unauthorized');
             }
         });
-
-        //alert('123');
-
 
         // We set a timeout in case there is no response from the Facebook `init` method. This often happens if the
         // Facebook application is incorrectly configured (for example if the browser URL does not match the one
@@ -102,6 +101,44 @@ Ext.define('testapp.Facebook', {
                 msg: 'The request to Facebook timed out.'
             });
         }, me.fbTimeout);
+    },
+
+    checkUserTable: function(fb_id) {
+        var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+        var query_fb_id = {
+            facebookId : fb_id
+        }
+        var that = this;
+        parse.query({
+            success: function(result) {
+                if (result.results.length != 0){
+                    that.userObjectId = result.results[0].objectId;
+                    return;
+                }
+                that.insert_fb_id(fb_id);
+            },
+            error: function(result) {
+                alert("A query error occured");
+            },
+            className: 'User',
+            params: query_fb_id
+        });
+    }, 
+
+    insert_fb_id: function(fb_id) {
+        var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+        var that = this;
+        parse.create({
+            object: {facebookId:fb_id},
+            success: function(result) {
+                console.log("objectId created " + result.objectId);
+                that.userObjectId = result.objectId;
+            },
+            error: function(result) {
+                return console.log("A creation error occured");
+            },
+            className: 'User'
+        });
     },
 
     /**
@@ -206,5 +243,4 @@ Ext.define('testapp.Facebook', {
 
         Ext.create('testapp.view.Dialog', { msg: errMsg }).show();
     }
-
 });
