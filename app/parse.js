@@ -60,8 +60,10 @@
 
     Parse.prototype.query = function(args) {
       var request_url = this.endpoint + args.className;
-      if ('params' in args)
-        request_url = request_url + '?' + encodeURIComponent(args.params);
+      if ('params' in args) {
+        console.log(args.params);
+        request_url = request_url + '?' + encodeURIComponent("where=" + JSON.stringify(args.params));
+      }
       return Ext.Ajax.request({
         url: request_url,
         method: 'GET',
