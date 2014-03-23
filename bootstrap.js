@@ -644,13 +644,16 @@ Ext.ClassManager.addNameAlternateMappings({
   "testapp.controller.Sessions": [],
   "testapp.controller.Speakers": [],
   "testapp.controller.Tweets": [],
+  "testapp.model.JoinUser": [],
   "testapp.model.Session": [],
   "testapp.model.Speaker": [],
+  "testapp.store.History": [],
   "testapp.store.SessionSpeakers": [],
   "testapp.store.Sessions": [],
   "testapp.store.SpeakerSessions": [],
   "testapp.store.Speakers": [],
   "testapp.store.Tweets": [],
+  "testapp.store.UserCourseStore": [],
   "testapp.store.Videos": [],
   "testapp.util.Proxy": [],
   "testapp.view.Dialog": [],
@@ -669,11 +672,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "testapp.view.session.Info": [],
   "testapp.view.session.Join": [],
   "testapp.view.session.List": [],
-  "testapp.view.session.Load": [],
   "testapp.view.speaker.Card": [],
   "testapp.view.speaker.Detail": [],
   "testapp.view.speaker.Info": [],
   "testapp.view.speaker.List": [],
+  "testapp.view.speaker.UserCourseList": [],
   "testapp.view.tab.Location": []
 });
 Ext.ClassManager.addNameAliasMappings({
@@ -1399,13 +1402,16 @@ Ext.ClassManager.addNameAliasMappings({
   "testapp.controller.Sessions": [],
   "testapp.controller.Speakers": [],
   "testapp.controller.Tweets": [],
+  "testapp.model.JoinUser": [],
   "testapp.model.Session": [],
   "testapp.model.Speaker": [],
+  "testapp.store.History": [],
   "testapp.store.SessionSpeakers": [],
   "testapp.store.Sessions": [],
   "testapp.store.SpeakerSessions": [],
   "testapp.store.Speakers": [],
   "testapp.store.Tweets": [],
+  "testapp.store.UserCourseStore": [],
   "testapp.store.Videos": [],
   "testapp.util.Proxy": [],
   "testapp.view.Dialog": [],
@@ -1454,7 +1460,6 @@ Ext.ClassManager.addNameAliasMappings({
   "testapp.view.session.List": [
     "widget.sessions"
   ],
-  "testapp.view.session.Load": [],
   "testapp.view.speaker.Card": [
     "widget.speakerContainer"
   ],
@@ -1466,6 +1471,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "testapp.view.speaker.List": [
     "widget.speakers"
+  ],
+  "testapp.view.speaker.UserCourseList": [
+    "widget.userCourseList"
   ],
   "testapp.view.tab.Location": [
     "widget.location"

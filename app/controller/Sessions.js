@@ -71,6 +71,8 @@ Ext.define('testapp.controller.Sessions', {
         } else {
             this.hideHistoryButton();
         }
+        if (item.xtype == "list-history") 
+        	this.onHistroyList = false;
     },
 
 	initSessions: function() {
