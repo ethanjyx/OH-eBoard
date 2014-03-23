@@ -118,8 +118,7 @@ Ext.define('testapp.controller.Sessions', {
 		var that = this;
 
 		FB.api('me?fields=first_name,last_name', function(response) {
-			var record = session_add.saveRecord();
-			//response = {"id":"445566", "first_name":"sure", "last_name":"Yanggg"};	
+			var record = session_add.saveRecord();	
 			record.holderName = response.first_name + ' ' + response.last_name;
 
 			session_add.updateRecord(record);
@@ -176,7 +175,7 @@ Ext.define('testapp.controller.Sessions', {
 
         console.log("Join save button courseObjectId: " + this.session.courseObjectId);
 
-        var relation = {
+        /*var relation = {
         	waitingList : {
         		__op : "AddRelation",
         		objects: [{__type:"Pointer", className:"User", objectId:testapp.Facebook.userObjectId}]
@@ -210,7 +209,34 @@ Ext.define('testapp.controller.Sessions', {
             },
             className: 'User',
             objectId: testapp.Facebook.userObjectId
-        });
+        });*/
+
+		var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+		this.joinEntry = {
+			user: {
+				__type: 'Pointer', 
+				className: 'User', 
+				objectId: testapp.Facebook.userObjectId
+			},
+			courseOH: {
+				__type: 'Pointer', 
+				className: 'courseOH', 
+				objectId: this.session.courseObjectId
+			},
+			position: record.position,
+			history: false
+		};
+
+		parse.create({
+			object: this.joinEntry,
+            success: function(result) {
+                console.log('Create entry in join table');
+            },
+            error: function(result) {
+                return alert("An error occured creating joinTable entry");
+            },
+            className: 'JoinTable'			
+		});
 
         this.getSessionContainer().pop();
     },
@@ -249,7 +275,7 @@ Ext.define('testapp.controller.Sessions', {
 
 		var speakerStore = Ext.getStore('SessionSpeakers');
 
-  		var queryCourseWaitlist = {
+  		/*var queryCourseWaitlist = {
   			$relatedTo:{
   				object:{
   					__type:"Pointer",
@@ -258,11 +284,24 @@ Ext.define('testapp.controller.Sessions', {
   				},
   				key:"waitingList"
   			}
-  		}
+  		}*/
+
+  		var queryJoinTable = {
+  				courseOH: {
+  					__type:"Pointer",
+  					className:"courseOH",
+  					objectId:record.data.objectId
+  				},
+  				history: false
+  			};
 
   		speakerStore.getProxy().setExtraParams({
-  			where: JSON.stringify(queryCourseWaitlist)
+  			where: JSON.stringify(queryJoinTable),
+  			include: 'user',
+  			order: '-createdAt',
+
   		});
+
   		speakerStore.load(function(){
                 if (!that.session) {
 					that.session = Ext.widget('session');

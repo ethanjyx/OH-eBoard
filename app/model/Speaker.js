@@ -4,11 +4,9 @@ Ext.define('testapp.model.Speaker', {
 	config: {
 		fields: [
 			'objectId',
-			//{name: 'orderNo', type: 'int'},
 			'facebookId',
 			'firstName',
-			'lastName',
-			'position'
+			'lastName'
 		]
 	},
 

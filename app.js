@@ -70,7 +70,8 @@ Ext.application({
 
     models: [
         'Session',
-        'Speaker'
+        'Speaker',
+        'JoinUser'
     ],
 
     views: [

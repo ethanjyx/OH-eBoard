@@ -24,9 +24,7 @@ Ext.define('testapp.model.Session', {
 			'startTime',
 			'endTime',
 			'location',
-
-			'waitingList',
-            'numberServed'
+			'holder'
 		],
         proxy: {
             type: 'rest',
