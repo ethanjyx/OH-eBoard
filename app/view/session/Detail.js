@@ -22,11 +22,12 @@ Ext.define('testapp.view.session.Detail', {
                 align: 'right',
                 hidden: false
             },
+            /*
             {
                 xtype: 'component',
                 cls: 'dark',
                 html: 'Students'
-            },
+            },*/
 			{
                 flex: 3,
 				xtype: 'speakers',

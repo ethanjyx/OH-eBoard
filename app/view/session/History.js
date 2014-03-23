@@ -9,11 +9,6 @@ Ext.define('testapp.view.session.History', {
 
         items: [
             {
-                xtype: 'component',
-                cls: 'dark',
-                html: 'Students'
-            },
-            {
                 flex: 1,
                 xtype: 'speakers',
                 store: 'History'
