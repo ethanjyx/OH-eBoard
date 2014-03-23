@@ -16,7 +16,7 @@ Ext.define('testapp.view.session.History', {
             {
                 flex: 1,
                 xtype: 'speakers',
-                store: 'SessionSpeakers'
+                store: 'History'
 
             }
         ]

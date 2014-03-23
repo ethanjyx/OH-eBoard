@@ -96,7 +96,7 @@ Ext.define('testapp.controller.Sessions', {
 
 	onHistoryButton: function() {
 		var that = this;
-		var speakerStore = Ext.getStore('SessionSpeakers');
+		var historyStore = Ext.getStore('History');
 
   		var queryJoinTable = {
   				courseOH: {
@@ -107,14 +107,14 @@ Ext.define('testapp.controller.Sessions', {
   				history: true
   			};
 
-  		speakerStore.getProxy().setExtraParams({
+  		historyStore.getProxy().setExtraParams({
   			where: JSON.stringify(queryJoinTable),
   			include: 'user',
   			order: 'createdAt',
 
   		});
 
-  		speakerStore.load(function(){
+  		historyStore.load(function(){
         	if (!that.listHistory) {
             	that.listHistory = Ext.create('testapp.view.session.History');
         	}
