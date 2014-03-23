@@ -27,12 +27,14 @@ Ext.define('testapp.view.session.Join', {
                             {
                                 xtype: 'textfield',
                                 label: 'First Name',
-                                name: 'firstName'
+                                name: 'firstName',
+                                disabled: true
                             },
                             {
                                 xtype: 'textfield',
                                 label: 'Last Name',
-                                name: 'lastName'
+                                name: 'lastName',
+                                disabled: true
                             },
                             {
                                 xtype: 'textfield',
