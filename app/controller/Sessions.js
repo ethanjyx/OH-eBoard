@@ -255,9 +255,6 @@ Ext.define('testapp.controller.Sessions', {
 	onSessionTap: function(list, idx, el, record) {
 		var that = this;
 
-		console.log(testapp.Facebook);
-		console.log(testapp.Facebook.userObjectId);
-
 		var speakerStore = Ext.getStore('SessionSpeakers');
 
   		var queryJoinTable = {
@@ -285,6 +282,9 @@ Ext.define('testapp.controller.Sessions', {
 				that.session.courseObjectId = record.get('objectId');
 				that.getSessionContainer().push(that.session);
 				that.getSessionInfo().setRecord(record);
+
+				// #TODO: check GSI here
+				
   		});
 	},
 
