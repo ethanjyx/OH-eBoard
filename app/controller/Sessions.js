@@ -95,16 +95,34 @@ Ext.define('testapp.controller.Sessions', {
 	},
 
 	onHistoryButton: function() {
-        if (!this.listHistory) {
-            this.listHistory = Ext.create('testapp.view.session.History');
-        }
+		var that = this;
+		var speakerStore = Ext.getStore('SessionSpeakers');
 
-        // Bind the record onto the edit contact view
-        //TODO: set default value into the form.
-//        this.sessionAdd.setRecord(this.getShowContact().getRecord());
+  		var queryJoinTable = {
+  				courseOH: {
+  					__type:"Pointer",
+  					className:"courseOH",
+  					objectId: this.session.courseObjectId 
+  				},
+  				history: true
+  			};
 
-        this.getSessionContainer().push(this.listHistory);
+  		speakerStore.getProxy().setExtraParams({
+  			where: JSON.stringify(queryJoinTable),
+  			include: 'user',
+  			order: 'createdAt',
 
+  		});
+
+  		speakerStore.load(function(){
+        	if (!that.listHistory) {
+            	that.listHistory = Ext.create('testapp.view.session.History');
+        	}
+
+				//that.listHistory.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
+				//that.listHistory.courseObjectId = record.get('objectId');
+				that.getSessionContainer().push(that.listHistory);
+  		});
     },
 
 	onAddButton: function() {
@@ -174,43 +192,9 @@ Ext.define('testapp.controller.Sessions', {
 
         console.log("Join save button courseObjectId: " + this.session.courseObjectId);
 
-        /*var relation = {
-        	waitingList : {
-        		__op : "AddRelation",
-        		objects: [{__type:"Pointer", className:"User", objectId:testapp.Facebook.userObjectId}]
-        	}
-        };
-
+		var that = this;
 		var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
- 		console.log(relation);
-
-        parse.updateRelation({
-        	object: relation,
-            success: function(result) {
-                console.log('Join in course: ' + result);
-                console.log(result);
-
-            },
-            error: function(result) {
-                console.log("A query error occured " + result);
-            },
-            className: 'courseOH/' + this.session.courseObjectId
-        });
-
-        this.updatePosition = {position : record.position};
-        parse.update({
-        	object: this.updatePosition,
-            success: function(result) {
-                console.log('Update userposition');
-            },
-            error: function(result) {
-                return alert("An error occured updating user position");
-            },
-            className: 'User',
-            objectId: testapp.Facebook.userObjectId
-        });*/
-
-		var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+		var currentTime = new Date();
 		this.joinEntry = {
 			user: {
 				__type: 'Pointer', 
@@ -223,13 +207,15 @@ Ext.define('testapp.controller.Sessions', {
 				objectId: this.session.courseObjectId
 			},
 			position: record.position,
-			history: false
+			history: false,
+			id: testapp.Facebook.userObjectId + this.session.courseObjectId + currentTime
 		};
 
 		parse.create({
 			object: this.joinEntry,
             success: function(result) {
                 console.log('Create entry in join table');
+                Ext.getStore('SessionSpeakers').load(function(){that.getSessionContainer().pop();});
             },
             error: function(result) {
                 return alert("An error occured creating joinTable entry");
@@ -237,7 +223,7 @@ Ext.define('testapp.controller.Sessions', {
             className: 'JoinTable'			
 		});
 
-        this.getSessionContainer().pop();
+        //this.getSessionContainer().pop();
     },
 
     /*loadWaitingList: function(callback) {
@@ -274,17 +260,6 @@ Ext.define('testapp.controller.Sessions', {
 
 		var speakerStore = Ext.getStore('SessionSpeakers');
 
-  		/*var queryCourseWaitlist = {
-  			$relatedTo:{
-  				object:{
-  					__type:"Pointer",
-  					className:"courseOH",
-  					objectId:record.data.objectId
-  				},
-  				key:"waitingList"
-  			}
-  		}*/
-
   		var queryJoinTable = {
   				courseOH: {
   					__type:"Pointer",
@@ -297,7 +272,7 @@ Ext.define('testapp.controller.Sessions', {
   		speakerStore.getProxy().setExtraParams({
   			where: JSON.stringify(queryJoinTable),
   			include: 'user',
-  			order: '-createdAt',
+  			order: 'createdAt',
 
   		});
 
@@ -333,7 +308,7 @@ Ext.define('testapp.controller.Sessions', {
 				handler: function() {
 			        console.log(record);
 
-					var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+					/*var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
 					var relation = {
 						waitingList : {
 							__op : "RemoveRelation",
@@ -354,9 +329,15 @@ Ext.define('testapp.controller.Sessions', {
 							console.log("A query error occured " + result);
 						},
 						className: 'courseOH/' + this.session.courseObjectId
-					});
-
-					this.actions.hide();
+					});*/
+					var that = this;
+					record.data.history = true;
+					record.save({
+    					success: function(result) {
+        					console.log("Delete from join table");
+        					Ext.getStore('SessionSpeakers').load(function(){that.actions.hide()});
+        				}
+    				});
 				}
 			},
 			{
