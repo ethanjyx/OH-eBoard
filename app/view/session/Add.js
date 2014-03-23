@@ -70,6 +70,7 @@ Ext.define('testapp.view.session.Add', {
                         xtype: 'button',
                         id: 'saveButtonAdd',
                         text: 'Add',
+                        ui: 'btnColor',
                         align: 'center',
                         hidden: false
                     }   
