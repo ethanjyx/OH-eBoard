@@ -102,7 +102,8 @@ Ext.application({
         'SpeakerSessions',
         'Speakers',
         'SessionSpeakers',
-        'UserCourseStore'
+        'UserCourseStore',
+        'History'
     ],
 
     launch: function() {
