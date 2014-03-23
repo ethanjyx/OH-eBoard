@@ -58,18 +58,37 @@ Ext.define('testapp.controller.Sessions', {
 
         if (item.xtype == "session") {
             this.getSessions().deselectAll();
-
             this.showHistoryButton();
+            this.checkJoinButtonDisplay();
         } else {
             this.hideHistoryButton();
         }
     },
 
     onMainPop: function(view, item) {
-        if (item.xtype == "session-join" || item.xtype == "list-history") {
+        if (item.xtype == "session-join") {
             this.showHistoryButton();
-        } else {
+            this.hideJoinButton();
+        } else if (item.xtype == "list-history") { 
+        	this.showHistoryButton();
+    	} else {
             this.hideHistoryButton();
+        }
+    },
+
+    checkJoinButtonDisplay: function() {
+    	var shouldShowJoinButton = true;
+        var speakerStore = Ext.getStore('SessionSpeakers');
+        for (var i = speakerStore.getData().length - 1; i >= 0; i--) {
+        	if (speakerStore.getData().getAt(i).getData()['userObjectId'] === testapp.Facebook.userObjectId) {
+        		shouldShowJoinButton = false;
+        		break;
+        	}
+        };
+        if (shouldShowJoinButton) {
+        	this.showJoinButton();
+        } else {
+        	this.hideJoinButton();
         }
     },
 
@@ -276,17 +295,15 @@ Ext.define('testapp.controller.Sessions', {
   		});
 
   		speakerStore.load(function(){
-                if (!that.session) {
-					that.session = Ext.widget('session');
-				}
+            if (!that.session) {
+				that.session = Ext.widget('session');
+			}
 
-				that.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
-				that.session.courseObjectId = record.get('objectId');
-				that.getSessionContainer().push(that.session);
-				that.getSessionInfo().setRecord(record);
-
-				// #TODO: check GSI here
-				
+			that.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
+			that.session.courseObjectId = record.get('objectId');
+			that.getSessionContainer().push(that.session);
+			that.getSessionInfo().setRecord(record);
+			// #TODO: check GSI here	
   		});
 	},
 

@@ -30,8 +30,7 @@ Ext.define('testapp.store.Sessions', {
                 var record = operation.getRecords()[0],
                     name = Ext.String.capitalize(operation.action),
                     verb;
-                    
-                    
+                
                 if (name == 'Destroy') {
                     record = operation.records[0];
                     verb = 'Destroyed';
@@ -39,7 +38,6 @@ Ext.define('testapp.store.Sessions', {
                     verb = name + 'd';
                 }
                 Ext.example.msg(name, Ext.String.format("{0} user: {1}", verb, record.getId()));
-                
             }
         }
     }
