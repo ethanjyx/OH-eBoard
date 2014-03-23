@@ -69,11 +69,12 @@ Ext.define('testapp.controller.Sessions', {
         if (item.xtype == "session-join") {
             this.showHistoryButton();
             this.hideJoinButton();
-        } else if (item.xtype == "list-history") { 
+        } else if (item.xtype == "list-history") {
+        	this.onHistroyList = false; 
         	this.showHistoryButton();
     	} else {
             this.hideHistoryButton();
-        }
+        }	
     },
 
     checkJoinButtonDisplay: function() {

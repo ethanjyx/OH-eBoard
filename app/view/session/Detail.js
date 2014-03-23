@@ -18,7 +18,8 @@ Ext.define('testapp.view.session.Detail', {
 			{
                 xtype: 'button',
                 id: 'joinButton',
-                text: 'Join',
+                ui: 'btnColor',
+                text: 'join',
                 align: 'right',
                 hidden: false
             },

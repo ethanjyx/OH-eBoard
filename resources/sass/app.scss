@@ -12,6 +12,7 @@ $index-bar-color: #666;
 @import 'sencha-touch/default';
 @import 'sencha-touch/default/all';
 
+@include sencha-button-ui('btnColor', $base-color);
 @include icon('team');
 @include icon('info');
 @include icon('time');

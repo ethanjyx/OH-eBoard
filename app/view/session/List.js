@@ -19,13 +19,14 @@ Ext.define('testapp.view.session.List', {
 			{
 				docked: 'top',
 				xtype: 'toolbar',
-				ui: 'gray',
+				//ui: 'gray',
 
 				items: [
 					{
 	                    xtype: 'button',
 	                    id: 'addButton',
 	                    //text: 'Add new session',
+	                    ui: 'btnColor',
 	                    iconCls: 'add',
 	                    align: 'right',
 	                    hidden: false
