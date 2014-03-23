@@ -113,7 +113,6 @@ Ext.define('testapp.Facebook', {
             success: function(result) {
                 if (result.results.length != 0){
                     that.userObjectId = result.results[0].objectId;
-                    console.log(result);
                     return;
                 }
                 that.insert_fb_id(fb_id);
@@ -127,18 +126,20 @@ Ext.define('testapp.Facebook', {
     }, 
 
     insert_fb_id: function(fb_id) {
-        var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
         var that = this;
-        parse.create({
-            object: {facebookId:fb_id, id:fb_id, firstName:fb_id},
-            success: function(result) {
-                console.log("objectId created " + result.objectId);
-                that.userObjectId = result.objectId;
-            },
-            error: function(result) {
-                return console.log("A creation error occured");
-            },
-            className: 'User'
+        FB.api('me?fields=first_name,last_name', function(response) {
+            var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+            parse.create({
+                object: {facebookId:fb_id, id:fb_id, firstName:response.first_name, lastName:response.last_name },
+                success: function(result) {
+                    console.log("objectId created " + result.objectId);
+                    that.userObjectId = result.objectId;
+                },
+                error: function(result) {
+                    return console.log("A creation error occured");
+                },
+                className: 'User'
+            });                
         });
     },
 

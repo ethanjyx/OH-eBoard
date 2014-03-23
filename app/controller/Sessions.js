@@ -387,4 +387,24 @@ Ext.define('testapp.controller.Sessions', {
 
         historyButton.hide();
     },
+
+    showJoinButton: function() {
+        var joinButton = this.getJoinButton();
+
+        if (!joinButton.isHidden()) {
+            return;
+        }
+
+        joinButton.show();
+    },
+
+    hideJoinButton: function() {
+        var joinButton = this.getJoinButton();
+
+        if (joinButton.isHidden()) {
+            return;
+        }
+
+        joinButton.hide();
+    }
 });
