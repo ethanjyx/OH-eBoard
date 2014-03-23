@@ -86,7 +86,8 @@ Ext.application({
         'speaker.Card',
         'speaker.List',
         'speaker.Detail',
-        'speaker.Info'
+        'speaker.Info',
+        'speaker.UserCourseList'
 
     ],
 
@@ -100,7 +101,8 @@ Ext.application({
         'Sessions',
         'SpeakerSessions',
         'Speakers',
-        'SessionSpeakers'
+        'SessionSpeakers',
+        'UserCourseStore'
     ],
 
     launch: function() {
@@ -108,11 +110,11 @@ Ext.application({
 
         testapp.Facebook.initialize('241720436011519');
         Ext.Viewport.add({xtype: 'loggedOut'});
-        
-        /*Ext.getStore('Sessions').load(function(){
+        /*
+        Ext.getStore('Sessions').load(function(){
             Ext.Viewport.add({ xtype: 'main' });
-        });*/
-        
+        });
+        */
         // Ext.Viewport.setMasked({ xtype: 'loadmask' });
         
         

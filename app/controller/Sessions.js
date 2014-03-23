@@ -19,8 +19,7 @@ Ext.define('testapp.controller.Sessions', {
 			sessionJoin: 'session-join',
 			listHistory: 'list-history',
 			historyButton: '#historyButton',
-			speakers: 'sessionContainer speakers',
-			speakerInfo: 'sessionContainer speakerInfo'
+			speakers: 'sessionContainer speakers'
 		},
 		control: {
 			sessionContainer: {
@@ -315,12 +314,14 @@ Ext.define('testapp.controller.Sessions', {
 	},
 
 	onSpeakerTap: function(list, idx, el, record) {
+		/*
 		if (!this.speakerInfo) {
 			this.speakerInfo = Ext.widget('speakerInfo', {
 				scrollable: 'vertical'
 			});
 		}
-
+		*/
+		
 		//this.speakerInfo.config.title = record.getFullName();
 		//this.speakerInfo.setRecord(record);
 

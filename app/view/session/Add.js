@@ -37,7 +37,8 @@ Ext.define('testapp.view.session.Add', {
                             {
                                 xtype: 'textfield',
                                 label: 'Holder Name',
-                                name: 'holderName'
+                                name: 'holderName',
+                                disabled: true
                             }
                         ]
                     },
