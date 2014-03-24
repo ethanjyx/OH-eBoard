@@ -60,9 +60,63 @@ Ext.define('testapp.controller.Speakers', {
 	},
 
 	onLogoutButton: function() {
-		FB.logout(function(response) {
-			Ext.Viewport.setActiveItem(0);
-		});
+		var items = [
+			{
+				text: 'Log out',
+				ui: 'decline',
+				scope: this,
+				handler: function() {
+
+					/*var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+					var relation = {
+						waitingList : {
+							__op : "RemoveRelation",
+							objects: [{__type:"Pointer", className:"User", objectId:record.data.objectId}]
+						}
+					};
+
+			 		console.log(relation);
+
+					parse.updateRelation({
+						object: relation,
+						success: function(result) {
+							console.log('Join in course: ' + result);
+							console.log(result);
+							Ext.getStore('SessionSpeakers').remove(record);
+						},
+						error: function(result) {
+							console.log("A query error occured " + result);
+						},
+						className: 'courseOH/' + this.session.courseObjectId
+					});*/
+					
+					        					
+					FB.logout(function(response) {
+
+						Ext.Viewport.setActiveItem(0);
+					});
+					this.actions.hide();
+
+			
+				}
+			},
+			{
+				xtype: 'button',
+				text: 'Cancel',
+				scope: this,
+				handler: function() {
+					this.actions.hide();
+				}
+			}
+		];
+		if (!this.actions) {
+			this.actions = Ext.create('Ext.ActionSheet', {
+				items: items
+			});
+		}
+
+		Ext.Viewport.add(this.actions);
+		this.actions.show();
 	}
 
 });
