@@ -70,15 +70,21 @@ Ext.define('testapp.view.session.Add', {
                                             });
                                         }   
                                         data_minuts.push({
-                                            text: '0',
-                                            value: '0'
+                                            text: '00',
+                                            value: '00'
                                         });
                                         var val = 1;
                                         for(i=0; i<59; i++) {
-                                            data_minuts.push({
-                                                text: val,
-                                                value: val
-                                            });
+                                            if (i < 9) 
+                                                data_minuts.push({
+                                                    text: '0'+val,
+                                                    value: '0'+val
+                                                });
+                                            else 
+                                                data_minuts.push({
+                                                    text: val,
+                                                    value: val
+                                                });
                                             val = val + 1;
                                         }
                                         data_AMPM.push({
@@ -90,20 +96,6 @@ Ext.define('testapp.view.session.Add', {
                                             value:'AM'
                                         });
                                     
-                                        if(Ext.os.deviceType == 'Desktop') {
-                                            data_hours.push({
-                                                text: '',
-                                                value: ''
-                                            });
-                                            data_minuts.push({
-                                                text: '',
-                                                value: ''
-                                            });
-                                            data_AMPM.push({
-                                                text:'',
-                                                value:''
-                                            });
-                                        }
                                    
                                         // Make the time picker...
 
@@ -160,10 +152,16 @@ Ext.define('testapp.view.session.Add', {
                                         });
                                         var val = 1;
                                         for(i=0; i<59; i++) {
-                                            data_minuts.push({
-                                                text: val,
-                                                value: val
-                                            });
+                                            if (i < 9) 
+                                                data_minuts.push({
+                                                    text: '0'+val,
+                                                    value: '0'+val
+                                                });
+                                            else 
+                                                data_minuts.push({
+                                                    text: val,
+                                                    value: val
+                                                });
                                             val = val + 1;
                                         }
                                         data_AMPM.push({
@@ -175,20 +173,7 @@ Ext.define('testapp.view.session.Add', {
                                             value:'AM'
                                         });
                                     
-                                        if(Ext.os.deviceType == 'Desktop') {
-                                            data_hours.push({
-                                                text: '',
-                                                value: ''
-                                            });
-                                            data_minuts.push({
-                                                text: '',
-                                                value: ''
-                                            });
-                                            data_AMPM.push({
-                                                text:'',
-                                                value:''
-                                            });
-                                        }
+                                        
                                    
                                         // Make the time picker...
 
