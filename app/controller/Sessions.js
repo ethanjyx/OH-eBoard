@@ -61,16 +61,18 @@ Ext.define('testapp.controller.Sessions', {
             this.getSessions().deselectAll();
             this.showHistoryButton();
             this.updateJoinButtonDisplay();
+
+            this.getSpeakers().disable();
         } else {
             this.hideHistoryButton();
         }
     },
 
     onMainPop: function(view, item) {
-        if (item.xtype == "session-join") {
+        if (item.xtype === "session-join") {
             this.showHistoryButton();
             this.hideJoinButton();
-        } else if (item.xtype == "list-history") {
+        } else if (item.xtype === "list-history") {
         	this.onHistroyList = false; 
         	this.showHistoryButton();
     	} else {
@@ -328,8 +330,9 @@ Ext.define('testapp.controller.Sessions', {
 			});
 		}
 		*/
-		if (this.onHistroyList || !this.isGSI)
-			return;
+		if (this.onHistroyList || !this.isGSI) {
+			return false;
+		}
 		
 		//this.speakerInfo.config.title = record.getFullName();
 		//this.speakerInfo.setRecord(record);
