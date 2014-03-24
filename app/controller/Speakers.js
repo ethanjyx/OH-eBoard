@@ -60,7 +60,9 @@ Ext.define('testapp.controller.Speakers', {
 	},
 
 	onLogoutButton: function() {
-		console.log("in log out ");
+		FB.logout(function(response) {
+			Ext.Viewport.setActiveItem(0);
+		});
 	}
 
 });
