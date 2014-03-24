@@ -19,14 +19,61 @@ Ext.define('testapp.view.speaker.Card', {
 
         autoDestroy: false,
         layout: 'fit',
-		items: [
+/*        navigationBar: {
+            splitNavigation: (Ext.theme.name == "Blackberry") ? {
+                xtype: 'toolbar',
+                items: [{
+                    docked: 'right',
+                    xtype: 'button',
+                    iconCls: 'time',
+                    hidden: true
+                }]
+            } : false,
+            title: 'Me',
+            //ui: (Ext.theme.name == "Blackberry") ? 'light' : 'sencha',
+            items: [
+                {
+                    xtype: 'button',
+                    id: 'logoutButton',
+                    text: 'Logout',
+                    align: 'right',
+                    //hidden: true,
+                    hideAnimation: Ext.os.is.Android ? false : {
+                        type: 'fadeOut',
+                        duration: 200
+                    },
+                    showAnimation: Ext.os.is.Android ? false : {
+                        type: 'fadeIn',
+                        duration: 200
+                    }
+                }
+            ]
+        },
+*/		items: [
 
 			{
                 xtype: 'titlebar',
                 title: 'Me',
                 docked: 'top',
-                
+                items:[
+                   {
+                        xtype: 'button',
+                        id: 'logoutButton',
+                        text: 'Logout',
+                        align: 'right',
+                        //hidden: true,
+                        hideAnimation: Ext.os.is.Android ? false : {
+                            type: 'fadeOut',
+                            duration: 200
+                        },
+                        showAnimation: Ext.os.is.Android ? false : {
+                            type: 'fadeIn',
+                            duration: 200
+                        }
+                    } 
+                ]
             },
+            
             {
                 xtype: 'userCourseList',
                 store: 'userCourseStore',
@@ -125,9 +172,9 @@ Ext.define('testapp.view.speaker.Card', {
 
 	 	listeners: {
             keyup: 'onKeyUp'
-        },
+        }
 
-        record: null
+       // record: null
     },
 
     updateRecord: function(newRecord) {

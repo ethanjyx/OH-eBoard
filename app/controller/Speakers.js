@@ -7,7 +7,8 @@ Ext.define('testapp.controller.Speakers', {
 			speakers: 'speakerContainer speakers',
 			speaker: 'speakerContainer speaker',
 			speakerInfo: 'speakerContainer speakerInfo',
-			sessions: 'speakerContainer speaker list'
+			sessions: 'speakerContainer speaker list',
+			logoutButton: '#logoutButton'
 		},
 		control: {
 			speakers: {
@@ -16,6 +17,9 @@ Ext.define('testapp.controller.Speakers', {
 			},
 			sessions: {
 				itemtap: 'onSessionTap'
+			},
+			logoutButton: {
+				tap: 'onLogoutButton'
 			}
 		}
 	},
@@ -53,6 +57,10 @@ Ext.define('testapp.controller.Speakers', {
 		if (this.speaker) {
 			this.speaker.down('list').deselectAll();
 		}
+	},
+
+	onLogoutButton: function() {
+		console.log("in log out ");
 	}
 
 });

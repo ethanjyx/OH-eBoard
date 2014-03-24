@@ -82,6 +82,7 @@ Ext.application({
         'session.List',
         'session.Detail',
         'session.Info',
+        //'session.TimePickerField',
 
         'speaker.Card',
         'speaker.List',
