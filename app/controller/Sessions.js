@@ -50,7 +50,8 @@ Ext.define('testapp.controller.Sessions', {
 				itemtap: 'onSpeakerTap'
 			}
 		},
-		onHistroyList: false
+		onHistroyList: false,
+		isGSI: false
 	},
 
 	onMainPush: function(view, item) {
@@ -59,7 +60,7 @@ Ext.define('testapp.controller.Sessions', {
         if (item.xtype == "session") {
             this.getSessions().deselectAll();
             this.showHistoryButton();
-            this.checkJoinButtonDisplay();
+            this.updateJoinButtonDisplay();
         } else {
             this.hideHistoryButton();
         }
@@ -77,20 +78,28 @@ Ext.define('testapp.controller.Sessions', {
         }	
     },
 
-    checkJoinButtonDisplay: function() {
-    	var shouldShowJoinButton = true;
+    updateJoinButtonDisplay: function() {
+    	if (this.shouldDisplayJoinButton()) {
+    		this.showJoinButton();
+    	} else {
+    		this.hideJoinButton();
+    	}
+    },
+
+    shouldDisplayJoinButton: function() {
+    	// check whether the user is the person who created the OH
+    	if (this.isGSI) 
+    		return false;
+
+        // check whether the user is in the 
         var speakerStore = Ext.getStore('SessionSpeakers');
         for (var i = speakerStore.getData().length - 1; i >= 0; i--) {
         	if (speakerStore.getData().getAt(i).getData()['userObjectId'] === testapp.Facebook.userObjectId) {
-        		shouldShowJoinButton = false;
-        		break;
+        		return false;
         	}
         };
-        if (shouldShowJoinButton) {
-        	this.showJoinButton();
-        } else {
-        	this.hideJoinButton();
-        }
+    	
+        return true;
     },
 
 	initSessions: function() {
@@ -175,6 +184,11 @@ Ext.define('testapp.controller.Sessions', {
         record.numberServed = 0;
 		var ed = Ext.create('testapp.model.Session', record);
 		ed.data.id = ed.data.courseSubject + ed.data.courseNumber + ed.data.holderName;
+		ed.data.holder = {
+			__type: 'Pointer', 
+			className: 'User', 
+			objectId: testapp.Facebook.userObjectId
+		}
 		var that = this;
 		ed.save({
     		success: function(result) {
@@ -276,9 +290,7 @@ Ext.define('testapp.controller.Sessions', {
 
 	onSessionTap: function(list, idx, el, record) {
 		var that = this;
-
 		var speakerStore = Ext.getStore('SessionSpeakers');
-
   		var queryJoinTable = {
   				courseOH: {
   					__type:"Pointer",
@@ -302,10 +314,10 @@ Ext.define('testapp.controller.Sessions', {
 
 			that.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
 			that.session.courseObjectId = record.get('objectId');
+			that.isGSI = (record.get('holder')['objectId'] === testapp.Facebook.userObjectId) ? true : false;
 			that.getSessionContainer().push(that.session);
 			that.getSessionInfo().setRecord(record);
-			// #TODO: check GSI here	
-  		});
+		});
 	},
 
 	onSpeakerTap: function(list, idx, el, record) {
@@ -316,7 +328,7 @@ Ext.define('testapp.controller.Sessions', {
 			});
 		}
 		*/
-		if (this.onHistroyList == true)
+		if (this.onHistroyList || !this.isGSI)
 			return;
 		
 		//this.speakerInfo.config.title = record.getFullName();
