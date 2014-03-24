@@ -23,6 +23,14 @@ Ext.define('testapp.view.session.Detail', {
                 align: 'right',
                 hidden: false
             },
+            {
+                xtype: 'button',
+                id: 'quitButton',
+                ui: 'btnColor',
+                text: 'quit',
+                align: 'right',
+                hidden: true
+            },
             /*
             {
                 xtype: 'component',

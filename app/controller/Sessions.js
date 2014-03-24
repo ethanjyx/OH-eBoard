@@ -14,6 +14,7 @@ Ext.define('testapp.controller.Sessions', {
 			addButton: '#addButton',
 			saveButtonAdd: '#saveButtonAdd',
 			joinButton: '#joinButton',
+			quitButton: '#quitButton',
 			saveButtonJoin: '#saveButtonJoin',
 			sessionAdd: 'session-add',
 			sessionJoin: 'session-join',
@@ -42,6 +43,9 @@ Ext.define('testapp.controller.Sessions', {
 			},
 			joinButton: {
 				tap: 'onJoinButton'
+			},
+			quitButton: {
+				tap: 'onQuitButton'
 			},
 			saveButtonJoin: {
 				tap: 'onSaveButtonJoin'
@@ -220,6 +224,10 @@ Ext.define('testapp.controller.Sessions', {
 		});
 
         this.getSessionContainer().push(this.sessionJoin);
+
+    },
+
+    onQuitButton: function() {
 
     },
 
