@@ -64,7 +64,7 @@ Ext.define('testapp.controller.Sessions', {
         if (item.xtype == "session") {
             this.getSessions().deselectAll();
             this.showHistoryButton();
-            this.updateJoinButtonDisplay();
+            this.updateButtonDisplay();
 
             this.getSpeakers().disable();
         } else {
@@ -84,28 +84,31 @@ Ext.define('testapp.controller.Sessions', {
         }	
     },
 
-    updateJoinButtonDisplay: function() {
-    	if (this.shouldDisplayJoinButton()) {
-    		this.showJoinButton();
-    	} else {
+    updateButtonDisplay: function() {
+    	if (this.isGSI) {
     		this.hideJoinButton();
+    		this.hideQuitButton();
+    	} else if (this.userIndexInWaitingList() === -1) {
+    		// user not in waiting list
+			this.showJoinButton();
+    		this.hideQuitButton();
+    	} else {
+    		// user in waiting list
+    		this.hideJoinButton();
+    		this.showQuitButton();
     	}
     },
 
-    shouldDisplayJoinButton: function() {
-    	// check whether the user is the person who created the OH
-    	if (this.isGSI) 
-    		return false;
-
-        // check whether the user is in the 
+    // returns the index of the user in the waiting list
+    userIndexInWaitingList: function() {
         var speakerStore = Ext.getStore('SessionSpeakers');
         for (var i = speakerStore.getData().length - 1; i >= 0; i--) {
         	if (speakerStore.getData().getAt(i).getData()['userObjectId'] === testapp.Facebook.userObjectId) {
-        		return false;
+        		return i;
         	}
         };
     	
-        return true;
+        return -1;
     },
 
 	initSessions: function() {
@@ -214,12 +217,9 @@ Ext.define('testapp.controller.Sessions', {
 		var that = this;
 
 		FB.api('me?fields=first_name,last_name', function(response) {
-			//response = {"id":"445566", "first_name":"sure", "last_name":"Yanggg"};
 			var record = session_join.saveRecord();
-	
 			record.firstName = response.first_name;
 			record.lastName = response.last_name;
-
 			session_join.updateRecord(record);
 		});
 
@@ -228,7 +228,13 @@ Ext.define('testapp.controller.Sessions', {
     },
 
     onQuitButton: function() {
+    	// delete from JoinUser table : userObjectId, courseObjectId, history: false
+    	var speakerStore = Ext.getStore('SessionSpeakers');
+        speakerStore.removeAt(this.userIndexInWaitingList());
+        speakerStore.sync();
 
+        this.getJoinButton().show();
+        this.getQuitButton().hide();
     },
 
     onSaveButtonJoin: function() {
@@ -444,11 +450,31 @@ Ext.define('testapp.controller.Sessions', {
 
     hideJoinButton: function() {
         var joinButton = this.getJoinButton();
-
+        
         if (joinButton.isHidden()) {
             return;
         }
 
         joinButton.hide();
+    },
+
+    showQuitButton: function() {
+        var quitButton = this.getQuitButton();
+
+        if (!quitButton.isHidden()) {
+            return;
+        }
+
+        quitButton.show();
+    },
+
+    hideQuitButton: function() {
+        var quitButton = this.getQuitButton();
+
+        if (quitButton.isHidden()) {
+            return;
+        }
+
+        quitButton.hide();
     }
 });
