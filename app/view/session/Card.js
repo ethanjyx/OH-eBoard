@@ -27,15 +27,16 @@ Ext.define('testapp.view.session.Card', {
                     id: 'historyButton',
                     text: 'History',
                     align: 'right',
-                    hidden: true,
-                    hideAnimation: Ext.os.is.Android ? false : {
-                        type: 'fadeOut',
-                        duration: 200
-                    },
-                    showAnimation: Ext.os.is.Android ? false : {
-                        type: 'fadeIn',
-                        duration: 200
-                    }
+                    hidden: true
+                    // ,
+                    // hideAnimation: Ext.os.is.Android ? false : {
+                    //     type: 'fadeOut',
+                    //     duration: 200
+                    // },
+                    // showAnimation: Ext.os.is.Android ? false : {
+                    //     type: 'fadeIn',
+                    //     duration: 200
+                    // }
                 }
             ]
         },

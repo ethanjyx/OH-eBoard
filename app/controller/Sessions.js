@@ -61,21 +61,23 @@ Ext.define('testapp.controller.Sessions', {
 	onMainPush: function(view, item) {
         var historyButton = this.getHistoryButton();
 
-        if (item.xtype == "session") {
+        console.log("Main Push " + item.xtype);
+
+        if (item.xtype === "session") {
             this.getSessions().deselectAll();
             this.showHistoryButton();
             this.updateButtonDisplay();
-
-            this.getSpeakers().disable();
         } else {
             this.hideHistoryButton();
         }
     },
 
     onMainPop: function(view, item) {
+        console.log("Main Pop " + item.xtype);
+
         if (item.xtype === "session-join") {
             this.showHistoryButton();
-            this.hideJoinButton();
+            this.updateButtonDisplay();
         } else if (item.xtype === "list-history") {
         	this.onHistroyList = false; 
         	this.showHistoryButton();
