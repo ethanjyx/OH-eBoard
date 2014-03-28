@@ -155,7 +155,7 @@ Ext.define('testapp.controller.Sessions', {
             	that.listHistory = Ext.create('testapp.view.session.History');
         	}
 
-				//that.listHistory.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
+				that.listHistory.setTitle(that.session.getTitle());
 				//that.listHistory.courseObjectId = record.get('objectId');
 				that.onHistroyList = true;
 				that.getSessionContainer().push(that.listHistory);
@@ -352,28 +352,6 @@ Ext.define('testapp.controller.Sessions', {
 				handler: function() {
 			        console.log(record);
 
-					/*var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
-					var relation = {
-						waitingList : {
-							__op : "RemoveRelation",
-							objects: [{__type:"Pointer", className:"User", objectId:record.data.objectId}]
-						}
-					};
-
-			 		console.log(relation);
-
-					parse.updateRelation({
-						object: relation,
-						success: function(result) {
-							console.log('Join in course: ' + result);
-							console.log(result);
-							Ext.getStore('SessionSpeakers').remove(record);
-						},
-						error: function(result) {
-							console.log("A query error occured " + result);
-						},
-						className: 'courseOH/' + this.session.courseObjectId
-					});*/
 					var that = this;
 					record.data.history = true;
 					record.save({
