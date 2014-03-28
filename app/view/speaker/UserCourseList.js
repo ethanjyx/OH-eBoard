@@ -19,7 +19,7 @@ Ext.define('testapp.view.speaker.UserCourseList', {
 			'<h3><div class="nametag">{firstName} {lastName}</div>',
 			'<div class="postag">{position}</div></h3>'
 			*/
-			'<div class="session"><div class="courseSubject">{courseSubject}&nbsp;{courseNumber}</div></div>'
+			'<div class="UserCourse"><div class="courseSubject">{courseSubject}&nbsp;{courseNumber}</div></div>'
 		]
 	}
 });

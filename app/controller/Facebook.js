@@ -35,6 +35,24 @@ Ext.define('testapp.controller.Facebook', {
     onFacebookConnected: function() {
         // Ext.Viewport.add({ xtype: 'main' });
         // Ext.Viewport.setActiveItem({xtype: 'main'});
+
+        var userCourseStore = Ext.getStore('UserCourseStore');
+        var queryJoinTable = {
+                user: {
+                    __type: "Pointer",
+                    className: "User",
+                    objectId: testapp.Facebook.userObjectId
+                },
+                history: false
+            };
+
+        userCourseStore.getProxy().setExtraParams({
+            where: JSON.stringify(queryJoinTable),
+            include: 'courseOH'
+        });
+
+        userCourseStore.load();
+
         Ext.getStore('Sessions').load(function(){
             Ext.Viewport.add({ xtype: 'main' });
             Ext.Viewport.setActiveItem(1);

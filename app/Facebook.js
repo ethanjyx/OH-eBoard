@@ -84,8 +84,9 @@ Ext.define('testapp.Facebook', {
             me.hasCheckedStatus = true;
 
             if (response.status == 'connected') {
-                me.checkUserTable(response.authResponse.userID);
-                me.fireEvent('connected');
+                me.checkUserTable(response.authResponse.userID, function(){
+                    me.fireEvent('connected');
+                });
             } else {
                 me.fireEvent('unauthorized');
             }
@@ -103,7 +104,7 @@ Ext.define('testapp.Facebook', {
         }, me.fbTimeout);
     },
 
-    checkUserTable: function(fb_id) {
+    checkUserTable: function(fb_id, callback) {
         var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
         var query_fb_id = {
             facebookId : fb_id
@@ -113,6 +114,7 @@ Ext.define('testapp.Facebook', {
             success: function(result) {
                 if (result.results.length != 0){
                     that.userObjectId = result.results[0].objectId;
+                    callback();
                     return;
                 }
                 that.insert_fb_id(fb_id);

@@ -20,7 +20,7 @@ Ext.define('testapp.view.speaker.Detail', {
 			{
                 flex: 2,
 				xtype: 'list',
-				store: 'SpeakerSessions',
+				store: 'UserCourseStore',
 				itemTpl: [
 					'{title}'
 				]

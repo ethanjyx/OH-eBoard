@@ -76,7 +76,7 @@ Ext.define('testapp.view.speaker.Card', {
             
             {
                 xtype: 'userCourseList',
-                store: 'userCourseStore',
+                store: 'UserCourseStore',
                 grouped: true,
                 pinHeaders: false
             }

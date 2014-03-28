@@ -21,24 +21,21 @@ Ext.define('testapp.store.Sessions', {
                 property: 'courseNumber',
                 direction: 'ASC'
             }
-        ],
-        listeners: {
-            load : function(store, response) {
-                console.log('LoadSessionStore: ' + Ext.getStore('Sessions').getCount());
+        ]/*,
+
+        proxy: {
+            type: 'rest',
+            useDefaultXhrHeader: false,
+            url: 'https://api.parse.com/1/classes/JoinTable',
+            headers: {
+                'X-Parse-Application-Id' : "Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", 
+                'X-Parse-REST-API-Key' : "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g",
+                'Content-Type' : 'application/json'
             },
-            write: function(store, operation){
-                var record = operation.getRecords()[0],
-                    name = Ext.String.capitalize(operation.action),
-                    verb;
-                
-                if (name == 'Destroy') {
-                    record = operation.records[0];
-                    verb = 'Destroyed';
-                } else {
-                    verb = name + 'd';
-                }
-                Ext.example.msg(name, Ext.String.format("{0} user: {1}", verb, record.getId()));
+            reader: {
+                type: 'json',
+                rootProperty: 'results'
             }
-        }
+        }*/
     }
 });
