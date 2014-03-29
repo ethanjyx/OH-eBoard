@@ -71,7 +71,8 @@ Ext.application({
     models: [
         'Session',
         'Speaker',
-        'JoinUser'
+        'JoinUser',
+        'UserCourse'
     ],
 
     views: [
