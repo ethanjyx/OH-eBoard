@@ -54,8 +54,23 @@ Ext.define('testapp.view.session.Add', {
                                 label: 'Start Time',
                                 name: 'startTime',
                                 listeners: {
+                                    focus: 'testapp.view.session.Add.focusHandle'
+                                }
+                            },
+                            {
+                                xtype: 'textfield',
+                                label: 'End Time',
+                                name: 'endTime',
+                                listeners: {
                                     focus: function() {
-                                        //if (!this.picker)
+
+                                        var activeElement = document.activeElement;
+                                        activeElement.setAttribute('readonly', 'readonly'); 
+                                        activeElement.setAttribute('disabled', 'true');
+                                        activeElement.blur();
+                                        activeElement.removeAttribute('readonly');
+                                        activeElement.removeAttribute('disabled');
+
 
                                         var i,
                                         data_hours = [],
@@ -96,84 +111,10 @@ Ext.define('testapp.view.session.Add', {
                                             value:'AM'
                                         });
                                     
-                                   
-                                        // Make the time picker...
-
-                                        this.picker = Ext.create("Ext.Picker", {
-                                            hidden: true,
-                                            zIndex: 9999,
-                                            slots: [{
-                                                name: "hours",
-                                                title: "Hours",
-                                                data: data_hours
-                                            },
-                                            {
-                                                name: "minuts",
-                                                title: "Minuts",
-                                                data: data_minuts
-                                            },
-                                            {
-                                                name: "AMPM",
-                                                title: "test",
-                                                data: data_AMPM
-                                            }],
-                                            listeners: {
-                                                change: function (picker, values) {
-                                                    that.setValue(values.hours+':'+values.minuts+' '+values.AMPM);
-                                                }
-                                            }
-                                        });
-                                        Ext.Viewport.add(this.picker);
-                                        this.picker.show();
-                                    }
-                                }
-                            },
-                            {
-                                xtype: 'textfield',
-                                label: 'End Time',
-                                name: 'endTime',
-                                listeners: {
-                                    focus: function() {
-                                        var i,
-                                        data_hours = [],
-                                        data_minuts = [],
-                                        data_AMPM = [],
-                                        //stringVal,
-                                        that = this;
-                                        for(i=1; i<13; i++) {
-                                            data_hours.push({
-                                                text: i,
-                                                value: i
-                                            });
-                                        }   
-                                        data_minuts.push({
-                                            text: '0',
-                                            value: '0'
-                                        });
-                                        var val = 1;
-                                        for(i=0; i<59; i++) {
-                                            if (i < 9) 
-                                                data_minuts.push({
-                                                    text: '0'+val,
-                                                    value: '0'+val
-                                                });
-                                            else 
-                                                data_minuts.push({
-                                                    text: val,
-                                                    value: val
-                                                });
-                                            val = val + 1;
+                                        if (this.picker) {
+                                            this.picker.show();
+                                            return;
                                         }
-                                        data_AMPM.push({
-                                            text:'PM',
-                                            value:'PM'
-                                        });
-                                        data_AMPM.push({
-                                            text:'AM',
-                                            value:'AM'
-                                        });
-                                    
-                                        
                                    
                                         // Make the time picker...
 
@@ -249,6 +190,138 @@ Ext.define('testapp.view.session.Add', {
 
     onKeyUp: function() {
         this.fireEvent('change', this);
+    },
+
+    focusHandle: function() {
+        //if (!this.picker)
+        console.log("Here!");
+        hideKeyboard(function(){});
+        console.log("Here!");
+        var activeElement = document.activeElement;
+        activeElement.setAttribute('readonly', 'readonly'); 
+        activeElement.setAttribute('disabled', 'true');
+        activeElement.blur();
+        activeElement.removeAttribute('readonly');
+        activeElement.removeAttribute('disabled');
+        /*
+        Ext.defer(function() {
+            activeElement.blur();
+            activeElement.removeAttribute('readonly');
+            activeElement.removeAttribute('disabled');
+        }, 100);
+        */
+
+        var i,
+        data_hours = [],
+        data_minuts = [],
+        data_AMPM = [],
+        //stringVal,
+        that = this;
+        for(i=1; i<13; i++) {
+            data_hours.push({
+                text: i,
+                value: i
+            });
+        }   
+        data_minuts.push({
+            text: '00',
+            value: '00'
+        });
+        var val = 1;
+        for(i=0; i<59; i++) {
+            if (i < 9) 
+                data_minuts.push({
+                    text: '0'+val,
+                    value: '0'+val
+                });
+            else 
+                data_minuts.push({
+                    text: val,
+                    value: val
+                });
+            val = val + 1;
+        }
+        data_AMPM.push({
+            text:'PM',
+            value:'PM'
+        });
+        data_AMPM.push({
+            text:'AM',
+            value:'AM'
+        });
+    
+   
+        // Make the time picker...
+        
+        if (this.picker) {
+            this.picker.show();
+            return;
+        }
+        this.picker = Ext.create("Ext.Picker", {
+            hidden: true,
+            zIndex: 9999,
+            slots: [{
+                name: "hours",
+                title: "Hours",
+                data: data_hours
+            },
+            {
+                name: "minuts",
+                title: "Minuts",
+                data: data_minuts
+            },
+            {
+                name: "AMPM",
+                title: "test",
+                data: data_AMPM
+            }],
+            listeners: {
+                change: function (picker, values) {
+                    that.setValue(values.hours+':'+values.minuts+' '+values.AMPM);
+                    //if (Ext.os.is.IOS) {
+                        //picker.hide();
+                        //that.picker.hide();
+                        //Ext.Viewport.remove(0);
+                        //this.callParent(arguments); 
+                        //this.showPreviousCard();
+                    //}
+
+                }
+                /*,
+                show: function (picker, eOpt) {
+                    if (Ext.os.is.iOS) { 
+                        var activeElement = document.activeElement;
+                        activeElement.setAttribute('readonly', 'readonly'); 
+                        activeElement.setAttribute('disabled', 'true');
+                        Ext.defer(function() {
+                            activeElement.blur();
+                            activeElement.removeAttribute('readonly');
+                            activeElement.removeAttribute('disabled');
+                        }, 100);
+                    }
+                },
+                pick: function (picker) {
+                    if (Ext.os.is.IOS) {
+                        picker.hide();
+                    }
+                }*/
+            }
+        });
+        Ext.Viewport.add(this.picker);
+
+        this.picker.show();
+    },
+
+    hideKeyboard: function(cb) {
+        var activeElement = document.activeElement;
+        activeElement.setAttribute('readonly', 'readonly'); 
+        activeElement.setAttribute('disabled', 'true');
+        Ext.defer(function() {
+            activeElement.blur();
+            activeElement.removeAttribute('readonly');
+            activeElement.removeAttribute('disabled');
+        }, 100);
+        cb();
     }
 
 
