@@ -31,6 +31,14 @@ Ext.define('testapp.view.session.Detail', {
                 align: 'right',
                 hidden: true
             },
+            {
+                xtype: 'button',
+                id: 'closeSessionButton',
+                ui: 'btnColor',
+                text: 'Close this session',
+                align: 'right',
+                hidden: true
+            },
             /*
             {
                 xtype: 'component',
