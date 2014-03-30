@@ -2,15 +2,13 @@ Ext.define('testapp.view.speaker.UserCourseList', {
 
 	extend: 'Ext.List',
 	requires: [
-        'Ext.plugin.PullRefresh',
-        'Ext.plugin.ListPaging'
+        'Ext.plugin.PullRefresh'
     ],
 	xtype: 'userCourseList',
 
 	config: {
 		
         plugins: [
-            { type: 'listpaging' },
             { type: 'pullrefresh' }
         ],
 		itemTpl: [

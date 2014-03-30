@@ -4,7 +4,6 @@ Ext.define('testapp.view.session.List', {
 	//requires: 'Ext.SegmentedButton',
 	requires: [
         'Ext.plugin.PullRefresh',
-        'Ext.plugin.ListPaging',
         'Ext.tab.Panel',
         'Ext.field.Search'
     ],

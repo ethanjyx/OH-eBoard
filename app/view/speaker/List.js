@@ -2,8 +2,7 @@ Ext.define('testapp.view.speaker.List', {
 
 	extend: 'Ext.List',
 	requires: [
-        'Ext.plugin.PullRefresh',
-        'Ext.plugin.ListPaging'
+        'Ext.plugin.PullRefresh'
     ],
 	xtype: 'speakers',
 
@@ -12,7 +11,6 @@ Ext.define('testapp.view.speaker.List', {
 		itemCls: 'speaker',
         variableHeights: true,
         plugins: [
-            { type: 'listpaging' },
             { type: 'pullrefresh' }
         ],
 		itemTpl: [

@@ -463,6 +463,7 @@ Ext.define('testapp.controller.Sessions', {
     },
 
     onMeTap: function() {
+        console.log('ha ha ha ha');
         var userCourseStore = Ext.getStore('UserCourseStore');
         var queryJoinTable = {
                 user: {
