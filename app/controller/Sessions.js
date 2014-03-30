@@ -15,6 +15,7 @@ Ext.define('testapp.controller.Sessions', {
 			saveButtonAdd: '#saveButtonAdd',
 			joinButton: '#joinButton',
 			quitButton: '#quitButton',
+            closeSessionButton: '#closeSessionButton',
 			saveButtonJoin: '#saveButtonJoin',
 			sessionAdd: 'session-add',
 			sessionJoin: 'session-join',
@@ -48,6 +49,9 @@ Ext.define('testapp.controller.Sessions', {
 			quitButton: {
 				tap: 'onQuitButton'
 			},
+            closeSessionButton: {
+                tap: 'onCloseSessionButton'
+            },
 			saveButtonJoin: {
 				tap: 'onSaveButtonJoin'
 			},
@@ -78,7 +82,6 @@ Ext.define('testapp.controller.Sessions', {
 
     onMainPop: function(view, item) {
         console.log("Main Pop " + item.xtype);
-
         if (item.xtype === "session-join") {
             this.showHistoryButton();
             this.updateButtonDisplay();
@@ -94,14 +97,17 @@ Ext.define('testapp.controller.Sessions', {
     	if (this.isGSI) {
     		this.hideJoinButton();
     		this.hideQuitButton();
+            this.showCloseSessionButton();
     	} else if (this.userIndexInWaitingList() === -1) {
     		// user not in waiting list
 			this.showJoinButton();
     		this.hideQuitButton();
+            this.hideCloseSessionButton();
     	} else {
     		// user in waiting list
     		this.hideJoinButton();
     		this.showQuitButton();
+            this.hideCloseSessionButton();
     	}
     },
 
@@ -164,10 +170,10 @@ Ext.define('testapp.controller.Sessions', {
             	that.listHistory = Ext.create('testapp.view.session.History');
         	}
 
-				that.listHistory.setTitle(that.session.getTitle());
-				//that.listHistory.courseObjectId = record.get('objectId');
-				that.onHistroyList = true;
-				that.getSessionContainer().push(that.listHistory);
+			that.listHistory.setTitle(that.session.getTitle());
+			//that.listHistory.courseObjectId = record.get('objectId');
+			that.onHistroyList = true;
+			that.getSessionContainer().push(that.listHistory);
   		});
     },
 
@@ -241,6 +247,19 @@ Ext.define('testapp.controller.Sessions', {
 
         this.getJoinButton().show();
         this.getQuitButton().hide();
+    },
+
+    onCloseSessionButton: function() {
+        console.log('close session');
+        var sessionStore = Ext.getStore('Sessions');
+        for (var i = 0; i < sessionStore.getData().length; i++) {
+            if (sessionStore.getData().getAt(i).getData()['objectId'] === this.session.courseObjectId) {
+                sessionStore.removeAt(i);
+                break;
+            }
+        };
+        sessionStore.sync();
+        this.getSessionContainer().pop();
     },
 
     onSaveButtonJoin: function() {
@@ -460,6 +479,26 @@ Ext.define('testapp.controller.Sessions', {
         }
 
         quitButton.hide();
+    },
+
+    showCloseSessionButton: function() {
+        var closeSessionButton = this.getCloseSessionButton();
+
+        if (!closeSessionButton.isHidden()) {
+            return;
+        }
+
+        closeSessionButton.show();
+    },
+
+    hideCloseSessionButton: function() {
+        var closeSessionButton = this.getCloseSessionButton();
+
+        if (closeSessionButton.isHidden()) {
+            return;
+        }
+
+        closeSessionButton.hide();
     },
 
     onMeTap: function() {
