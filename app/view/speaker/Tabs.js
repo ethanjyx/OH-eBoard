@@ -27,7 +27,6 @@ Ext.define('testapp.view.speaker.Tabs', {
                 title: 'session owned',
                 cls  : 'card',
                 iconCls: Ext.theme.is.Blackberry || Ext.theme.is.CupertinoClassic|| Ext.theme.is.Tizen ? 'organize' : null,
-                id: 'sessionOwnTab',
                 xtype: 'userCourseOwnList',
                 store: 'UserCourseOwn',
                 pinHeaders: false

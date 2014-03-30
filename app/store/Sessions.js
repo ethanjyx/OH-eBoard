@@ -33,11 +33,13 @@ Ext.define('testapp.store.Sessions', {
                 'Content-Type' : 'application/json'
             },
             writer: {
-                type: 'json'
+                type: 'json',
+                idProperty: 'objectId'
             },
             reader: {
                 type: 'json',
-                rootProperty: 'results'
+                rootProperty: 'results',
+                idProperty: 'objectId'
             }
         }
     }

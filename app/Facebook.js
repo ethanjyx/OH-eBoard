@@ -86,19 +86,35 @@ Ext.define('testapp.Facebook', {
             if (response.status == 'connected') {
                 me.checkUserTable(response.authResponse.userID, function(){
                     var userCourseOwn = Ext.getStore('UserCourseOwn');
-        var queryJoinTable = {
-            holder: {
-                __type: "Pointer",
-                className: "User",
-                objectId: testapp.Facebook.userObjectId
-            },
-        };
+                    var queryUserCourseOwn = {
+                        holder: {
+                            __type: "Pointer",
+                            className: "User",
+                            objectId: testapp.Facebook.userObjectId
+                        },
+                    };
 
-        userCourseOwn.getProxy().setExtraParams({
-            where: JSON.stringify(queryJoinTable)
-        });
-        console.log('facebook set proxy');
-        userCourseOwn.load();
+                    userCourseOwn.getProxy().setExtraParams({
+                        where: JSON.stringify(queryUserCourseOwn)
+                    });
+
+                    userCourseOwn.load();
+
+                    var userCourseStore = Ext.getStore('UserCourseStore');
+                    var queryUserCourseJoin = {
+                            user: {
+                               __type: "Pointer",
+                                className: "User",
+                                objectId: testapp.Facebook.userObjectId
+                            },
+                            history: false
+                        };
+
+                    userCourseStore.getProxy().setExtraParams({
+                        where: JSON.stringify(queryUserCourseJoin),
+                        include: 'courseOH'
+                    });
+
                     me.fireEvent('connected');
                 });
             } else {

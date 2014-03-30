@@ -9,7 +9,8 @@ Ext.define('testapp.controller.Speakers', {
 			speakerInfo: 'speakerContainer speakerInfo',
 			sessions: 'speakerContainer speaker list',
 			logoutButton: '#logoutButton',
-			sessionOwnTab: 'tabs #sessionOwnTab'
+			sessionJoinTab: 'tabpanel #ext-tab-2',
+			sessionOwnTab: 'tabpanel #ext-tab-3'
 		},
 		control: {
 			speakers: {
@@ -24,6 +25,9 @@ Ext.define('testapp.controller.Speakers', {
 			},
 			sessionOwnTab: {
                 tap: 'onSessionOwnTap'
+            },
+			sessionJoinTab: {
+                tap: 'onSessionJoinTap'
             }
 		}
 	},
@@ -124,18 +128,21 @@ Ext.define('testapp.controller.Speakers', {
 	},
 
 	onSessionOwnTap: function() {
+		if (testapp.controller.Speakers.lastTabHit == 1) {
+			return;
+		}
+		testapp.controller.Speakers.lastTabHit = 1;
 		console.log('onSessionOwnTap');
-		var userCourseStore = Ext.getStore('UserCourseStore');
-        var queryJoinTable = {
-            holder: {
-                __type: "Pointer",
-                className: "User",
-                objectId: testapp.Facebook.userObjectId
-            },
-        };
+		Ext.getStore('UserCourseOwn').load();
+	},
 
-        userCourseStore.getProxy().setExtraParams({
-            where: JSON.stringify(queryJoinTable)
-        });
+	onSessionJoinTap: function() {
+		if (testapp.controller.Speakers.lastTabHit == 2)
+		{
+			return;
+		}
+		testapp.controller.Speakers.lastTabHit = 2;
+		console.log('onSessionJoinTap');
+		Ext.getStore('UserCourseStore').load();
 	}
 });

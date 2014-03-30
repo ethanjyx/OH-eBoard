@@ -505,37 +505,9 @@ Ext.define('testapp.controller.Sessions', {
     },
 
     onMeTap: function() {
-        console.log('ha ha ha ha');
-        var userCourseStore = Ext.getStore('UserCourseStore');
-        var queryJoinTable = {
-                user: {
-                    __type: "Pointer",
-                    className: "User",
-                    objectId: testapp.Facebook.userObjectId
-                },
-                history: false
-            };
+        console.log('onMeTap');
 
-        userCourseStore.getProxy().setExtraParams({
-            where: JSON.stringify(queryJoinTable),
-            include: 'courseOH'
-        });
-
-        userCourseStore.load();
-
-        /*var userCourseOwn = Ext.getStore('UserCourseOwn');
-        var queryJoinTable = {
-            holder: {
-                __type: "Pointer",
-                className: "User",
-                objectId: testapp.Facebook.userObjectId
-            },
-        };
-
-        userCourseOwn.getProxy().setExtraParams({
-            where: JSON.stringify(queryJoinTable)
-        });
-
-        userCourseOwn.load();*/
+        Ext.getStore('UserCourseStore').load();
+        Ext.getStore('UserCourseOwn').load();
     }
 });
