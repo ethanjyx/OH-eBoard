@@ -2,7 +2,6 @@ Ext.define('testapp.model.Session', {
 	extend: 'Ext.data.Model',
 
 	config: {
-		idProperty: 'objectId',
 		fields: [
 			/*
 			{
@@ -27,7 +26,7 @@ Ext.define('testapp.model.Session', {
 			'location',
 			'holder'
 		],
-        proxy: {
+		proxy: {
             type: 'rest',
             useDefaultXhrHeader: false,
             url: 'https://api.parse.com/1/classes/courseOH',
@@ -37,11 +36,13 @@ Ext.define('testapp.model.Session', {
                 'Content-Type' : 'application/json'
             },
             writer: {
-                type: 'json'
+                type: 'json',
+                idProperty: 'objectId'
             },
             reader: {
                 type: 'json',
-                rootProperty: 'results'
+                rootProperty: 'results',
+                idProperty: 'objectId'
             }
         }
 	}

@@ -22,7 +22,7 @@ Ext.define('testapp.controller.Sessions', {
 			listHistory: 'list-history',
 			historyButton: '#historyButton',
 			speakers: 'sessionContainer speakers',
-            meTab: 'tabpanel #ext-tab-2'
+            meTab: 'tabpanel #meTab'
 		},
 		control: {
 			sessionContainer: {
@@ -211,12 +211,16 @@ Ext.define('testapp.controller.Sessions', {
 			objectId: testapp.Facebook.userObjectId
 		}
 		var that = this;
-		ed.save({
+
+		/*ed.save({
     		success: function(result) {
         		console.log("Create new OH session " + ed.data.id);
-                Ext.getStore('Sessions').load(function(){that.getSessionContainer().pop()});
+                Ext.getStore('Sessions').sync();
+                that.getSessionContainer().pop();
         	}
-    	});
+    	});*/
+        Ext.getStore('Sessions').add(ed);
+        that.getSessionContainer().pop();
     },
 
     onJoinButton: function() {
@@ -258,7 +262,6 @@ Ext.define('testapp.controller.Sessions', {
                 break;
             }
         };
-        sessionStore.sync();
         this.getSessionContainer().pop();
     },
 
@@ -519,5 +522,20 @@ Ext.define('testapp.controller.Sessions', {
         });
 
         userCourseStore.load();
+
+        /*var userCourseOwn = Ext.getStore('UserCourseOwn');
+        var queryJoinTable = {
+            holder: {
+                __type: "Pointer",
+                className: "User",
+                objectId: testapp.Facebook.userObjectId
+            },
+        };
+
+        userCourseOwn.getProxy().setExtraParams({
+            where: JSON.stringify(queryJoinTable)
+        });
+
+        userCourseOwn.load();*/
     }
 });

@@ -13,6 +13,7 @@ Ext.define('testapp.view.speaker.Card', {
 
 		tab: {
 			title: 'Me',
+            id: 'meTab',
 			iconCls: 'user',
 			action: 'speakersTab'
 		},

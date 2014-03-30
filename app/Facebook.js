@@ -85,6 +85,20 @@ Ext.define('testapp.Facebook', {
 
             if (response.status == 'connected') {
                 me.checkUserTable(response.authResponse.userID, function(){
+                    var userCourseOwn = Ext.getStore('UserCourseOwn');
+        var queryJoinTable = {
+            holder: {
+                __type: "Pointer",
+                className: "User",
+                objectId: testapp.Facebook.userObjectId
+            },
+        };
+
+        userCourseOwn.getProxy().setExtraParams({
+            where: JSON.stringify(queryJoinTable)
+        });
+        console.log('facebook set proxy');
+        userCourseOwn.load();
                     me.fireEvent('connected');
                 });
             } else {

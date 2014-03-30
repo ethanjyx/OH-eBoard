@@ -1,4 +1,4 @@
-Ext.define('testapp.store.Sessions', {
+Ext.define('testapp.store.UserCourseOwn', {
 	extend: 'Ext.data.Store',
 
     config: {

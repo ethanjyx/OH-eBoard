@@ -8,7 +8,8 @@ Ext.define('testapp.controller.Speakers', {
 			speaker: 'speakerContainer speaker',
 			speakerInfo: 'speakerContainer speakerInfo',
 			sessions: 'speakerContainer speaker list',
-			logoutButton: '#logoutButton'
+			logoutButton: '#logoutButton',
+			sessionOwnTab: 'tabs #sessionOwnTab'
 		},
 		control: {
 			speakers: {
@@ -20,7 +21,10 @@ Ext.define('testapp.controller.Speakers', {
 			},
 			logoutButton: {
 				tap: 'onLogoutButton'
-			}
+			},
+			sessionOwnTab: {
+                tap: 'onSessionOwnTap'
+            }
 		}
 	},
 
@@ -117,6 +121,21 @@ Ext.define('testapp.controller.Speakers', {
 
 		Ext.Viewport.add(this.actions);
 		this.actions.show();
-	}
+	},
 
+	onSessionOwnTap: function() {
+		console.log('onSessionOwnTap');
+		var userCourseStore = Ext.getStore('UserCourseStore');
+        var queryJoinTable = {
+            holder: {
+                __type: "Pointer",
+                className: "User",
+                objectId: testapp.Facebook.userObjectId
+            },
+        };
+
+        userCourseStore.getProxy().setExtraParams({
+            where: JSON.stringify(queryJoinTable)
+        });
+	}
 });
