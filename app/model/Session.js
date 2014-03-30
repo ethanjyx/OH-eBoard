@@ -2,6 +2,7 @@ Ext.define('testapp.model.Session', {
 	extend: 'Ext.data.Model',
 
 	config: {
+		idProperty: 'objectId',
 		fields: [
 			/*
 			{
