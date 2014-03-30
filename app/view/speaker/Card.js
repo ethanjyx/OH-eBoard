@@ -75,10 +75,10 @@ Ext.define('testapp.view.speaker.Card', {
             },
             
             {
-                xtype: 'userCourseList',
-                store: 'UserCourseStore',
+                xtype: 'tabs'
+                /*store: 'UserCourseStore',
                 grouped: true,
-                pinHeaders: false
+                pinHeaders: false*/
             }
              /*
              {

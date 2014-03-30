@@ -89,7 +89,8 @@ Ext.application({
         'speaker.List',
         'speaker.Detail',
         'speaker.Info',
-        'speaker.UserCourseList'
+        'speaker.UserCourseList',
+        'speaker.Tabs'
 
     ],
 
