@@ -20,7 +20,8 @@ Ext.define('testapp.controller.Sessions', {
 			sessionJoin: 'session-join',
 			listHistory: 'list-history',
 			historyButton: '#historyButton',
-			speakers: 'sessionContainer speakers'
+			speakers: 'sessionContainer speakers',
+            meTab: 'tabpanel #ext-tab-2'
 		},
 		control: {
 			sessionContainer: {
@@ -52,7 +53,10 @@ Ext.define('testapp.controller.Sessions', {
 			},
 			speakers: {
 				itemtap: 'onSpeakerTap'
-			}
+			},
+            meTab: {
+                tap: 'onMeTap'
+            }
 		},
 		onHistroyList: false,
 		isGSI: false
@@ -456,5 +460,24 @@ Ext.define('testapp.controller.Sessions', {
         }
 
         quitButton.hide();
+    },
+
+    onMeTap: function() {
+        var userCourseStore = Ext.getStore('UserCourseStore');
+        var queryJoinTable = {
+                user: {
+                    __type: "Pointer",
+                    className: "User",
+                    objectId: testapp.Facebook.userObjectId
+                },
+                history: false
+            };
+
+        userCourseStore.getProxy().setExtraParams({
+            where: JSON.stringify(queryJoinTable),
+            include: 'courseOH'
+        });
+
+        userCourseStore.load();
     }
 });
