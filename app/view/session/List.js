@@ -11,7 +11,6 @@ Ext.define('testapp.view.session.List', {
 
 	config: {
 		plugins: [
-            { type: 'listpaging' },
             { type: 'pullrefresh' }
         ],
 		items: [

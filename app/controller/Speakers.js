@@ -9,8 +9,8 @@ Ext.define('testapp.controller.Speakers', {
 			speakerInfo: 'speakerContainer speakerInfo',
 			sessions: 'speakerContainer speaker list',
 			logoutButton: '#logoutButton',
-			//sessionJoinTab: 'tabpanel #ext-tab-2',
-			//sessionOwnTab: 'tabpanel #ext-tab-3'
+			sessionJoinTab: 'tabpanel #ext-tab-2',
+			sessionOwnTab: 'tabpanel #ext-tab-3'
 		},
 		control: {
 			speakers: {
