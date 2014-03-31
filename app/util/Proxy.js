@@ -12,7 +12,7 @@ Ext.define('testapp.util.Proxy', {
 		    speakerSessionStore = Ext.getStore('SpeakerSessions'),
 		    sessionIds, proposalModel, speakerModel, speakerSessions = {}, sessionId, speaker, sessionDays = {};
 
-		/*Ext.data.JsonP.request({
+		Ext.data.JsonP.request({
 		    url: url,
 		    callbackName: 'feedCb',
 
@@ -59,7 +59,7 @@ Ext.define('testapp.util.Proxy', {
 
 		        callback();
 		    }
-		});*/
+		});
 
 	}
 });
