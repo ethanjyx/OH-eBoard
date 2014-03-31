@@ -91,7 +91,7 @@ Ext.define('testapp.Facebook', {
                             __type: "Pointer",
                             className: "User",
                             objectId: testapp.Facebook.userObjectId
-                        },
+                        }
                     };
 
                     userCourseOwn.getProxy().setExtraParams({

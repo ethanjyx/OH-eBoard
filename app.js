@@ -83,6 +83,9 @@ Ext.application({
         'session.List',
         'session.Detail',
         'session.Info',
+        'session.Add',
+        'session.History',
+        'session.Join',
         //'session.TimePickerField',
 
         'speaker.Card',
@@ -113,7 +116,7 @@ Ext.application({
 
     launch: function() {
         testapp.controller.Speakers.lastTabHit = 2;
-        
+
         testapp.Facebook.initialize('241720436011519');
         Ext.Viewport.add({xtype: 'loggedOut'});
         /*
