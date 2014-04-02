@@ -2,6 +2,7 @@ Ext.define('testapp.view.Main', {
 
 	extend: 'Ext.tab.Panel',
 	xtype: 'main',
+	id: 'mainTabPanel',
 
 	config: {
 		

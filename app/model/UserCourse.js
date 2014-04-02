@@ -8,7 +8,13 @@ Ext.define('testapp.model.UserCourse', {
 			{name: 'objectId', type: 'string'},
 			{name: 'history', type: 'boolean'},
     		{name: 'courseSubject', mapping: 'courseOH.courseSubject'},
-    		{name: 'courseNumber', mapping: 'courseOH.courseNumber'}	
+    		{name: 'courseNumber', mapping: 'courseOH.courseNumber'},
+            {name: 'holder', mapping: 'courseOH.holder'},
+            {name: 'startTime', mapping: 'courseOH.startTime'},
+            {name: 'endTime', mapping: 'courseOH.endTime'},
+            {name: 'location', mapping: 'courseOH.location'},
+            {name: 'holderName', mapping: 'courseOH.holderName'},
+            {name: 'courseObjectId', mapping: 'courseOH.objectId'}
 		],
 		proxy: {
             type: 'rest',

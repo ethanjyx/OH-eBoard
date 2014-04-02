@@ -4,7 +4,8 @@ Ext.define('testapp.controller.Speakers', {
 	config: {
 		refs: {
 			speakerContainer: 'speakerContainer',
-			speakers: 'speakerContainer speakers',
+            userCourseList: 'speakerContainer tabs userCourseList',
+            userCourseOwnList: 'speakerContainer tabs userCourseOwnList',
 			speaker: 'speakerContainer speaker',
 			speakerInfo: 'speakerContainer speakerInfo',
 			sessions: 'speakerContainer speaker list',
@@ -13,10 +14,14 @@ Ext.define('testapp.controller.Speakers', {
 			sessionOwnTab: 'tabpanel #ext-tab-3'
 		},
 		control: {
-			speakers: {
-				itemtap: 'onSpeakerTap',
-				activate: 'onSpeakersActivate'
-			},
+			userCourseList: {
+                itemtap: 'onJoinCourseTap',
+                activate: 'onSpeakersActivate'
+            },
+            userCourseOwnList: {
+                itemtap: 'onOwnCourseTap',
+                activate: 'onSpeakersActivate'
+            },
 			sessions: {
 				itemtap: 'onSessionTap'
 			},
@@ -32,25 +37,84 @@ Ext.define('testapp.controller.Speakers', {
 		}
 	},
 
-	onSpeakerTap: function(list, idx, el, record) {
-		var sessionStore = Ext.getStore('SpeakerSessions'),
-			sessionIds = record.get('sessionIds');
+    onJoinCourseTap: function(list, idx, el, record) {
+        console.log('onCourseTap');
+        var that = this.getApplication().getController('Sessions');
+        var speakerStore = Ext.getStore('SessionSpeakers');
+        var queryJoinTable = {
+                courseOH: {
+                    __type:"Pointer",
+                    className:"courseOH",
+                    objectId:record.data.courseObjectId
+                },
+                history: false
+            };
 
-		sessionStore.clearFilter(true);
-		sessionStore.filterBy(function(session) {
-			return Ext.Array.contains(sessionIds, session.get('id'));
-		});
+        speakerStore.getProxy().setExtraParams({
+            where: JSON.stringify(queryJoinTable),
+            include: 'user',
+            order: 'createdAt'
+        });
 
-		if (!this.speaker) {
-			this.speaker = Ext.widget('speaker');
-		}
+        speakerStore.load(function(){
+            if (!that.session) {
+                that.session = Ext.widget('session');
+            }
 
-		this.speaker.config.title = record.getFullName();
-		this.getSpeakerContainer().push(this.speaker);
-		this.getSpeakerInfo().setRecord(record);
-	},
+            that.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
+            that.session.courseObjectId = record.get('objectId');
+            that.isGSI = (record.get('holder')['objectId'] === testapp.Facebook.userObjectId) ? true : false;
+            //console.log(that.getSessionContainer().getActiveItem());
+            //if(that.getSessionContainer.getActiveItem().id)
+            console.log(that.getSessionContainer().getInnerItems().length);
+            that.getSessionContainer().pop(that.getSessionContainer().getInnerItems().length - 1);
+            that.getSessionContainer().push(that.session);
+            that.getSessionInfo().setRecord(record);
+
+            Ext.getCmp('mainTabPanel').setActiveItem(0);
+        });
+    },
+
+    onOwnCourseTap: function(list, idx, el, record) {
+        console.log('onCourseTap');
+        var that = this.getApplication().getController('Sessions');
+        var speakerStore = Ext.getStore('SessionSpeakers');
+        var queryJoinTable = {
+                courseOH: {
+                    __type:"Pointer",
+                    className:"courseOH",
+                    objectId:record.data.objectId
+                },
+                history: false
+            };
+
+        speakerStore.getProxy().setExtraParams({
+            where: JSON.stringify(queryJoinTable),
+            include: 'user',
+            order: 'createdAt'
+        });
+
+        speakerStore.load(function(){
+            if (!that.session) {
+                that.session = Ext.widget('session');
+            }
+
+            that.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
+            that.session.courseObjectId = record.get('objectId');
+            that.isGSI = (record.get('holder')['objectId'] === testapp.Facebook.userObjectId) ? true : false;
+            //console.log(that.getSessionContainer().getActiveItem());
+            //if(that.getSessionContainer.getActiveItem().id)
+            console.log(that.getSessionContainer().getInnerItems().length);
+            that.getSessionContainer().pop(that.getSessionContainer().getInnerItems().length - 1);
+            that.getSessionContainer().push(that.session);
+            that.getSessionInfo().setRecord(record);
+
+            Ext.getCmp('mainTabPanel').setActiveItem(0);
+        });
+    },
 
 	onSessionTap: function(list, idx, el, record) {
+		console.log('onSessionTap');
 
 		if (!this.sessionInfo) {
 			this.sessionInfo = Ext.widget('sessionInfo');
@@ -132,7 +196,6 @@ Ext.define('testapp.controller.Speakers', {
 			return;
 		}
 		testapp.controller.Speakers.lastTabHit = 1;
-		console.log('onSessionOwnTap');
 		Ext.getStore('UserCourseOwn').load();
 	},
 
@@ -141,8 +204,6 @@ Ext.define('testapp.controller.Speakers', {
 		{
 			return;
 		}
-		testapp.controller.Speakers.lastTabHit = 2;
-		console.log('onSessionJoinTap');
 		Ext.getStore('UserCourseStore').load();
 	}
 });
