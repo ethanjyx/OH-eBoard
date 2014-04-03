@@ -245,24 +245,88 @@ Ext.define('testapp.controller.Sessions', {
 
     onQuitButton: function() {
     	// delete from JoinUser table : userObjectId, courseObjectId, history: false
-    	var speakerStore = Ext.getStore('SessionSpeakers');
-        speakerStore.removeAt(this.userIndexInWaitingList());
-        speakerStore.sync();
+    	that = this;
+    	var items = [
+			{
+				text: 'Quit',
+				ui: 'decline',
+				scope: this,
+				handler: function() {
+			        var speakerStore = Ext.getStore('SessionSpeakers');
+			        speakerStore.removeAt(that.userIndexInWaitingList());
+			        speakerStore.sync();
 
-        this.getJoinButton().show();
-        this.getQuitButton().hide();
+			        that.getJoinButton().show();
+			        that.getQuitButton().hide();
+
+			        that.actions.hide();
+				}
+			},
+			{
+				xtype: 'button',
+				text: 'Cancel',
+				scope: this,
+				handler: function() {
+					this.actions.hide();
+				}
+			}
+		];
+		if (!this.actions) {
+			this.actions = Ext.create('Ext.ActionSheet', {
+				items: items
+			});
+		}
+
+		Ext.Viewport.add(this.actions);
+		this.actions.show();
+
+
+    	
     },
 
     onCloseSessionButton: function() {
         console.log('close session');
-        var sessionStore = Ext.getStore('Sessions');
-        for (var i = 0; i < sessionStore.getData().length; i++) {
-            if (sessionStore.getData().getAt(i).getData()['objectId'] === this.session.courseObjectId) {
-                sessionStore.removeAt(i);
-                break;
-            }
-        };
-        this.getSessionContainer().pop();
+        that = this;
+
+        var items = [
+			{
+				text: 'Close',
+				ui: 'decline',
+				scope: this,
+				handler: function() {
+			        //console.log(record);
+
+					var sessionStore = Ext.getStore('Sessions');
+			        for (var i = 0; i < sessionStore.getData().length; i++) {
+			            if (sessionStore.getData().getAt(i).getData()['objectId'] === that.session.courseObjectId) {
+			                sessionStore.removeAt(i);
+			                break;
+			            }
+			        };
+			        that.getSessionContainer().pop();
+			        that.actions.hide();
+				}
+			},
+			{
+				xtype: 'button',
+				text: 'Cancel',
+				scope: this,
+				handler: function() {
+					this.actions.hide();
+				}
+			}
+		];
+		if (!this.actions) {
+			this.actions = Ext.create('Ext.ActionSheet', {
+				items: items
+			});
+		}
+
+		Ext.Viewport.add(this.actions);
+		this.actions.show();
+
+
+        
     },
 
     onSaveButtonJoin: function() {
