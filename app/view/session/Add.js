@@ -31,7 +31,7 @@ Ext.define('testapp.view.session.Add', {
                                 listeners: {
                                     change: function (obj, newValue) {
                                         //console.log(newValue);
-                                        obj.setValue(newValue.toUpperCase());
+                                        obj.setValue(newValue.toUpperCase()); //.replace(/[^A-Z0-9]/g, '');
                                     }
                                 }
                             },
