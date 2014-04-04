@@ -260,6 +260,8 @@ Ext.define('testapp.controller.Sessions', {
 			        that.getQuitButton().hide();
 
 			        that.actions.hide();
+			        this.actions.destroy();
+			        this.actions = null;
 				}
 			},
 			{
@@ -268,6 +270,8 @@ Ext.define('testapp.controller.Sessions', {
 				scope: this,
 				handler: function() {
 					this.actions.hide();
+					this.actions.destroy();
+			        this.actions = null;
 				}
 			}
 		];
@@ -305,6 +309,8 @@ Ext.define('testapp.controller.Sessions', {
 			        };
 			        that.getSessionContainer().pop();
 			        that.actions.hide();
+			        that.actions.destroy();
+			        that.actions = null;
 				}
 			},
 			{
@@ -313,6 +319,8 @@ Ext.define('testapp.controller.Sessions', {
 				scope: this,
 				handler: function() {
 					this.actions.hide();
+					this.actions.destroy();
+			        this.actions = null;
 				}
 			}
 		];
@@ -320,6 +328,7 @@ Ext.define('testapp.controller.Sessions', {
 			this.actions = Ext.create('Ext.ActionSheet', {
 				items: items
 			});
+			//console.log("close not exist");
 		}
 
 		Ext.Viewport.add(this.actions);
@@ -455,7 +464,11 @@ Ext.define('testapp.controller.Sessions', {
 					record.save({
     					success: function(result) {
         					console.log("Delete from join table");
-        					Ext.getStore('SessionSpeakers').load(function(){that.actions.hide()});
+        					Ext.getStore('SessionSpeakers').load(function(){
+        						that.actions.hide();
+        						that.actions.destroy();
+			        			that.actions = null;
+        					});
         				}
     				});
 				}
