@@ -27,7 +27,13 @@ Ext.define('testapp.view.session.Add', {
                             {
                                 xtype: 'textfield',
                                 label: 'Course Subject',
-                                name: 'courseSubject'
+                                name: 'courseSubject',
+                                listeners: {
+                                    change: function (obj, newValue) {
+                                        //console.log(newValue);
+                                        obj.setValue(newValue.toUpperCase());
+                                    }
+                                }
                             },
                             {
                                 xtype: 'textfield',

@@ -5,13 +5,18 @@ Ext.define('testapp.view.session.Detail', {
 
 	config: {
 
-		layout: 'vbox',
+		layout: {
+            pack: 'center',
+            type: 'vbox',
+            align: 'center'
+        },
 		title: '',
 
 		items: [
             {
                 flex: 1,
                 layout: 'fit',
+                width: Ext.Viewport.getWindowWidth(),
                 scrollable: 'vertical',
 				xtype: 'sessionInfo'
 			},
@@ -20,7 +25,8 @@ Ext.define('testapp.view.session.Detail', {
                 id: 'joinButton',
                 ui: 'btnColor',
                 text: 'join',
-                align: 'right',
+                align: 'center',
+                width: Ext.Viewport.getWindowWidth()*0.98,
                 hidden: false
             },
             {
@@ -28,7 +34,8 @@ Ext.define('testapp.view.session.Detail', {
                 id: 'quitButton',
                 ui: 'btnColor',
                 text: 'quit',
-                align: 'right',
+                align: 'center',
+                width: Ext.Viewport.getWindowWidth()*0.98,
                 hidden: true
             },
             {
@@ -36,7 +43,8 @@ Ext.define('testapp.view.session.Detail', {
                 id: 'closeSessionButton',
                 ui: 'btnColor',
                 text: 'Close this session',
-                align: 'right',
+                align: 'center',
+                width: Ext.Viewport.getWindowWidth()*0.98,
                 hidden: true
             },
             /*
@@ -49,7 +57,8 @@ Ext.define('testapp.view.session.Detail', {
                 flex: 5,
                 layout: 'fit',
 				xtype: 'speakers',
-				store: 'SessionSpeakers'
+				store: 'SessionSpeakers',
+                width: Ext.Viewport.getWindowWidth()
 
 			}
 		]

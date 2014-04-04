@@ -11,14 +11,20 @@ Ext.define('testapp.view.session.Join', {
     config: {
         title: 'join',
         layout: 'fit',
-
+        
         items: [
             {
                 xtype: 'formpanel',
+                layout: {
+                    pack: 'center',
+                    type: 'vbox',
+                    align: 'center'
+                },
                 items: [
                     
                     {
                         xtype: 'fieldset',
+                        width: Ext.Viewport.getWindowWidth()*0.98,
                         defaults: {
                             labelWidth: '50%'
                         },
@@ -38,7 +44,7 @@ Ext.define('testapp.view.session.Join', {
                             },
                             {
                                 xtype: 'textfield',
-                                label: 'Position',
+                                label: 'Location',
                                 name: 'position'
                             }
                         ]
@@ -49,6 +55,9 @@ Ext.define('testapp.view.session.Join', {
                         text: 'Join',
                         ui: 'btnColor',
                         align: 'center',
+                        width: Ext.Viewport.getWindowWidth()*0.98,
+                        
+                        //width: 100,
                         hidden: false
                     }   
                 ]

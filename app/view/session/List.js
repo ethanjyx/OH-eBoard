@@ -20,15 +20,6 @@ Ext.define('testapp.view.session.List', {
 				//ui: 'gray',
 
 				items: [
-					{
-	                    xtype: 'button',
-	                    id: 'addButton',
-	                    //text: 'Add new session',
-	                    ui: 'btnColor',
-	                    iconCls: 'add',
-	                    align: 'right',
-	                    hidden: false
-	                },
 	                { xtype: 'spacer' },
                     {
                         xtype: 'searchfield',
@@ -86,7 +77,16 @@ Ext.define('testapp.view.session.List', {
 						    }
                         }
                     },
-                    { xtype: 'spacer' }
+                    { xtype: 'spacer' },
+                    {
+	                    xtype: 'button',
+	                    id: 'addButton',
+	                    //text: 'Add new session',
+	                    ui: 'btnColor',
+	                    iconCls: 'add',
+	                    align: 'right',
+	                    hidden: false
+	                }
 				]
 			}
 		],
