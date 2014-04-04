@@ -46,7 +46,8 @@ Ext.define('testapp.view.session.Detail', {
                 html: 'Students'
             },*/
 			{
-                flex: 3,
+                flex: 5,
+                layout: 'fit',
 				xtype: 'speakers',
 				store: 'SessionSpeakers'
 

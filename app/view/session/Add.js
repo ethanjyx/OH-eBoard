@@ -53,7 +53,6 @@ Ext.define('testapp.view.session.Add', {
                                 xtype: 'textfield',
                                 label: 'Start Time',
                                 name: 'startTime',
-                                that: this,
                                 listeners: {
                                     focus: function() {
 
@@ -110,28 +109,37 @@ Ext.define('testapp.view.session.Add', {
                                         }
                                    */
                                         // Make the time picker...
-
+                                        
+                                        var hours = '1';
+                                        var minuts = '00';
+                                        var AMPM = 'AM';
                                         this.picker = Ext.create("Ext.Picker", {
                                             hidden: true,
                                             zIndex: 9999,
                                             slots: [{
                                                 name: "hours",
                                                 title: "Hours",
-                                                data: data_hours
+                                                data: data_hours,
+                                                value: that.hours
                                             },
                                             {
                                                 name: "minuts",
                                                 title: "Minuts",
-                                                data: data_minuts
+                                                data: data_minuts,
+                                                value: that.minuts
                                             },
                                             {
                                                 name: "AMPM",
-                                                title: "test",
-                                                data: data_AMPM
+                                                title: "Ampm",
+                                                data: data_AMPM,
+                                                value: that.AMPM
                                             }],
                                             listeners: {
                                                 change: function (picker, values) {
                                                     that.setValue(values.hours+':'+values.minuts+' '+values.AMPM);
+                                                    that.hours = values.hours;
+                                                    that.minuts = values.minuts;
+                                                    that.AMPM = values.AMPM;
                                                     picker.hide();
                                                     Ext.Viewport.remove(picker);
                                                 },
@@ -207,27 +215,36 @@ Ext.define('testapp.view.session.Add', {
                                    */
                                         // Make the time picker...
 
+                                        var hours = '1';
+                                        var minuts = '00';
+                                        var AMPM = 'AM';
                                         this.picker = Ext.create("Ext.Picker", {
                                             hidden: true,
                                             zIndex: 9999,
                                             slots: [{
                                                 name: "hours",
                                                 title: "Hours",
-                                                data: data_hours
+                                                data: data_hours,
+                                                value: that.hours
                                             },
                                             {
                                                 name: "minuts",
                                                 title: "Minuts",
-                                                data: data_minuts
+                                                data: data_minuts,
+                                                value: that.minuts
                                             },
                                             {
                                                 name: "AMPM",
                                                 title: "test",
-                                                data: data_AMPM
+                                                data: data_AMPM,
+                                                value: that.AMPM
                                             }],
                                             listeners: {
                                                 change: function (picker, values) {
                                                     that.setValue(values.hours+':'+values.minuts+' '+values.AMPM);
+                                                    that.hours = values.hours;
+                                                    that.minuts = values.minuts;
+                                                    that.AMPM = values.AMPM;
                                                     picker.hide();
                                                     Ext.Viewport.remove(picker);
                                                 },
