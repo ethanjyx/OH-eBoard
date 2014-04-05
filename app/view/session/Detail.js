@@ -16,7 +16,7 @@ Ext.define('testapp.view.session.Detail', {
             {
                 flex: 1,
                 layout: 'fit',
-                width: Ext.Viewport.getWindowWidth(),
+                width: document.documentElement.clientWidth,
                 scrollable: 'vertical',
 				xtype: 'sessionInfo'
 			},
@@ -26,7 +26,7 @@ Ext.define('testapp.view.session.Detail', {
                 ui: 'btnColor',
                 text: 'join',
                 align: 'center',
-                width: Ext.Viewport.getWindowWidth()*0.98,
+                width: document.documentElement.clientWidth*0.98,
                 hidden: false
             },
             {
@@ -35,7 +35,7 @@ Ext.define('testapp.view.session.Detail', {
                 ui: 'btnColor',
                 text: 'quit',
                 align: 'center',
-                width: Ext.Viewport.getWindowWidth()*0.98,
+                width: document.documentElement.clientWidth*0.98,
                 hidden: true
             },
             {
@@ -44,7 +44,7 @@ Ext.define('testapp.view.session.Detail', {
                 ui: 'btnColor',
                 text: 'Close this session',
                 align: 'center',
-                width: Ext.Viewport.getWindowWidth()*0.98,
+                width: document.documentElement.clientWidth*0.98,
                 hidden: true
             },
             /*
@@ -58,7 +58,7 @@ Ext.define('testapp.view.session.Detail', {
                 layout: 'fit',
 				xtype: 'speakers',
 				store: 'WaitingUsers',
-                width: Ext.Viewport.getWindowWidth()
+                width: document.documentElement.clientWidth
 
 			}
 		]

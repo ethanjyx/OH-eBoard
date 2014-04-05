@@ -24,7 +24,7 @@ Ext.define('testapp.view.session.Join', {
                     
                     {
                         xtype: 'fieldset',
-                        width: Ext.Viewport.getWindowWidth()*0.98,
+                        width: document.documentElement.clientWidth*0.98,
                         defaults: {
                             labelWidth: '50%'
                         },
@@ -55,7 +55,7 @@ Ext.define('testapp.view.session.Join', {
                         text: 'Join',
                         ui: 'btnColor',
                         align: 'center',
-                        width: Ext.Viewport.getWindowWidth()*0.98,
+                        width: document.documentElement.clientWidth*0.98,
                         
                         //width: 100,
                         hidden: false
