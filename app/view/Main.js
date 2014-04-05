@@ -13,7 +13,8 @@ Ext.define('testapp.view.Main', {
 
 		items: [
 			{ xclass: 'testapp.view.session.Card' },
-			{ xclass: 'testapp.view.speaker.Card' }
+			{ xclass: 'testapp.view.joined.Card' },
+			{ xclass: 'testapp.view.owned.Card' }
 /*
 			,
 			{ xclass: 'testapp.view.Tweets'   },

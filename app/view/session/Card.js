@@ -37,7 +37,23 @@ Ext.define('testapp.view.session.Card', {
                     //     type: 'fadeIn',
                     //     duration: 200
                     // }
-                }
+                },
+
+                {
+                    xtype: 'button',
+                    id: 'logoutButton',
+                    text: 'Logout',
+                    align: 'left',
+                    //hidden: true,
+                    hideAnimation: Ext.os.is.Android ? false : {
+                        type: 'fadeOut',
+                        duration: 200
+                    },
+                    showAnimation: Ext.os.is.Android ? false : {
+                        type: 'fadeIn',
+                        duration: 200
+                    }
+                } 
             ]
         },
 

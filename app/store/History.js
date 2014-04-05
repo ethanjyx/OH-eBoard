@@ -2,7 +2,7 @@ Ext.define('testapp.store.History', {
     extend: 'Ext.data.Store',
 
     config: {
-        model: 'testapp.model.JoinUser',
+        model: 'testapp.model.JoinedUser',
 
         proxy: {
             type: 'rest',

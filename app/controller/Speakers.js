@@ -3,15 +3,14 @@ Ext.define('testapp.controller.Speakers', {
 
 	config: {
 		refs: {
-			speakerContainer: 'speakerContainer',
-            userCourseList: 'speakerContainer tabs userCourseList',
-            userCourseOwnList: 'speakerContainer tabs userCourseOwnList',
-			speaker: 'speakerContainer speaker',
-			speakerInfo: 'speakerContainer speakerInfo',
-			sessions: 'speakerContainer speaker list',
-			logoutButton: '#logoutButton',
-			sessionJoinTab: 'tabpanel #ext-tab-2',
-			sessionOwnTab: 'tabpanel #ext-tab-3'
+			//speakerContainer: 'speakerContainer',
+            userCourseList: 'joinedContainer userCourseJoinList',
+            userCourseOwnList: 'ownedContainer userCourseOwnList',
+			//speaker: 'speakerContainer speaker',
+			//speakerInfo: 'speakerContainer speakerInfo',
+			sessionJoinTab: 'tabpanel #joinedTab',
+			sessionOwnTab: 'tabpanel #ownedTab',
+			sessionTab: 'tabpanel #ext-tab-1'
 		},
 		control: {
 			userCourseList: {
@@ -22,17 +21,14 @@ Ext.define('testapp.controller.Speakers', {
                 itemtap: 'onOwnCourseTap',
                 activate: 'onSpeakersActivate'
             },
-			sessions: {
-				itemtap: 'onSessionTap'
-			},
-			logoutButton: {
-				tap: 'onLogoutButton'
-			},
 			sessionOwnTab: {
                 tap: 'onSessionOwnTap'
             },
 			sessionJoinTab: {
                 tap: 'onSessionJoinTap'
+            },
+            sessionTab: {
+            	tap: 'onSessionTap'
             }
 		}
 	},
@@ -40,7 +36,7 @@ Ext.define('testapp.controller.Speakers', {
     onJoinCourseTap: function(list, idx, el, record) {
         console.log('onCourseTap');
         var that = this.getApplication().getController('Sessions');
-        var speakerStore = Ext.getStore('SessionSpeakers');
+        var speakerStore = Ext.getStore('WaitingUsers');
         var queryJoinTable = {
                 courseOH: {
                     __type:"Pointer",
@@ -78,7 +74,7 @@ Ext.define('testapp.controller.Speakers', {
     onOwnCourseTap: function(list, idx, el, record) {
         console.log('onCourseTap');
         var that = this.getApplication().getController('Sessions');
-        var speakerStore = Ext.getStore('SessionSpeakers');
+        var speakerStore = Ext.getStore('WaitingUsers');
         var queryJoinTable = {
                 courseOH: {
                     __type:"Pointer",
@@ -113,89 +109,17 @@ Ext.define('testapp.controller.Speakers', {
         });
     },
 
-	onSessionTap: function(list, idx, el, record) {
-		console.log('onSessionTap');
-
-		if (!this.sessionInfo) {
-			this.sessionInfo = Ext.widget('sessionInfo');
-		}
-
-		this.sessionInfo.config.title = record.get('title');
-		this.sessionInfo.setRecord(record);
-		this.getSpeakerContainer().push(this.sessionInfo);
-	},
-
 	onSpeakersActivate: function() {
 		if (this.speaker) {
 			this.speaker.down('list').deselectAll();
 		}
 	},
 
-	onLogoutButton: function() {
-		var items = [
-			{
-				text: 'Log out',
-				ui: 'decline',
-				scope: this,
-				handler: function() {
-
-					/*var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
-					var relation = {
-						waitingList : {
-							__op : "RemoveRelation",
-							objects: [{__type:"Pointer", className:"User", objectId:record.data.objectId}]
-						}
-					};
-
-			 		console.log(relation);
-
-					parse.updateRelation({
-						object: relation,
-						success: function(result) {
-							console.log('Join in course: ' + result);
-							console.log(result);
-							Ext.getStore('SessionSpeakers').remove(record);
-						},
-						error: function(result) {
-							console.log("A query error occured " + result);
-						},
-						className: 'courseOH/' + this.session.courseObjectId
-					});*/
-					
-					        					
-					FB.logout(function(response) {
-
-						Ext.Viewport.setActiveItem(0);
-					});
-					this.actions.hide();
-
-			
-				}
-			},
-			{
-				xtype: 'button',
-				text: 'Cancel',
-				scope: this,
-				handler: function() {
-					this.actions.hide();
-				}
-			}
-		];
-		if (!this.actions) {
-			this.actions = Ext.create('Ext.ActionSheet', {
-				items: items
-			});
-		}
-
-		Ext.Viewport.add(this.actions);
-		this.actions.show();
-	},
-
 	onSessionOwnTap: function() {
-		if (testapp.controller.Speakers.lastTabHit == 1) {
+		if (testapp.controller.Speakers.lastTabHit == 3) {
 			return;
 		}
-		testapp.controller.Speakers.lastTabHit = 1;
+		testapp.controller.Speakers.lastTabHit = 3;
 		Ext.getStore('UserCourseOwn').load();
 	},
 
@@ -204,6 +128,15 @@ Ext.define('testapp.controller.Speakers', {
 		{
 			return;
 		}
-		Ext.getStore('UserCourseStore').load();
+		testapp.controller.Speakers.lastTabHit = 2;
+		Ext.getStore('UserCourseJoin').load();
+	},
+
+	onSessionTap: function() {
+		if (testapp.controller.Speakers.lastTabHit == 1)
+		{
+			return;
+		}
+		testapp.controller.Speakers.lastTabHit = 1;		
 	}
 });

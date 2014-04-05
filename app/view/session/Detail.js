@@ -57,7 +57,7 @@ Ext.define('testapp.view.session.Detail', {
                 flex: 5,
                 layout: 'fit',
 				xtype: 'speakers',
-				store: 'SessionSpeakers',
+				store: 'WaitingUsers',
                 width: Ext.Viewport.getWindowWidth()
 
 			}

@@ -5,8 +5,6 @@ Ext.Loader.setPath({
 });
 //</debug>
 
-Ext.require('testapp.util.Proxy');
-
 Ext.application({
     // Change the values below to re-configure the app for a different conference.
 
@@ -66,12 +64,9 @@ Ext.application({
 
     // Dependencies
 
-    requires: ['testapp.util.Proxy'],
-
     models: [
         'Session',
-        'Speaker',
-        'JoinUser',
+        'JoinedUser',
         'UserCourse'
     ],
 
@@ -88,14 +83,13 @@ Ext.application({
         'session.Join',
         //'session.TimePickerField',
 
-        'speaker.Card',
         'speaker.List',
-        'speaker.Detail',
-        'speaker.Info',
-        'speaker.UserCourseList',
-        'speaker.UserCourseOwnList',
-        'speaker.Tabs'
 
+        'joined.Card',
+        'joined.UserCourseJoinList',
+
+        'owned.Card',
+        'owned.UserCourseOwnList',
     ],
 
     controllers: [
@@ -106,24 +100,18 @@ Ext.application({
 
     stores: [
         'Sessions',
-        'SpeakerSessions',
-        'Speakers',
-        'SessionSpeakers',
-        'UserCourseStore',
+        'WaitingUsers',
+        'UserCourseJoin',
         'UserCourseOwn',
         'History'
     ],
 
     launch: function() {
-        testapp.controller.Speakers.lastTabHit = 2;
+        testapp.controller.Speakers.lastTabHit = 1;
 
         testapp.Facebook.initialize('241720436011519');
         Ext.Viewport.add({xtype: 'loggedOut'});
-        /*
-        Ext.getStore('Sessions').load(function(){
-            Ext.Viewport.add({ xtype: 'main' });
-        });
-        */
+
         // Ext.Viewport.setMasked({ xtype: 'loadmask' });
         
         

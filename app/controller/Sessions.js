@@ -8,7 +8,7 @@ Ext.define('testapp.controller.Sessions', {
 			sessions: 'sessions',
 			session: 'session',
 			sessionInfo: 'sessionContainer sessionInfo',
-			sessionSpeakers: 'sessionContainer list',
+			watingUsers: 'sessionContainer list',
 			sessionContainer: 'sessionContainer',
 			//sessionDayPicker: 'sessions segmentedbutton',
 			addButton: '#addButton',
@@ -22,7 +22,7 @@ Ext.define('testapp.controller.Sessions', {
 			listHistory: 'list-history',
 			historyButton: '#historyButton',
 			speakers: 'sessionContainer speakers',
-            meTab: 'tabpanel #meTab'
+			logoutButton: '#logoutButton',
 		},
 		control: {
 			sessionContainer: {
@@ -33,7 +33,6 @@ Ext.define('testapp.controller.Sessions', {
 				tap: 'onHistoryButton'
 			},
 			sessions: {
-				initialize: 'initSessions',
 				itemtap: 'onSessionTap',
 				activate: 'onSessionsActivate'
 			},
@@ -58,22 +57,21 @@ Ext.define('testapp.controller.Sessions', {
 			speakers: {
 				itemtap: 'onSpeakerTap'
 			},
-            meTab: {
-                tap: 'onMeTap'
-            }
+			logoutButton: {
+				tap: 'onLogoutButton'
+			},
 		},
-		onHistroyList: false,
+		onHistoryList: false,
 		isGSI: false
 	},
 
 	onMainPush: function(view, item) {
-        var historyButton = this.getHistoryButton();
-
         console.log("Main Push " + item.xtype);
 
         if (item.xtype === "session") {
             this.getSessions().deselectAll();
             this.showHistoryButton();
+            this.hideLogoutButton();
             this.updateButtonDisplay();
         } else {
             this.hideHistoryButton();
@@ -86,10 +84,11 @@ Ext.define('testapp.controller.Sessions', {
             this.showHistoryButton();
             this.updateButtonDisplay();
         } else if (item.xtype === "list-history") {
-        	this.onHistroyList = false; 
+        	this.onHistoryList = false; 
         	this.showHistoryButton();
     	} else {
             this.hideHistoryButton();
+            this.showLogoutButton();
         }	
     },
 
@@ -113,7 +112,7 @@ Ext.define('testapp.controller.Sessions', {
 
     // returns the index of the user in the waiting list
     userIndexInWaitingList: function() {
-        var speakerStore = Ext.getStore('SessionSpeakers');
+        var speakerStore = Ext.getStore('WaitingUsers');
         for (var i = speakerStore.getData().length - 1; i >= 0; i--) {
         	if (speakerStore.getData().getAt(i).getData()['userObjectId'] === testapp.Facebook.userObjectId) {
         		return i;
@@ -123,12 +122,6 @@ Ext.define('testapp.controller.Sessions', {
         return -1;
     },
 
-	initSessions: function() {
-		//var firstButton = this.getSessionDayPicker().getItems().items[0];
-		//this.getSessionDayPicker().setPressedButtons(firstButton);
-		//this.filterByButton(firstButton);
-	},
-
 	onSessionDateChange: function(seg, btn, toggle) {
         if (toggle) {
             //this.filterByButton(btn);
@@ -136,8 +129,8 @@ Ext.define('testapp.controller.Sessions', {
 	},
 
 	filterByButton: function(btn) {
-		if (this.getSessionSpeakers()) {
-			this.getSessionSpeakers().deselectAll();
+		if (this.getWaitingUsers()) {
+			this.getWaitingUsers().deselectAll();
 		}
 		Ext.getStore('Sessions').clearFilter(true);
 		Ext.getStore('Sessions').filter(function(record) {
@@ -172,7 +165,7 @@ Ext.define('testapp.controller.Sessions', {
 
 			that.listHistory.setTitle(that.session.getTitle());
 			//that.listHistory.courseObjectId = record.get('objectId');
-			that.onHistroyList = true;
+			that.onHistoryList = true;
 			that.getSessionContainer().push(that.listHistory);
   		});
     },
@@ -220,7 +213,8 @@ Ext.define('testapp.controller.Sessions', {
         	}
     	});*/
         Ext.getStore('Sessions').add(ed);
-        that.getSessionContainer().pop();
+        Ext.getStore('Sessions').load(function(){that.getSessionContainer().pop();});
+        
     },
 
     onJoinButton: function() {
@@ -252,7 +246,7 @@ Ext.define('testapp.controller.Sessions', {
 				ui: 'decline',
 				scope: this,
 				handler: function() {
-			        var speakerStore = Ext.getStore('SessionSpeakers');
+			        var speakerStore = Ext.getStore('WaitingUsers');
 			        speakerStore.removeAt(that.userIndexInWaitingList());
 			        speakerStore.sync();
 
@@ -298,7 +292,7 @@ Ext.define('testapp.controller.Sessions', {
 				ui: 'decline',
 				scope: this,
 				handler: function() {
-			        //console.log(record);
+			        console.log(that.session.courseObjectId);
 
 					var sessionStore = Ext.getStore('Sessions');
 			        for (var i = 0; i < sessionStore.getData().length; i++) {
@@ -307,6 +301,7 @@ Ext.define('testapp.controller.Sessions', {
 			                break;
 			            }
 			        };
+
 			        that.getSessionContainer().pop();
 			        that.actions.hide();
 			        that.actions.destroy();
@@ -368,7 +363,7 @@ Ext.define('testapp.controller.Sessions', {
 			object: this.joinEntry,
             success: function(result) {
                 console.log('Create entry in join table');
-                Ext.getStore('SessionSpeakers').load(function(){that.getSessionContainer().pop();});
+                Ext.getStore('WaitingUsers').load(function(){that.getSessionContainer().pop();});
             },
             error: function(result) {
                 return alert("An error occured creating joinTable entry");
@@ -379,35 +374,9 @@ Ext.define('testapp.controller.Sessions', {
         //this.getSessionContainer().pop();
     },
 
-    /*loadWaitingList: function(callback) {
-    	var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
-		// reload student list copied
-		var speakerStore = Ext.getStore('SessionSpeakers');
-		speakerStore.removeAll();
-		parse.query({
-            success: function(result) {
-                console.log('Get waiting list from server');
-                for(var i = 0; i < result.results.length; i++) {
-                    console.log(result.results[i].firstName + ' ' + result.results[i].lastName);
-                }
-
-                Ext.Array.each(result.results, function(proposal) {
-                    proposalModel = Ext.create('testapp.model.Speaker', proposal);
-                    speakerStore.add(proposalModel);
-                });
-        		console.log(speakerStore);
-                callback();
-            },
-            error: function(result) {
-                return alert("A query error occured");
-            },
-            className: 'UserList'
-        });
-    },*/
-
 	onSessionTap: function(list, idx, el, record) {
 		var that = this;
-		var speakerStore = Ext.getStore('SessionSpeakers');
+		var speakerStore = Ext.getStore('WaitingUsers');
   		var queryJoinTable = {
   				courseOH: {
   					__type:"Pointer",
@@ -438,19 +407,10 @@ Ext.define('testapp.controller.Sessions', {
 	},
 
 	onSpeakerTap: function(list, idx, el, record) {
-		/*
-		if (!this.speakerInfo) {
-			this.speakerInfo = Ext.widget('speakerInfo', {
-				scrollable: 'vertical'
-			});
-		}
-		*/
-		if (this.onHistroyList || !this.isGSI) {
+		if (this.onHistoryList || !this.isGSI) {
 			return false;
 		}
 		
-		//this.speakerInfo.config.title = record.getFullName();
-		//this.speakerInfo.setRecord(record);
 		var items = [
 			{
 				text: 'Set as done',
@@ -464,7 +424,7 @@ Ext.define('testapp.controller.Sessions', {
 					record.save({
     					success: function(result) {
         					console.log("Delete from join table");
-        					Ext.getStore('SessionSpeakers').load(function(){
+        					Ext.getStore('WaitingUsers').load(function(){
         						that.actions.hide();
         						that.actions.destroy();
 			        			that.actions = null;
@@ -490,7 +450,6 @@ Ext.define('testapp.controller.Sessions', {
 
 		Ext.Viewport.add(this.actions);
 		this.actions.show();
-		//this.getSessionContainer().push(this.speakerInfo);
 	},
 
 	onSessionsActivate: function() {
@@ -581,10 +540,83 @@ Ext.define('testapp.controller.Sessions', {
         closeSessionButton.hide();
     },
 
-    onMeTap: function() {
-        console.log('onMeTap');
+    showLogoutButton: function() {
+        var logoutButton = this.getLogoutButton();
 
-        Ext.getStore('UserCourseStore').load();
-        Ext.getStore('UserCourseOwn').load();
-    }
+        if (!logoutButton.isHidden()) {
+            return;
+        }
+
+        logoutButton.show();
+    },
+
+    hideLogoutButton: function() {
+        var logoutButton = this.getLogoutButton();
+
+        if (logoutButton.isHidden()) {
+            return;
+        }
+
+        logoutButton.hide();
+    },
+
+    onLogoutButton: function() {
+		var items = [
+			{
+				text: 'Log out',
+				ui: 'decline',
+				scope: this,
+				handler: function() {
+
+					/*var parse = new Parse("Wc5ZhPmum7iezzBsnuYkC9h2yQdrPseP4mzpyUPv", "6FgZ9ItKztfQOmQmtmZzvOdaVDSSNhOeZfuG2N1g");
+					var relation = {
+						waitingList : {
+							__op : "RemoveRelation",
+							objects: [{__type:"Pointer", className:"User", objectId:record.data.objectId}]
+						}
+					};
+
+			 		console.log(relation);
+
+					parse.updateRelation({
+						object: relation,
+						success: function(result) {
+							console.log('Join in course: ' + result);
+							console.log(result);
+							Ext.getStore('SessionSpeakers').remove(record);
+						},
+						error: function(result) {
+							console.log("A query error occured " + result);
+						},
+						className: 'courseOH/' + this.session.courseObjectId
+					});*/
+					
+					        					
+					FB.logout(function(response) {
+
+						Ext.Viewport.setActiveItem(0);
+					});
+					this.actions.hide();
+
+			
+				}
+			},
+			{
+				xtype: 'button',
+				text: 'Cancel',
+				scope: this,
+				handler: function() {
+					this.actions.hide();
+				}
+			}
+		];
+		if (!this.actions) {
+			this.actions = Ext.create('Ext.ActionSheet', {
+				items: items
+			});
+		}
+
+		Ext.Viewport.add(this.actions);
+		this.actions.show();
+	}
 });

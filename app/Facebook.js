@@ -100,7 +100,7 @@ Ext.define('testapp.Facebook', {
 
                     userCourseOwn.load();
 
-                    var userCourseStore = Ext.getStore('UserCourseStore');
+                    var userCourseJoin = Ext.getStore('UserCourseJoin');
                     var queryUserCourseJoin = {
                             user: {
                                __type: "Pointer",
@@ -110,7 +110,7 @@ Ext.define('testapp.Facebook', {
                             history: false
                         };
 
-                    userCourseStore.getProxy().setExtraParams({
+                    userCourseJoin.getProxy().setExtraParams({
                         where: JSON.stringify(queryUserCourseJoin),
                         include: 'courseOH'
                     });
