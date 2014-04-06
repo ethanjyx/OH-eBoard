@@ -553,9 +553,10 @@ Ext.define('testapp.controller.Sessions', {
     hideLogoutButton: function() {
         var logoutButton = this.getLogoutButton();
 
-        if (logoutButton.isHidden()) {
-            return;
-        }
+        //if (logoutButton.isHidden()) {
+        	//console.log("hideLogoutButton: logoutButton is hidden");
+            //return;
+        //}
 
         logoutButton.hide();
     },
