@@ -514,6 +514,17 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.layout.wrapper.BoxDock": [],
   "Ext.layout.wrapper.Dock": [],
   "Ext.layout.wrapper.Inner": [],
+  "Ext.log.Base": [],
+  "Ext.log.Logger": [],
+  "Ext.log.filter.Filter": [],
+  "Ext.log.filter.Priority": [],
+  "Ext.log.formatter.Default": [],
+  "Ext.log.formatter.Formatter": [],
+  "Ext.log.formatter.Identity": [],
+  "Ext.log.writer.Console": [],
+  "Ext.log.writer.DocumentTitle": [],
+  "Ext.log.writer.Remote": [],
+  "Ext.log.writer.Writer": [],
   "Ext.mixin.Bindable": [],
   "Ext.mixin.Filterable": [],
   "Ext.mixin.Mixin": [],
@@ -643,28 +654,21 @@ Ext.ClassManager.addNameAlternateMappings({
   "testapp.controller.Facebook": [],
   "testapp.controller.Sessions": [],
   "testapp.controller.Speakers": [],
-  "testapp.controller.Tweets": [],
-  "testapp.model.JoinUser": [],
+  "testapp.model.JoinedUser": [],
   "testapp.model.Session": [],
-  "testapp.model.Speaker": [],
+  "testapp.model.UserCourse": [],
   "testapp.store.History": [],
-  "testapp.store.SessionSpeakers": [],
   "testapp.store.Sessions": [],
-  "testapp.store.SpeakerSessions": [],
-  "testapp.store.Speakers": [],
-  "testapp.store.Tweets": [],
-  "testapp.store.UserCourseStore": [],
-  "testapp.store.Videos": [],
-  "testapp.util.Proxy": [],
+  "testapp.store.UserCourseJoin": [],
+  "testapp.store.UserCourseOwn": [],
+  "testapp.store.WaitingUsers": [],
   "testapp.view.Dialog": [],
-  "testapp.view.Location": [],
   "testapp.view.LoggedOut": [],
   "testapp.view.Main": [],
-  "testapp.view.Tweets": [],
-  "testapp.view.about.Card": [],
-  "testapp.view.about.HtmlPage": [],
-  "testapp.view.about.List": [],
-  "testapp.view.about.VideoList": [],
+  "testapp.view.joined.Card": [],
+  "testapp.view.joined.UserCourseJoinList": [],
+  "testapp.view.owned.Card": [],
+  "testapp.view.owned.UserCourseOwnList": [],
   "testapp.view.session.Add": [],
   "testapp.view.session.Card": [],
   "testapp.view.session.Detail": [],
@@ -672,12 +676,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "testapp.view.session.Info": [],
   "testapp.view.session.Join": [],
   "testapp.view.session.List": [],
-  "testapp.view.speaker.Card": [],
-  "testapp.view.speaker.Detail": [],
-  "testapp.view.speaker.Info": [],
-  "testapp.view.speaker.List": [],
-  "testapp.view.speaker.UserCourseList": [],
-  "testapp.view.tab.Location": []
+  "testapp.view.speaker.List": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1256,6 +1255,17 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.layout.wrapper.BoxDock": [],
   "Ext.layout.wrapper.Dock": [],
   "Ext.layout.wrapper.Inner": [],
+  "Ext.log.Base": [],
+  "Ext.log.Logger": [],
+  "Ext.log.filter.Filter": [],
+  "Ext.log.filter.Priority": [],
+  "Ext.log.formatter.Default": [],
+  "Ext.log.formatter.Formatter": [],
+  "Ext.log.formatter.Identity": [],
+  "Ext.log.writer.Console": [],
+  "Ext.log.writer.DocumentTitle": [],
+  "Ext.log.writer.Remote": [],
+  "Ext.log.writer.Writer": [],
   "Ext.mixin.Bindable": [],
   "Ext.mixin.Filterable": [],
   "Ext.mixin.Mixin": [],
@@ -1401,43 +1411,32 @@ Ext.ClassManager.addNameAliasMappings({
   "testapp.controller.Facebook": [],
   "testapp.controller.Sessions": [],
   "testapp.controller.Speakers": [],
-  "testapp.controller.Tweets": [],
-  "testapp.model.JoinUser": [],
+  "testapp.model.JoinedUser": [],
   "testapp.model.Session": [],
-  "testapp.model.Speaker": [],
+  "testapp.model.UserCourse": [],
   "testapp.store.History": [],
-  "testapp.store.SessionSpeakers": [],
   "testapp.store.Sessions": [],
-  "testapp.store.SpeakerSessions": [],
-  "testapp.store.Speakers": [],
-  "testapp.store.Tweets": [],
-  "testapp.store.UserCourseStore": [],
-  "testapp.store.Videos": [],
-  "testapp.util.Proxy": [],
+  "testapp.store.UserCourseJoin": [],
+  "testapp.store.UserCourseOwn": [],
+  "testapp.store.WaitingUsers": [],
   "testapp.view.Dialog": [],
-  "testapp.view.Location": [
-    "widget.location"
-  ],
   "testapp.view.LoggedOut": [
     "widget.loggedOut"
   ],
   "testapp.view.Main": [
     "widget.main"
   ],
-  "testapp.view.Tweets": [
-    "widget.tweets"
+  "testapp.view.joined.Card": [
+    "widget.joinedContainer"
   ],
-  "testapp.view.about.Card": [
-    "widget.aboutContainer"
+  "testapp.view.joined.UserCourseJoinList": [
+    "widget.userCourseJoinList"
   ],
-  "testapp.view.about.HtmlPage": [
-    "widget.htmlPage"
+  "testapp.view.owned.Card": [
+    "widget.ownedContainer"
   ],
-  "testapp.view.about.List": [
-    "widget.aboutList"
-  ],
-  "testapp.view.about.VideoList": [
-    "widget.videoList"
+  "testapp.view.owned.UserCourseOwnList": [
+    "widget.userCourseOwnList"
   ],
   "testapp.view.session.Add": [
     "widget.session-add"
@@ -1460,22 +1459,7 @@ Ext.ClassManager.addNameAliasMappings({
   "testapp.view.session.List": [
     "widget.sessions"
   ],
-  "testapp.view.speaker.Card": [
-    "widget.speakerContainer"
-  ],
-  "testapp.view.speaker.Detail": [
-    "widget.speaker"
-  ],
-  "testapp.view.speaker.Info": [
-    "widget.speakerInfo"
-  ],
   "testapp.view.speaker.List": [
     "widget.speakers"
-  ],
-  "testapp.view.speaker.UserCourseList": [
-    "widget.userCourseList"
-  ],
-  "testapp.view.tab.Location": [
-    "widget.location"
   ]
 });
