@@ -39,13 +39,21 @@ Ext.define('testapp.Facebook', {
         this.appId = appId;
 
         window.fbAsyncInit = Ext.bind(this.onFacebookInit, this);
-
+/*
         (function(d){
             var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
             js = d.createElement('script'); js.id = id; js.async = true;
-            js.src = "https://connect.facebook.net/en_US/all.js";
-            d.getElementsByTagName('head')[0].appendChild(js);
+            
+            //js.src = "app/facebook-sdk.js";
+            //d.getElementsByTagName('head')[0].appendChild(js);
+
+            // js.src = "app/facebookSDK/facebook-js-sdk.js";
+            // d.getElementsByTagName('head')[0].appendChild(js);
+
+            // js.src = "app/facebookSDK/cdv-plugin-fb-connect.js";
+            // d.getElementsByTagName('head')[0].appendChild(js);
         }(document));
+*/
     },
 
     /**
