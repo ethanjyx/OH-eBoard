@@ -66,6 +66,7 @@ Ext.define('testapp.controller.Sessions', {
 	},
 
 	onMainPush: function(view, item) {
+		Ext.Viewport.setMasked(false);
         console.log("Main Push " + item.xtype);
 
         if (item.xtype === "session") {
@@ -79,6 +80,7 @@ Ext.define('testapp.controller.Sessions', {
     },
 
     onMainPop: function(view, item) {
+    	Ext.Viewport.setMasked(false);
         console.log("Main Pop " + item.xtype);
         if (item.xtype === "session-join") {
             this.showHistoryButton();
@@ -392,6 +394,8 @@ Ext.define('testapp.controller.Sessions', {
     },
 
 	onSessionTap: function(list, idx, el, record) {
+		Ext.Viewport.setMasked({xtype:'loadmask'});
+
 		var that = this;
 		var speakerStore = Ext.getStore('WaitingUsers');
   		var queryJoinTable = {

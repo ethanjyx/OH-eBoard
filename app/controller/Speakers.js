@@ -34,6 +34,8 @@ Ext.define('testapp.controller.Speakers', {
 	},
 
     onJoinCourseTap: function(list, idx, el, record) {
+        Ext.Viewport.setMasked({xtype:'loadmask'});
+
         console.log('onCourseTap');
         var that = this.getApplication().getController('Sessions');
         var speakerStore = Ext.getStore('WaitingUsers');
@@ -68,10 +70,13 @@ Ext.define('testapp.controller.Speakers', {
             that.getSessionInfo().setRecord(record);
 
             Ext.getCmp('mainTabPanel').setActiveItem(0);
+            Ext.Viewport.setMasked(false);
         });
     },
 
     onOwnCourseTap: function(list, idx, el, record) {
+        Ext.Viewport.setMasked({xtype:'loadmask'});
+
         console.log('onCourseTap');
         var that = this.getApplication().getController('Sessions');
         var speakerStore = Ext.getStore('WaitingUsers');
@@ -106,6 +111,7 @@ Ext.define('testapp.controller.Speakers', {
             that.getSessionInfo().setRecord(record);
 
             Ext.getCmp('mainTabPanel').setActiveItem(0);
+            Ext.Viewport.setMasked(false);
         });
     },
 
