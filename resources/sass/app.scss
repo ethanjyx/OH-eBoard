@@ -20,6 +20,7 @@ $index-bar-color: #666;
 @include icon('chat');
 @include icon('action');
 
+
 @include sencha-tabbar-ui('gray', #111, 'matte', lighten($base-color, 10%));
 @include sencha-toolbar-ui('dark', darken($base-color, 10%), $base-gradient);
 @include sencha-toolbar-ui('gray', #ccc);
@@ -50,7 +51,7 @@ table
 }
 
 
-.x-list-item-label > .session {
+.x-innerhtml > .session {
 
     @include st-box;
     @include st-box-orient(horizontal);

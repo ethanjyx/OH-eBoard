@@ -7,7 +7,7 @@ Ext.define('testapp.view.owned.Card', {
         tab: {
             title: 'Owned',
             id: 'ownedTab',
-            iconCls: 'user',
+            iconCls: 'team',
         },
 
         autoDestroy: false,

@@ -39,6 +39,10 @@
      *      }
      */
     "js": [
+		{
+			"path": "phonegap.js",
+			"remote": true
+		},
         {
             "path": "touch/sencha-touch.js",
             "x-bootstrap": true
@@ -89,11 +93,7 @@
          * List of items in the CACHE MANIFEST section
          */
         "cache": [
-            "index.html",
-            "data/feed.js",
-            "data/about.html",
-            "data/credits.html",
-            "data/sponsors.html"
+            "index.html"
         ],
         /**
          * List of items in the NETWORK section
@@ -111,6 +111,7 @@
      * Extra resources to be copied along when build
      */
     "resources": [
+		"config.xml",
         "resources/images",
         "resources/icons",
         "resources/startup"
