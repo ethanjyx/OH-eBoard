@@ -5,6 +5,8 @@ Ext.Loader.setPath({
 });
 //</debug>
 
+Ext.require('testapp.util.PullRefresh');
+
 Ext.application({
     // Change the values below to re-configure the app for a different conference.
 
@@ -118,6 +120,5 @@ Ext.application({
         // setInterval(function(){
         //     Ext.DomQuery.select('link')[0].href = "resources/css/oreilly.css?" + Math.ceil(Math.random() * 100000000)
         // }, 1000);
-    }
-
+    },
 });
