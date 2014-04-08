@@ -17,7 +17,7 @@ Ext.define('testapp.view.joined.UserCourseJoinList', {
 			'<h3><div class="nametag">{firstName} {lastName}</div>',
 			'<div class="postag">{position}</div></h3>'
 			*/
-			'<div class="UserCourse"><div class="courseSubject">{courseSubject}&nbsp;{courseNumber}</div></div>'
+			'<div class="UserCourse"><div class="courseSubject">{courseSubject}&nbsp;{courseNumber} &nbsp; {queuePosition}</div></div>'
 		]
 	}
 });

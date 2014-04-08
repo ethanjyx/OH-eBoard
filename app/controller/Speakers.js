@@ -116,7 +116,13 @@ Ext.define('testapp.controller.Speakers', {
 		testapp.controller.Speakers.lastTabHit = 2;
         var userCourseJoinStore = Ext.getStore('UserCourseJoin');
 		userCourseJoinStore.load(function() {
-            console.log(userCourseJoinStore.getData());
+            userCourseJoinStore.each(function (item) {
+                testapp.util.Requests.loadWaitingUsers(item.get('courseObjectId'),
+                    function() {
+                        item.set('queuePosition', testapp.util.Requests.userIndexInWaitingList() + 1);
+                    }
+                );
+            });
         });
 	},
 

@@ -18,5 +18,16 @@ Ext.define('testapp.util.Requests', {
         order: 'createdAt',
       });
       speakerStore.load(callback);
-    }
+    },
+
+    userIndexInWaitingList: function() {
+        var speakerStore = Ext.getStore('WaitingUsers');
+        for (var i = speakerStore.getData().length - 1; i >= 0; i--) {
+          if (speakerStore.getData().getAt(i).getData()['userObjectId'] === testapp.Facebook.userObjectId) {
+            return i;
+          }
+        };
+      
+        return -1;
+    },
 });

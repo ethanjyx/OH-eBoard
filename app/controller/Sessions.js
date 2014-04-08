@@ -100,7 +100,7 @@ Ext.define('testapp.controller.Sessions', {
     		this.hideJoinButton();
     		this.hideQuitButton();
             this.showCloseSessionButton();
-    	} else if (this.userIndexInWaitingList() === -1) {
+    	} else if (testapp.util.Requests.userIndexInWaitingList() === -1) {
     		// user not in waiting list
 			this.showJoinButton();
     		this.hideQuitButton();
@@ -111,18 +111,6 @@ Ext.define('testapp.controller.Sessions', {
     		this.showQuitButton();
             this.hideCloseSessionButton();
     	}
-    },
-
-    // returns the index of the user in the waiting list
-    userIndexInWaitingList: function() {
-        var speakerStore = Ext.getStore('WaitingUsers');
-        for (var i = speakerStore.getData().length - 1; i >= 0; i--) {
-        	if (speakerStore.getData().getAt(i).getData()['userObjectId'] === testapp.Facebook.userObjectId) {
-        		return i;
-        	}
-        };
-    	
-        return -1;
     },
 
 	onSessionDateChange: function(seg, btn, toggle) {
@@ -251,7 +239,7 @@ Ext.define('testapp.controller.Sessions', {
 				scope: this,
 				handler: function() {
 			        var speakerStore = Ext.getStore('WaitingUsers');
-			        speakerStore.removeAt(that.userIndexInWaitingList());
+			        speakerStore.removeAt(testapp.util.Requests.userIndexInWaitingList());
 			        speakerStore.sync();
 
 			        that.getJoinButton().show();
@@ -281,9 +269,6 @@ Ext.define('testapp.controller.Sessions', {
 
 		Ext.Viewport.add(this.actions);
 		this.actions.show();
-
-
-    	
     },
 
     onCloseSessionButton: function() {
