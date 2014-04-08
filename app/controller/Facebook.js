@@ -16,12 +16,13 @@ Ext.define('testapp.controller.Facebook', {
             exception: function() {
                 Ext.create('testapp.view.Dialog', { msg: 'The connection to Facebook has timed out' }).show();
             },
-            connected: this.onFacebookConnected
+            connected: this.onFacebookConnected,
+            unauthorized: this.onFacebookUnauthorized
 /*
             ,
             connected: this.onFacebookConnected,
             logout: this.onFacebookLogout,
-            unauthorized: this.onFacebookUnauthorized,
+            
             scope: this
 */
         });
@@ -29,6 +30,7 @@ Ext.define('testapp.controller.Facebook', {
 
     // Redirect to Facebook when the user taps the Facebook Login button
     onFacebookLogin: function() {
+        Ext.Viewport.setMasked({xtype:'loadmask'});
         window.top.location = testapp.Facebook.redirectUrl();
     },
 
@@ -39,7 +41,12 @@ Ext.define('testapp.controller.Facebook', {
         Ext.getStore('Sessions').load(function(){
             Ext.Viewport.add({ xtype: 'main' });
             Ext.Viewport.setActiveItem(1);
+            Ext.Viewport.setMasked(false);
         });
         
+    },
+
+    onFacebookUnauthorized: function() {
+        Ext.Viewport.setMasked(false);
     }
 });

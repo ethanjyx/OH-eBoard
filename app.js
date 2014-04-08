@@ -111,6 +111,7 @@ Ext.application({
     launch: function() {
         testapp.controller.Speakers.lastTabHit = 1;
 
+        Ext.Viewport.setMasked({xtype:'loadmask'});
         testapp.Facebook.initialize('241720436011519');
         Ext.Viewport.add({xtype: 'loggedOut'});
 

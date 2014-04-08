@@ -91,7 +91,7 @@ Ext.define('testapp.Facebook', {
             clearTimeout(me.fbLoginTimeout);
             me.hasCheckedStatus = true;
 
-            if (response.status == 'connected') {
+            if (response.status === 'connected') {
                 me.checkUserTable(response.authResponse.userID, function(){
                     var userCourseOwn = Ext.getStore('UserCourseOwn');
                     var queryUserCourseOwn = {
