@@ -2,7 +2,7 @@ Ext.define('testapp.view.LoggedOut', {
 	extend: 'Ext.Container',
 
 	xtype: 'loggedOut',
-	style: 'background-color:#ffffff',
+	style: 'background-color:#3c9dd0',
 
 	config: {
 
@@ -14,6 +14,15 @@ Ext.define('testapp.view.LoggedOut', {
 				xtype: 'container',
 				cls: 'loginScreen',
 				items: [
+					{
+						xtype: 'image',
+						src: 'resources/images/background.jpg',
+						id: 'home_background',
+						width: 500,
+						height: 800,
+						centered: true,
+						style: 'position:relative; top:-100px;'
+					},
 					{
 						xtype: 'image',
 						src: 'resources/images/OH-eBoard_original.png',

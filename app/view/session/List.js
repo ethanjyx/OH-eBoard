@@ -13,6 +13,7 @@ Ext.define('testapp.view.session.List', {
 		plugins: [
             { type: 'pullrefresh' }
         ],
+        //style: 'background-color:#3c9dd0',
 		items: [
 			{
 				docked: 'top',
@@ -93,7 +94,7 @@ Ext.define('testapp.view.session.List', {
         variableHeights: true,
         useSimpleItems: true,
 		itemTpl: [
-			'<div class="session"><div class="title">{courseSubject}&nbsp;{courseNumber}</div><div class="room">{location}</div></div>'
+			'<div class="session"><div class="title">{courseSubject}&nbsp;{courseNumber}</div><div class="room">{startTime} ~ {endTime}</div></div>'
 		]
 	},
 
