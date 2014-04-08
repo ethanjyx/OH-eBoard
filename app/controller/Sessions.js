@@ -2,6 +2,7 @@ Ext.define('testapp.controller.Sessions', {
 	extend: 'Ext.app.Controller',
 
 	requires: ['testapp.Facebook'],
+	requires: ['testapp.util.Requests'],
 
 	config: {
 		refs: {
@@ -397,34 +398,21 @@ Ext.define('testapp.controller.Sessions', {
 		Ext.Viewport.setMasked({xtype:'loadmask'});
 
 		var that = this;
-		var speakerStore = Ext.getStore('WaitingUsers');
-  		var queryJoinTable = {
-  				courseOH: {
-  					__type:"Pointer",
-  					className:"courseOH",
-  					objectId:record.data.objectId
-  				},
-  				history: false
-  			};
 
-  		speakerStore.getProxy().setExtraParams({
-  			where: JSON.stringify(queryJoinTable),
-  			include: 'user',
-  			order: 'createdAt',
+		testapp.util.Requests.loadWaitingUsers(record.data.objectId, 
+			// callback function passed as parameter
+			function(){
+	            if (!that.session) {
+					that.session = Ext.widget('session');
+				}
 
-  		});
-
-  		speakerStore.load(function(){
-            if (!that.session) {
-				that.session = Ext.widget('session');
+				that.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
+				that.session.courseObjectId = record.get('objectId');
+				that.isGSI = (record.get('holder')['objectId'] === testapp.Facebook.userObjectId) ? true : false;
+				that.getSessionContainer().push(that.session);
+				that.getSessionInfo().setRecord(record);
 			}
-
-			that.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
-			that.session.courseObjectId = record.get('objectId');
-			that.isGSI = (record.get('holder')['objectId'] === testapp.Facebook.userObjectId) ? true : false;
-			that.getSessionContainer().push(that.session);
-			that.getSessionInfo().setRecord(record);
-		});
+		);
 	},
 
 	onSpeakerTap: function(list, idx, el, record) {
