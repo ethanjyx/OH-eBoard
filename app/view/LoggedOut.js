@@ -2,7 +2,7 @@ Ext.define('testapp.view.LoggedOut', {
 	extend: 'Ext.Container',
 
 	xtype: 'loggedOut',
-	style: 'background-color:#ffffff',
+	style: 'background-color:#3c9dd0',
 
 	config: {
 
@@ -16,12 +16,21 @@ Ext.define('testapp.view.LoggedOut', {
 				items: [
 					{
 						xtype: 'image',
+						src: 'resources/images/background.png',
+						id: 'home_background',
+						width: 600,
+						height: 500,
+						centered: true,
+						style: 'position:relative;'
+					},
+					{
+						xtype: 'image',
 						src: 'resources/images/OH-eBoard_original.png',
 						id: 'home_logo',
 						width: 243,
 						height: 79,
 						centered: true,
-						style: 'position:relative;'
+						style: 'position:relative; top:-300px; '
 					},
 		            {
 		                xtype: 'image',
@@ -31,7 +40,7 @@ Ext.define('testapp.view.LoggedOut', {
 		                width: 246,
 		                height: 47,
 		                centered: true,
-		                style: 'position:relative; top:90px; '
+		                style: 'position:relative; top:160px; '
 		            // },
 		            // {
 		            // 	xtype: 'component',

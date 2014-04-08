@@ -1,4 +1,4 @@
-$base-color: #6c5b8c;
+$base-color: #3c9dd0;
 $base-gradient: 'flat';
 $list-header-color: #666;
 $list-header-bg-color: #ccc;
@@ -22,7 +22,7 @@ $index-bar-color: #666;
 
 
 @include sencha-tabbar-ui('gray', #111, 'matte', lighten($base-color, 10%));
-@include sencha-toolbar-ui('dark', darken($base-color, 10%), $base-gradient);
+@include sencha-toolbar-ui('gray', darken($base-color, 10%), $base-gradient);
 @include sencha-toolbar-ui('gray', #ccc);
 
 a, .link {
@@ -50,6 +50,18 @@ table
     width:100%;
 }
 
+.x-list-normal .x-list-header {
+    background-image: none;
+    background-color: #ccc;
+    color: gray;
+    text-shadow: rgba(255,255,255,0.25) 0 0.08em 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #999;
+    font-weight: bold;
+    font-size: 0.8em;
+    padding: 0.2em 1.02em;
+}
+
 
 .x-innerhtml > .session {
 
@@ -67,8 +79,18 @@ table
     }
 
     .room {
-        font-size: 10px !important;
-        color: $base-color;
+        font-size: 85% !important;
+        //color: $base-color;
+        margin-left: .5em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .position {
+        font-size: 100% !important;
+        //color: $base-color;
+        font-weight: bold;
         margin-left: .5em;
         white-space: nowrap;
         overflow: hidden;

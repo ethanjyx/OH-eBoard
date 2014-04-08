@@ -2,6 +2,7 @@ Ext.define('testapp.controller.Sessions', {
 	extend: 'Ext.app.Controller',
 
 	requires: ['testapp.Facebook'],
+	requires: ['testapp.util.Requests'],
 
 	config: {
 		refs: {
@@ -99,7 +100,7 @@ Ext.define('testapp.controller.Sessions', {
     		this.hideJoinButton();
     		this.hideQuitButton();
             this.showCloseSessionButton();
-    	} else if (this.userIndexInWaitingList() === -1) {
+    	} else if (testapp.util.Requests.userIndexInWaitingList() === -1) {
     		// user not in waiting list
 			this.showJoinButton();
     		this.hideQuitButton();
@@ -110,18 +111,6 @@ Ext.define('testapp.controller.Sessions', {
     		this.showQuitButton();
             this.hideCloseSessionButton();
     	}
-    },
-
-    // returns the index of the user in the waiting list
-    userIndexInWaitingList: function() {
-        var speakerStore = Ext.getStore('WaitingUsers');
-        for (var i = speakerStore.getData().length - 1; i >= 0; i--) {
-        	if (speakerStore.getData().getAt(i).getData()['userObjectId'] === testapp.Facebook.userObjectId) {
-        		return i;
-        	}
-        };
-    	
-        return -1;
     },
 
 	onSessionDateChange: function(seg, btn, toggle) {
@@ -249,7 +238,7 @@ Ext.define('testapp.controller.Sessions', {
 				scope: this,
 				handler: function() {
 			        var speakerStore = Ext.getStore('WaitingUsers');
-			        speakerStore.removeAt(that.userIndexInWaitingList());
+			        speakerStore.removeAt(testapp.util.Requests.userIndexInWaitingList());
 			        speakerStore.sync();
 
 			        that.getJoinButton().show();
@@ -393,33 +382,21 @@ Ext.define('testapp.controller.Sessions', {
 		Ext.Viewport.setMasked({xtype:'loadmask'});
 
 		var that = this;
-		var speakerStore = Ext.getStore('WaitingUsers');
-  		var queryJoinTable = {
-  				courseOH: {
-  					__type:"Pointer",
-  					className:"courseOH",
-  					objectId:record.data.objectId
-  				},
-  				history: false
-  			};
 
-  		speakerStore.getProxy().setExtraParams({
-  			where: JSON.stringify(queryJoinTable),
-  			include: 'user',
+		testapp.util.Requests.loadWaitingUsers(record.data.objectId, 
+			// callback function passed as parameter
+			function(){
+	            if (!that.session) {
+					that.session = Ext.widget('session');
+				}
 
-  		});
-
-  		speakerStore.load(function(){
-            if (!that.session) {
-				that.session = Ext.widget('session');
+				that.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
+				that.session.courseObjectId = record.get('objectId');
+				that.isGSI = (record.get('holder')['objectId'] === testapp.Facebook.userObjectId) ? true : false;
+				that.getSessionContainer().push(that.session);
+				that.getSessionInfo().setRecord(record);
 			}
-
-			that.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
-			that.session.courseObjectId = record.get('objectId');
-			that.isGSI = (record.get('holder')['objectId'] === testapp.Facebook.userObjectId) ? true : false;
-			that.getSessionContainer().push(that.session);
-			that.getSessionInfo().setRecord(record);
-		});
+		);
 	},
 
 	onSpeakerTap: function(list, idx, el, record) {
@@ -614,6 +591,8 @@ Ext.define('testapp.controller.Sessions', {
 						Ext.Viewport.setActiveItem(0);
 					});
 					this.actions.hide();
+					this.actions.destroy();
+        			this.actions = null;
 
 			
 				}
@@ -624,6 +603,8 @@ Ext.define('testapp.controller.Sessions', {
 				scope: this,
 				handler: function() {
 					this.actions.hide();
+					this.actions.destroy();
+        			this.actions = null;
 				}
 			}
 		];
