@@ -22,7 +22,7 @@ Ext.define('testapp.store.UserCourseOwn', {
                 direction: 'ASC'
             }
         ],
-        autoSync: true,
+        //autoSync: true,
         proxy: {
             type: 'rest',
             useDefaultXhrHeader: false,

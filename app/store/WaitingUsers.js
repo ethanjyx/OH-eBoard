@@ -4,6 +4,13 @@ Ext.define('testapp.store.WaitingUsers', {
     config: {
         model: 'testapp.model.JoinedUser',
 
+        sorters: [
+            {
+                property: 'createdAt',
+                direction: 'ASC'
+            }
+        ],
+
 		proxy: {
             type: 'rest',
             useDefaultXhrHeader: false,

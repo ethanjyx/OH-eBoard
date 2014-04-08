@@ -156,8 +156,6 @@ Ext.define('testapp.controller.Sessions', {
   		historyStore.getProxy().setExtraParams({
   			where: JSON.stringify(queryJoinTable),
   			include: 'user',
-  			order: 'createdAt',
-
   		});
 
   		historyStore.load(function(){
@@ -214,10 +212,11 @@ Ext.define('testapp.controller.Sessions', {
                 that.getSessionContainer().pop();
         	}
     	});*/
-        Ext.getStore('Sessions').add(ed);
-        Ext.getStore('Sessions').sync();
-        Ext.getStore('Sessions').load(function(){that.getSessionContainer().pop();});
-        
+		
+		var sessionStore = Ext.getStore('Sessions');
+        ed.save();
+        sessionStore.add(ed);
+		that.getSessionContainer().pop();
     },
 
     onJoinButton: function() {
@@ -279,14 +278,11 @@ Ext.define('testapp.controller.Sessions', {
 		}
 
 		Ext.Viewport.add(this.actions);
-		this.actions.show();
-
-
-    	
+		this.actions.show();    	
     },
 
     onCloseSessionButton: function() {
-        console.log('close session');
+        console.log('close session: ' + this.session.courseObjectId);
         that = this;
 
         var items = [
@@ -295,8 +291,6 @@ Ext.define('testapp.controller.Sessions', {
 				ui: 'decline',
 				scope: this,
 				handler: function() {
-			        console.log(that.session.courseObjectId);
-
 					var sessionStore = Ext.getStore('Sessions');
 			        for (var i = 0; i < sessionStore.getData().length; i++) {
 			            if (sessionStore.getData().getAt(i).getData()['objectId'] === that.session.courseObjectId) {
@@ -382,7 +376,9 @@ Ext.define('testapp.controller.Sessions', {
 			object: this.joinEntry,
             success: function(result) {
                 console.log('Create entry in join table');
-                Ext.getStore('WaitingUsers').load(function(){that.getSessionContainer().pop();});
+                Ext.getStore('WaitingUsers').load(function(){
+                	that.getSessionContainer().pop();
+                });
             },
             error: function(result) {
                 return alert("An error occured creating joinTable entry");
@@ -410,7 +406,6 @@ Ext.define('testapp.controller.Sessions', {
   		speakerStore.getProxy().setExtraParams({
   			where: JSON.stringify(queryJoinTable),
   			include: 'user',
-  			order: 'createdAt',
 
   		});
 

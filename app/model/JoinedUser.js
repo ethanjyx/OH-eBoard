@@ -11,7 +11,8 @@ Ext.define('testapp.model.JoinedUser', {
     		{name: 'firstName', mapping: 'user.firstName'},
     		{name: 'lastName', mapping: 'user.lastName'},
     		{name: 'userObjectId', mapping: 'user.objectId'},
-    		{name: 'facebookId', mapping: 'user.facebookId'}	
+    		{name: 'facebookId', mapping: 'user.facebookId'},
+            {name: 'createdAt'}
 		],
 
 		proxy: {
