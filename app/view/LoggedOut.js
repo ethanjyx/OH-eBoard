@@ -16,12 +16,12 @@ Ext.define('testapp.view.LoggedOut', {
 				items: [
 					{
 						xtype: 'image',
-						src: 'resources/images/background.jpg',
+						src: 'resources/images/background.png',
 						id: 'home_background',
-						width: 500,
-						height: 800,
+						width: 600,
+						height: 500,
 						centered: true,
-						style: 'position:relative; top:-100px;'
+						style: 'position:relative;'
 					},
 					{
 						xtype: 'image',
@@ -30,7 +30,7 @@ Ext.define('testapp.view.LoggedOut', {
 						width: 243,
 						height: 79,
 						centered: true,
-						style: 'position:relative;'
+						style: 'position:relative; top:-300px; '
 					},
 		            {
 		                xtype: 'image',
@@ -40,7 +40,7 @@ Ext.define('testapp.view.LoggedOut', {
 		                width: 246,
 		                height: 47,
 		                centered: true,
-		                style: 'position:relative; top:90px; '
+		                style: 'position:relative; top:160px; '
 		            // },
 		            // {
 		            // 	xtype: 'component',
