@@ -598,6 +598,8 @@ Ext.define('testapp.controller.Sessions', {
 						Ext.Viewport.setActiveItem(0);
 					});
 					this.actions.hide();
+					this.actions.destroy();
+        			this.actions = null;
 
 			
 				}
@@ -608,6 +610,8 @@ Ext.define('testapp.controller.Sessions', {
 				scope: this,
 				handler: function() {
 					this.actions.hide();
+					this.actions.destroy();
+        			this.actions = null;
 				}
 			}
 		];
