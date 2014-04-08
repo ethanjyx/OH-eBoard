@@ -87,6 +87,16 @@ table
         text-overflow: ellipsis;
     }
 
+    .position {
+        font-size: 100% !important;
+        //color: $base-color;
+        font-weight: bold;
+        margin-left: .5em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
 }
 
 .sessionInfo {
