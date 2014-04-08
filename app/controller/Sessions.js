@@ -66,6 +66,7 @@ Ext.define('testapp.controller.Sessions', {
 	},
 
 	onMainPush: function(view, item) {
+		Ext.Viewport.setMasked(false);
         console.log("Main Push " + item.xtype);
 
         if (item.xtype === "session") {
@@ -79,6 +80,7 @@ Ext.define('testapp.controller.Sessions', {
     },
 
     onMainPop: function(view, item) {
+    	Ext.Viewport.setMasked(false);
         console.log("Main Pop " + item.xtype);
         if (item.xtype === "session-join") {
             this.showHistoryButton();
@@ -213,6 +215,7 @@ Ext.define('testapp.controller.Sessions', {
         	}
     	});*/
         Ext.getStore('Sessions').add(ed);
+        Ext.getStore('Sessions').sync();
         Ext.getStore('Sessions').load(function(){that.getSessionContainer().pop();});
         
     },
@@ -301,6 +304,25 @@ Ext.define('testapp.controller.Sessions', {
 			                break;
 			            }
 			        };
+			        sessionStore.sync();
+
+					var speakerStore = Ext.getStore('WaitingUsers');
+  					var queryJoinTable = {
+			  				courseOH: {
+  								__type:"Pointer",
+  								className:"courseOH",
+  								objectId:that.session.courseObjectId
+		  					},
+	  					};
+
+			  		speakerStore.getProxy().setExtraParams({
+  						where: JSON.stringify(queryJoinTable),
+			  		});
+
+	  				speakerStore.load(function(){
+	  					speakerStore.removeAll();
+	  					speakerStore.sync();
+	  				});
 
 			        that.getSessionContainer().pop();
 			        that.actions.hide();
@@ -327,10 +349,7 @@ Ext.define('testapp.controller.Sessions', {
 		}
 
 		Ext.Viewport.add(this.actions);
-		this.actions.show();
-
-
-        
+		this.actions.show();        
     },
 
     onSaveButtonJoin: function() {
@@ -375,6 +394,8 @@ Ext.define('testapp.controller.Sessions', {
     },
 
 	onSessionTap: function(list, idx, el, record) {
+		Ext.Viewport.setMasked({xtype:'loadmask'});
+
 		var that = this;
 		var speakerStore = Ext.getStore('WaitingUsers');
   		var queryJoinTable = {
