@@ -77,6 +77,7 @@ Ext.define('testapp.controller.Sessions', {
             this.updateButtonDisplay();
         } else {
             this.hideHistoryButton();
+            this.hideLogoutButton();
         }
     },
 
