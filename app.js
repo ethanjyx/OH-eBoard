@@ -113,7 +113,7 @@ Ext.application({
 
         Ext.Viewport.setMasked({xtype:'loadmask'});
         testapp.Facebook.initialize('241720436011519');
-        Ext.Viewport.add({xtype: 'loggedOut'});
+         Ext.Viewport.add({xtype: 'loggedOut'});
 
         // Ext.Viewport.setMasked({ xtype: 'loadmask' });
         

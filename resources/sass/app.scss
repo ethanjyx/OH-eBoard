@@ -278,3 +278,23 @@ table
     position: relative;
     top: 130px;
 }
+
+.x-loading-spinner
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -0.5em;
+    margin-left: -0.5em;
+}
+
+.x-mask-inner
+{
+    width: 100%;
+    height: 100%;
+}
+
+.x-mask-message
+{
+    visibility: hidden;
+}
