@@ -3,6 +3,7 @@ Ext.define('testapp.controller.Sessions', {
 
 	requires: ['testapp.Facebook'],
 	requires: ['testapp.util.Requests'],
+	requires: ['Ext.MessageBox'],
 
 	config: {
 		refs: {
@@ -77,6 +78,7 @@ Ext.define('testapp.controller.Sessions', {
             this.updateButtonDisplay();
         } else {
             this.hideHistoryButton();
+            this.hideLogoutButton();
         }
     },
 
@@ -183,6 +185,12 @@ Ext.define('testapp.controller.Sessions', {
         //Add the new session into database
         var record = this.getSessionAdd().saveRecord();
         console.log(record);
+
+        if (record.courseNumber === "" || record.courseSubject === "" || record.startTime === "" ||
+        	record.endTime === "" || record.location === "") {
+        	Ext.Msg.alert('Error', 'All the fields must be filled!', Ext.emptyFn);
+        	return;
+        }
 
         record.numberServed = 0;
 		var ed = Ext.create('testapp.model.Session', record);
@@ -339,6 +347,11 @@ Ext.define('testapp.controller.Sessions', {
     	//Add user to course watingList and update position
         var record = this.getSessionJoin().saveRecord();
         console.log(record);
+
+        if (record.position === "") {
+        	Ext.Msg.alert('Error', 'All the fields must be filled!', Ext.emptyFn);
+        	return;
+        }
 
         console.log("Join save button courseObjectId: " + this.session.courseObjectId);
 
