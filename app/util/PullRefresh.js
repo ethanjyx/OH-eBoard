@@ -2,6 +2,21 @@ Ext.define('testapp.util.PullRefresh', {    override: 'Ext.plugin.PullRefresh',
 
 
     onLatestFetched: function(operation) {
+        // on the Joined tab
+        if(testapp.controller.Speakers.lastTabHit === 2) {
+            var userCourseJoinStore = Ext.getStore('UserCourseJoin');
+            userCourseJoinStore.load(function() {
+                userCourseJoinStore.each(function (item) {
+                    testapp.util.Requests.loadWaitingUsers(item.get('courseObjectId'),
+                        function() {
+                            item.set('queuePosition', testapp.util.Requests.userIndexInWaitingList() + 1);
+                        }
+                    );
+                });
+            });
+            return;
+        } 
+
         var store           = this.getList().getStore(),
             oldRecords      = store.getData(),
             old_length      = oldRecords.length,
