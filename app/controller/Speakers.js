@@ -131,6 +131,11 @@ Ext.define('testapp.controller.Speakers', {
 		{
 			return;
 		}
-		testapp.controller.Speakers.lastTabHit = 1;		
+		testapp.controller.Speakers.lastTabHit = 1;
+        var that = this.getApplication().getController('Sessions');
+        if(typeof that.session == "undefined" || typeof that.session.courseObjectId == "undefined") {
+            return;
+        }
+        testapp.util.Requests.loadWaitingUsers(that.session.courseObjectId, function(){});
 	}
 });

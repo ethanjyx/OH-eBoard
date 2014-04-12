@@ -25,7 +25,7 @@ Ext.define('testapp.view.session.Add', {
                     {
                         xtype: 'fieldset',
                         align: 'center',
-                        width: document.documentElement.clientWidth*0.98,
+                        width: document.documentElement.clientWidth*0.95,
                         defaults: {
                             labelWidth: '50%'
                         },
@@ -58,7 +58,7 @@ Ext.define('testapp.view.session.Add', {
                     {
                         xtype: 'fieldset',
                         align: 'center',
-                        width: document.documentElement.clientWidth*0.98,
+                        width: document.documentElement.clientWidth*0.95,
                         defaults: {
                             labelWidth: '50%'
                         },
@@ -287,7 +287,7 @@ Ext.define('testapp.view.session.Add', {
                         text: 'Add',
                         ui: 'btnColor',
                         align: 'center',
-                        width: document.documentElement.clientWidth*0.98,
+                        width: document.documentElement.clientWidth*0.95,
                         hidden: false
                     }   
                 ]
@@ -319,6 +319,4 @@ Ext.define('testapp.view.session.Add', {
     onKeyUp: function() {
         this.fireEvent('change', this);
     }
-
-
 });
