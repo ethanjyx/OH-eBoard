@@ -165,7 +165,7 @@ Ext.define('testapp.controller.Sessions', {
 		if (!this.sessionAdd) {
             this.sessionAdd = Ext.create('testapp.view.session.Add');
         }
-
+        
 		var session_add = this.getSessionAdd();
 
 		var that = this;
@@ -186,9 +186,12 @@ Ext.define('testapp.controller.Sessions', {
         var record = this.getSessionAdd().saveRecord();
         console.log(record);
 
+        Ext.Viewport.setMasked({xtype:'loadmask'});
+
         if (record.courseNumber === "" || record.courseSubject === "" || record.startTime === "" ||
         	record.endTime === "" || record.location === "") {
-        	Ext.Msg.alert('Error', 'All the fields must be filled!', Ext.emptyFn);
+        	Ext.Viewport.setMasked(false);
+        	Ext.Msg.alert('Error', 'All the fields must be filled!', Ext.emptyFn);        	
         	return;
         }
 
@@ -348,7 +351,10 @@ Ext.define('testapp.controller.Sessions', {
         var record = this.getSessionJoin().saveRecord();
         console.log(record);
 
+        Ext.Viewport.setMasked({xtype:'loadmask'});
+
         if (record.position === "") {
+        	Ext.Viewport.setMasked(false);
         	Ext.Msg.alert('Error', 'All the fields must be filled!', Ext.emptyFn);
         	return;
         }
