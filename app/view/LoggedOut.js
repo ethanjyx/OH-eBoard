@@ -16,21 +16,15 @@ Ext.define('testapp.view.LoggedOut', {
 				items: [
 					{
 						xtype: 'image',
+						/*
 						src: 'resources/images/background.png',
 						id: 'home_background',
 						width: 600,
 						height: 500,
 						centered: true,
 						style: 'position:relative;'
-					},
-					{
-						xtype: 'image',
-						src: 'resources/images/OH-eBoard_original.png',
-						id: 'home_logo',
-						width: 243,
-						height: 79,
-						centered: true,
-						style: 'position:relative; top:-300px; '
+						*/
+						html: '<script src="http://src.sencha.io/screen.js"></script><center><img src="http://src.sencha.io/screen.width/http://oheboard.parseapp.com/resources/images/background.png" /></center>'
 					},
 		            {
 		                xtype: 'image',

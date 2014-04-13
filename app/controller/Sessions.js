@@ -417,6 +417,8 @@ Ext.define('testapp.controller.Sessions', {
 			return false;
 		}
 		
+		var that = this;
+
 		var items = [
 			{
 				text: 'Set as done',
@@ -445,6 +447,7 @@ Ext.define('testapp.controller.Sessions', {
 				scope: this,
 				handler: function() {
 					this.actions.hide();
+					that.session.down('speakers').deselectAll();
 				}
 			}
 		];
@@ -606,8 +609,6 @@ Ext.define('testapp.controller.Sessions', {
 					this.actions.hide();
 					this.actions.destroy();
         			this.actions = null;
-
-			
 				}
 			},
 			{
