@@ -24,7 +24,7 @@ Ext.define('testapp.view.session.List', {
 	                { xtype: 'spacer' },
                     {
                         xtype: 'searchfield',
-                        placeHolder: 'Search...',
+                        placeHolder: ' Search...',
                         listeners: {
                             scope: this,
                             clearicontap: function() {
@@ -94,7 +94,8 @@ Ext.define('testapp.view.session.List', {
         variableHeights: true,
         useSimpleItems: true,
 		itemTpl: [
-			'<div class="session"><div class="title">{courseSubject}&nbsp;{courseNumber}</div><div class="room">{startTime} ~ {endTime}</div></div>'
+			'<div class="session"><div class="title">{courseSubject}&nbsp;{courseNumber}</div><div class="room">{startTime} ~ {endTime}</div></div>',
+			'<div class="session"><div class="holder">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspby {holderName}</div></div>'
 		]
 	},
 
