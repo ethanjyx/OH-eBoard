@@ -88,8 +88,18 @@ table
     }
 
     .position {
-        font-size: 100% !important;
+        font-size: 90% !important;
         //color: $base-color;
+        font-weight: bold;
+        margin-left: .5em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .holder {
+        font-size: 60% !important;
+        color: #999;
         font-weight: bold;
         margin-left: .5em;
         white-space: nowrap;
