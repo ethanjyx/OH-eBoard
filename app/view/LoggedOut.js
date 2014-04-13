@@ -2,7 +2,7 @@ Ext.define('testapp.view.LoggedOut', {
 	extend: 'Ext.Container',
 
 	xtype: 'loggedOut',
-	style: 'background-color:#3c9dd0',
+	//style: 'background-color:#3c9dd0',
 
 	config: {
 
@@ -16,15 +16,15 @@ Ext.define('testapp.view.LoggedOut', {
 				items: [
 					{
 						xtype: 'image',
-						/*
-						src: 'resources/images/background.png',
 						id: 'home_background',
-						width: 600,
-						height: 500,
+						src: 'resources/images/background3.png',
+						id: 'home_background',
+						width: 276,
+						height: 242,
 						centered: true,
 						style: 'position:relative;'
-						*/
-						html: '<script src="http://src.sencha.io/screen.js"></script><center><img src="http://src.sencha.io/screen.width/http://oheboard.parseapp.com/resources/images/background.png" /></center>'
+						
+						//html: '<script src="http://src.sencha.io/screen.js"></script><center><img src="http://src.sencha.io/http://oheboard.parseapp.com/resources/images/background.png" /></center>'
 					},
 		            {
 		                xtype: 'image',

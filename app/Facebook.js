@@ -68,8 +68,7 @@ Ext.define('testapp.Facebook', {
 
         FB.init({
             appId: this.appId,
-            cookie: true,
-            frictionlessRequests: true
+            cookie: true
         });
 
         var me = this;
@@ -201,8 +200,7 @@ Ext.define('testapp.Facebook', {
 
         var redirectUrl = Ext.Object.toQueryString({
             redirect_uri: this.currentLocation(),
-            client_id: this.appId,
-            scope: 'publish_actions,share_item'
+            client_id: this.appId
         });
 
         if (!Ext.os.is.Android && !Ext.os.is.iOS && /Windows|Linux|MacOS/.test(Ext.os.name)) {

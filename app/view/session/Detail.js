@@ -4,7 +4,7 @@ Ext.define('testapp.view.session.Detail', {
 	xtype: 'session',
 
 	config: {
-
+        
 		layout: {
             pack: 'center',
             type: 'vbox',
@@ -24,7 +24,7 @@ Ext.define('testapp.view.session.Detail', {
                 xtype: 'button',
                 id: 'joinButton',
                 ui: 'btnColor',
-                text: 'join',
+                text: 'Join',
                 align: 'center',
                 width: document.documentElement.clientWidth*0.98,
                 hidden: false
@@ -33,7 +33,7 @@ Ext.define('testapp.view.session.Detail', {
                 xtype: 'button',
                 id: 'quitButton',
                 ui: 'btnColor',
-                text: 'quit',
+                text: 'Quit',
                 align: 'center',
                 width: document.documentElement.clientWidth*0.98,
                 hidden: true
