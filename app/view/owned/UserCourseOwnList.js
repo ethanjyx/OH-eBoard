@@ -17,7 +17,7 @@ Ext.define('testapp.view.owned.UserCourseOwnList', {
 			'<h3><div class="nametag">{firstName} {lastName}</div>',
 			'<div class="postag">{position}</div></h3>'
 			*/
-			'<div class="UserCourse"><div class="courseSubject">{courseSubject}&nbsp;{courseNumber}</div></div>'
+			'<div class="session"><div class="title">{courseSubject}&nbsp;{courseNumber}</div></div>'
 		]
 	}
 });
