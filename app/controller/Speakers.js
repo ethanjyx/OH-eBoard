@@ -49,7 +49,7 @@ Ext.define('testapp.controller.Speakers', {
                 }
 
                 that.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
-                that.session.courseObjectId = record.get('objectId');
+                that.session.courseObjectId = record.get('courseObjectId');
                 that.isGSI = (record.get('holder')['objectId'] === testapp.Facebook.userObjectId) ? true : false;
                 //console.log(that.getSessionContainer().getActiveItem());
                 //if(that.getSessionContainer.getActiveItem().id)
