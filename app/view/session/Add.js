@@ -9,7 +9,7 @@ Ext.define('testapp.view.session.Add', {
     ],
 
     config: {
-        title: 'Add new session',
+        title: 'Add New Session',
         layout: 'fit',
 
         items: [

@@ -178,6 +178,9 @@ Ext.define('testapp.controller.Sessions', {
 			
 		});
 
+		this.hideHistoryButton();
+        this.hideLogoutButton();
+
         this.getSessionContainer().push(this.sessionAdd);
     },
 
