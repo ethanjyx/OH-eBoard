@@ -74,7 +74,7 @@ Ext.define('testapp.controller.Sessions', {
         if (item.xtype === "session") {
             this.getSessions().deselectAll();
             this.showHistoryButton();
-            this.hideLogoutButton();
+        	this.hideLogoutButton();
             this.updateButtonDisplay();
         } else {
             this.hideHistoryButton();
@@ -412,6 +412,10 @@ Ext.define('testapp.controller.Sessions', {
 				that.session.setTitle(record.get('courseSubject') + ' ' + record.get('courseNumber'));
 				that.session.courseObjectId = record.get('objectId');
 				that.isGSI = (record.get('holder')['objectId'] === testapp.Facebook.userObjectId) ? true : false;
+				
+				that.showHistoryButton();
+	            that.hideLogoutButton();
+
 				that.getSessionContainer().push(that.session);
 				that.getSessionInfo().setRecord(record);
 			}
