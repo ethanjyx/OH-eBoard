@@ -15,19 +15,17 @@ Ext.define('testapp.view.session.Add', {
         items: [
             {
                 xtype: 'formpanel',
-                /*
                 layout: {
                     pack: 'center',
                     type: 'vbox',
                     align: 'center'
                 },
-                */
                 items: [
                     
                     {
                         xtype: 'fieldset',
                         align: 'center',
-                        width: document.documentElement.clientWidth,//*0.95,
+                        width: document.documentElement.clientWidth*0.95,
                         defaults: {
                             labelWidth: '50%'
                         },
@@ -60,7 +58,7 @@ Ext.define('testapp.view.session.Add', {
                     {
                         xtype: 'fieldset',
                         align: 'center',
-                        width: document.documentElement.clientWidth,//*0.95,
+                        width: document.documentElement.clientWidth*0.95,
                         defaults: {
                             labelWidth: '50%'
                         },
@@ -289,7 +287,7 @@ Ext.define('testapp.view.session.Add', {
                         text: 'Add',
                         ui: 'btnColor',
                         align: 'center',
-                        width: document.documentElement.clientWidth,//*0.95,
+                        width: document.documentElement.clientWidth*0.95,
                         hidden: false
                     }   
                 ]

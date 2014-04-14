@@ -15,18 +15,16 @@ Ext.define('testapp.view.session.Join', {
         items: [
             {
                 xtype: 'formpanel',
-                /*
                 layout: {
                     pack: 'center',
                     type: 'vbox',
                     align: 'center'
                 },
-                */
                 items: [
                     
                     {
                         xtype: 'fieldset',
-                        width: document.documentElement.clientWidth,//*0.98,
+                        width: document.documentElement.clientWidth*0.95,
                         defaults: {
                             labelWidth: '50%'
                         },
@@ -57,7 +55,7 @@ Ext.define('testapp.view.session.Join', {
                         text: 'Join',
                         ui: 'btnColor',
                         align: 'center',
-                        width: document.documentElement.clientWidth,//*0.98,
+                        width: document.documentElement.clientWidth*0.95,
                         
                         //width: 100,
                         hidden: false

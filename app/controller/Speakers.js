@@ -133,6 +133,7 @@ Ext.define('testapp.controller.Speakers', {
 		}
 		testapp.controller.Speakers.lastTabHit = 1;
         var that = this.getApplication().getController('Sessions');
+        console.log(that.session.courseObjectId);
         if(typeof that.session == "undefined" || typeof that.session.courseObjectId == "undefined") {
             return;
         }
