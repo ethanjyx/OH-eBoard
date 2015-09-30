@@ -1,0 +1,2 @@
+# OH-eBoard
+This was our final project for EECS 441 Mobile App Dev at University of Michigan. The idea is to create an electronic board for teaching assistants to better host office hours, and for students to better track their statuses in the long queue of office hours. This was written in Sench Touch framework with HTML and Javascript primarily, which is quite complicated and not so easy to customize. Raw web page might be a much better idea. 
